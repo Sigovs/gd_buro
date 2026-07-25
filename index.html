@@ -3,282 +3,208 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Alex — Selected Work</title>
-<meta name="description" content="Retail interfaces for collector cars and marque dealers. Art direction, interface design, and front-end build." />
+<title>Alex — Selected Work (composition rehearsal)</title>
+<meta name="description" content="Art direction, interface design and front-end for collector-car retail. Composition rehearsal build with stand-in assets." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..800&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  /* Tailwind reads the SAME tokens declared in :root below.
-     One source of truth — no parallel scale, no magic numbers. */
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          bg:        "var(--bg)",
-          raised:    "var(--bg-raised)",
-          ink:       "var(--ink)",
-          ink70:     "var(--ink-70)",
-          ink58:     "var(--ink-58)",
-          rule:      "var(--rule)",
-          ruleStrong:"var(--rule-strong)",
-          accent:    "var(--accent)",
-        },
-        spacing: {
-          s1: "var(--space-1)",  s2: "var(--space-2)",  s3: "var(--space-3)",
-          s4: "var(--space-4)",  s5: "var(--space-5)",  s6: "var(--space-6)",
-          s7: "var(--space-7)",  s8: "var(--space-8)",  s9: "var(--space-9)",
-          s10:"var(--space-10)", s11:"var(--space-11)",
-        },
-        fontFamily: {
-          display: ['"Bodoni Moda"', "Didot", "GFS Didot", "Georgia", "serif"],
-          sans:    ['"Inter Tight"', "system-ui", "sans-serif"],
-          mono:    ['"JetBrains Mono"', "ui-monospace", "monospace"],
-        },
-        fontSize: {
-          xs:      "var(--text-xs)",
-          sm:      "var(--text-sm)",
-          body:    "var(--text-body)",
-          lead:    "var(--text-lead)",
-          h3:      "var(--text-h3)",
-          h2:      "var(--text-h2)",
-          display: "var(--text-display)",
-        },
-        maxWidth: {
-          measure:  "68ch",   /* body reading measure — spacing D3 */
-          headline: "26ch",   /* display measure — spacing D3 */
-        },
-      },
-    },
-  };
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="assets/cases/case-01-frame.webp" />
 
 <style>
-/* ============================================================================
-   TOKENS — the only source of spacing, type, and colour values.
+/* ═══════════════════════════════════════════════════════════════════════════
+   TOKENS — the only source of space, type, colour, duration and ratio.
    Scales taken verbatim from design_dna/skills/*.
-   ========================================================================= */
+   ═══════════════════════════════════════════════════════════════════════════ */
 :root{
-  /* --- space: 4px base, 11 steps (spacing-taste I2) --- */
-  --space-1: .25rem; --space-2: .5rem;  --space-3: .75rem; --space-4: 1rem;
-  --space-5: 1.5rem; --space-6: 2rem;   --space-7: 3rem;   --space-8: 4rem;
-  --space-9: 6rem;   --space-10: 8rem;  --space-11: 12rem;
+  /* space — 4px base, 11 steps (spacing-taste I2) */
+  --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+  --space-5:1.5rem; --space-6:2rem;   --space-7:3rem;   --space-8:4rem;
+  --space-9:6rem;   --space-10:8rem;  --space-11:12rem;
 
-  /* --- type: fluid, correct at every width (typography-taste I3) --- */
-  --text-xs:      .6875rem;                                    /* labels: fixed */
-  --text-sm:      clamp(.8125rem, .8vw + .7rem, .9375rem);
-  --text-body:    clamp(1rem, .35vw + .95rem, 1.125rem);
-  --text-lead:    clamp(1.125rem, .9vw + 1rem, 1.5rem);
-  --text-h3:      clamp(1.5rem, 1.6vw + 1.1rem, 2rem);
-  --text-h2:      clamp(2rem, 3vw + 1.2rem, 3.25rem);
-  --text-display: clamp(2.75rem, 7vw + 1rem, 7rem);
+  /* type — fluid, correct at every width (typography-taste I3) */
+  --text-xs:.6875rem;
+  --text-sm:clamp(.8125rem,.8vw + .7rem,.9375rem);
+  --text-body:clamp(1rem,.35vw + .95rem,1.125rem);
+  --text-lead:clamp(1.125rem,.9vw + 1rem,1.5rem);
+  --text-h3:clamp(1.5rem,1.6vw + 1.1rem,2rem);
+  --text-h2:clamp(2rem,3vw + 1.2rem,3.25rem);
+  --text-display:clamp(2.75rem,7vw + 1rem,7rem);
 
-  /* --- colour: base -> ink -> rules -> accent, in that order (color-taste D1)
-         Ground is off-black, ink is off-white. Never #000, never #fff. --- */
-  --bg:          #0e0f11;
-  --bg-raised:   #16181b;                 /* ONE raised plane, not a card stack */
-  --ink:         #f2f1ee;
-  --ink-70:      rgba(242,241,238,.72);   /* micro-labels     — 9.03:1 on ground */
-  --ink-58:      rgba(242,241,238,.58);   /* ledger index     — subordinate, AA  */
-  --rule:        rgba(242,241,238,.14);   /* decorative separator, not a boundary */
-  --rule-strong: rgba(242,241,238,.38);   /* carries the action affordance: >=3:1 */
+  /* colour — ground, ink, rules. NO chromatic accent: every colour event on
+     this page belongs to the work. The ground is a gallery wall. */
+  --bg:#0e0f11;
+  --bg-raised:#16181b;
+  --ink:#f2f1ee;
+  --ink-70:rgba(242,241,238,.72);
+  --ink-58:rgba(242,241,238,.58);
+  --rule:rgba(242,241,238,.14);
+  --rule-strong:rgba(242,241,238,.38);
 
-  /* Accent — tobacco. Desaturated, reads as a material not a hue (P7).
-     Three roles only: focus ring, active ledger marker, featured mark. <5% px. */
-  --accent:      oklch(.755 .058 72);
-  --accent-dim:  oklch(.62 .045 72);
+  /* duration + easing — motion-taste I3. No raw values anywhere. */
+  --dur-1:.15s; --dur-2:.25s; --dur-3:.4s; --dur-4:1.2s;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --ease-in:cubic-bezier(.55,0,1,.45);
 
-  /* --- composition ratios (documented, not magic) --- */
-  --hero-above: .38;    /* mass sits at 38% of the hero — above optical centre */
-  --hero-below: .62;    /* deeper field beneath it (auction-editorial P5)      */
+  /* ratio tokens — every crop lands on one of these (see assets/cases) */
+  --ar-frame:16/10; --ar-portrait:4/5; --ar-band:21/9; --ar-mobile:9/19.5;
+
+  /* the paspartout — constant mat around every framed case */
+  --mat:clamp(1.5rem,5vw,7rem);
+  --mat-deep:clamp(2.5rem,9vw,12rem);
+
+  /* documented composition ratios */
+  --overture-above:.34;   /* mass above optical centre */
+  --overture-below:.66;   /* deeper field beneath it   */
 }
 
-/* Exact sRGB of the two oklch values above, for engines without oklch(). */
-@supports not (color: oklch(.7 .05 72)){
-  :root{ --accent:#c7aa87; --accent-dim:#978269; }
-}
-
-*,*::before,*::after{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html,body{overflow-x:clip}                       /* anti-patterns U6 safety net */
 body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font-family:"Inter Tight",system-ui,sans-serif; font-weight:400;
-  font-size:var(--text-body); line-height:1.6;
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Inter Tight",system-ui,sans-serif;
+  font-size:var(--text-body);line-height:1.6;font-weight:400;
   -webkit-font-smoothing:antialiased;
 }
+img{display:block;max-width:100%;height:auto}
 
-/* ---------- type roles: three voices, each in one lane (typography D1) ------ */
-.display{
-  font-family:"Bodoni Moda",Didot,"GFS Didot",Georgia,serif;
-  font-weight:500; line-height:.95; letter-spacing:-.02em;
-  text-wrap:balance;
-}
-.display em{ font-style:italic; font-weight:400; }   /* the signature word (D2) */
-
-.lead{ font-size:var(--text-lead); line-height:1.45; text-wrap:balance; }
-p{ text-wrap:pretty; }
-
+/* ── type roles: TWO families. The expressive role belongs to the work. ─────
+   No didone: the audience's own sector is saturated with cosmetic luxury serif,
+   and authority here comes from scale and space (vault/thegentlewoman-co-uk). */
+.display{font-weight:500;line-height:.95;letter-spacing:-.028em;text-wrap:balance}
+.h2{font-size:var(--text-h2);font-weight:500;line-height:1.02;letter-spacing:-.02em;text-wrap:balance}
+.lead{font-size:var(--text-lead);line-height:1.45;text-wrap:balance}
+p{text-wrap:pretty}
 .label{
   font-family:"JetBrains Mono",ui-monospace,monospace;
-  font-size:var(--text-xs); text-transform:uppercase;
-  letter-spacing:.12em; font-weight:500; line-height:1.2;
-  color:var(--ink-70);
+  font-size:var(--text-xs);text-transform:uppercase;
+  letter-spacing:.12em;font-weight:500;line-height:1.2;color:var(--ink-70);
 }
-.num{ font-variant-numeric:tabular-nums; }           /* every figure column (I5) */
+.num{font-variant-numeric:tabular-nums}
+.measure{max-width:66ch}
 
-/* ---------- spatial hierarchy: gaps are decided, never inherited (I1) ------- */
-.stack > * + *        { margin-block-start:var(--space-4); }
-.stack > .label + *   { margin-block-start:var(--space-3); }
-.stack > .display + * { margin-block-start:var(--space-6); }
-.stack > .lead + *    { margin-block-start:var(--space-6); }
+/* ── spatial hierarchy: every gap decided (spacing-taste I1) ─────────────── */
+.stack>*+*{margin-block-start:var(--space-4)}
+.stack>.label+*{margin-block-start:var(--space-3)}
+.stack>.display+*,.stack>.h2+*{margin-block-start:var(--space-6)}
+.stack>.lead+*{margin-block-start:var(--space-6)}
 
-/* ---------- section rhythm: bottom-heavy 1:1.5–1:2 (spacing D2) -------------
-   Own classes rather than Tailwind utilities: the CDN injects its stylesheet
-   after this one, so a utility would silently win the cascade. */
-.section     { padding-block: clamp(4rem,8vw,6rem) clamp(6rem,14vw,12rem); }
-/* Approach + Capabilities are ONE chapter: the internal gap between them must
-   stay smaller than the gap that closes the chapter (spacing-taste I1). */
-.section-open{ padding-block: clamp(4rem,8vw,6rem) clamp(3rem,7vw,6rem); }
-.section-cont{ padding-block: 0 clamp(6rem,14vw,12rem); }
-.gutter      { padding-inline: clamp(1.5rem,5vw,5rem); }   /* never below 24px (D4) */
+.gutter{padding-inline:var(--mat)}
+.chapter{padding-block:var(--space-9) var(--mat-deep)}   /* bottom-heavy */
+.chapter-tight{padding-block:var(--space-7) var(--space-8)}
 
-/* featured copy: gutters on mobile, flush to the grid gap on desktop */
-.featured-copy{ padding-inline: clamp(1.5rem,5vw,5rem); }
-@media (min-width:1024px){ .featured-copy{ padding-inline-start:0; } }
-
-/* ---------- focus: always visible, >=3:1 both ways (color-taste I3) --------- */
+/* ── focus: survives ANY background, including the light case ────────────── */
 :where(a,button,[tabindex]):focus-visible{
-  outline:2px solid var(--accent);
-  outline-offset:3px;
+  outline:2px solid var(--ink);
+  outline-offset:2px;
+  box-shadow:0 0 0 5px var(--bg);      /* dark halo -> ratio holds over imagery */
   border-radius:1px;
 }
 
-/* ============================================================================
-   THE LEDGER — the page's one committed gesture (auction-editorial P4).
-   Hairline-ruled record, no cards, no boxes (anti-patterns D4).
-   ========================================================================= */
-.ledger-row{
-  display:grid;
-  grid-template-columns: 3.5rem 1fr;
-  column-gap: var(--space-5);
-  align-items:start;
-  padding-block: var(--space-6);
-  border-block-start:1px solid var(--rule);
-  text-decoration:none; color:inherit;
-  transition: border-color .45s ease;
-}
-.ledger-row:last-of-type{ border-block-end:1px solid var(--rule); }
-.ledger-row .client{
-  font-family:"Bodoni Moda",Didot,Georgia,serif;
-  font-weight:500; font-size:var(--text-h3); line-height:1.05;
-  letter-spacing:-.01em;
-  transition: transform .45s cubic-bezier(.16,1,.3,1);
-}
-.ledger-row .rowmeta{
-  margin-block-start:var(--space-3);
-  display:flex; flex-wrap:wrap; gap:var(--space-2) var(--space-5);
-}
-.ledger-row:hover,
-.ledger-row:focus-visible{ border-color:var(--rule-strong); }
-.ledger-row:hover .client,
-.ledger-row:focus-visible .client{ transform:translateX(8px); }  /* travel <=8px */
-.ledger-row .idx{ color:var(--ink-58); transition:color .45s ease; }
-.ledger-row:hover .idx,
-.ledger-row:focus-visible .idx{ color:var(--accent); }            /* accent role 2 */
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE FRAME — three planes per case: mat (ground) / frame (subject) / rail
+   (interface). Depth cues stay truthful: the rail never claims to float
+   (anti-patterns U9). No glassmorphism, no decorative shadow.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.frame{position:relative;overflow:hidden;background:var(--bg-raised);isolation:isolate}
+.frame>img{width:100%;height:100%;object-fit:cover}
 
-/* the sticky preview shaft — the right column of air, given a job */
-.shaft{ position:sticky; top:var(--space-8); }
-.shaft-frame{ position:relative; aspect-ratio:4/5; overflow:hidden; }
-.shaft-frame .tile{
-  position:absolute; inset:0; opacity:0;
-  transition:opacity .55s ease;                       /* crossfade over travel  */
-}
-.shaft-frame .tile.on{ opacity:1; }
+/* ambient plane: the image drifts inside its own window. Low amplitude, well
+   under the 15% parallax cap (motion-taste D1). Transform only. */
+.frame>img{will-change:transform}
 
-/* ---------- placeholder tiles: flat tonal blocks, real values on the ladder,
-     so the grayscale / squint tests are meaningful before photography lands. */
-.tile{
-  background:
-    linear-gradient(198deg, rgba(242,241,238,.10) 0%, rgba(242,241,238,0) 46%),
-    linear-gradient(0deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,0) 55%),
-    var(--tile-tone, var(--bg-raised));
-  display:flex; align-items:flex-end;
+/* primary event: a curtain in the page's own ground rises off the frame.
+   Pure transform, no layout shift, no clip-path (motion-taste I4). */
+.frame::after{
+  content:"";position:absolute;inset:0;z-index:2;background:var(--bg);
+  transform:translateY(0);
+  transition:transform var(--dur-4) var(--ease-out);
 }
-.tile figcaption{ padding:var(--space-5); }
-.tile-a{ --tile-tone:#191c20; }
-.tile-b{ --tile-tone:#212429; }
-.tile-c{ --tile-tone:#14161a; }
-.tile-d{ --tile-tone:#1c2025; }
+.frame.revealed::after{transform:translateY(-101%)}
 
-/* ---------- spec plate: facts as a record, hairlines not boxes (typo D4) ---- */
-.plate{ display:grid; grid-template-columns:minmax(8rem,14rem) 1fr; column-gap:var(--space-6); row-gap:0; }
+.ar-frame{aspect-ratio:var(--ar-frame)}
+.ar-portrait{aspect-ratio:var(--ar-portrait)}
+.ar-band{aspect-ratio:var(--ar-band)}
+.ar-mobile{aspect-ratio:var(--ar-mobile)}
+
+/* ── the rail: the only furniture. Same place on every case, so the eye
+     learns to ignore it and compare the work. ─────────────────────────────── */
+.rail{display:flex;flex-direction:column;gap:var(--space-4)}
+/* Index stays a micro-label; the title carries the rank step. Not scoped to an
+   ancestor — the cases use .case-rail, and an ancestor-scoped rule silently
+   missed them. */
+.idx{color:var(--ink-58)}
+.case-link{text-decoration:none;color:inherit;display:block}
+.case-link .title{font-size:var(--text-h3);font-weight:500;line-height:1.05;letter-spacing:-.015em}
+.case-link .title,
+.case-link .idx{transition:transform var(--dur-2) var(--ease-out),color var(--dur-2) var(--ease-out)}
+.case-link:hover .title,
+.case-link:focus-visible .title{transform:translateX(4px)}     /* interaction tier: quietest */
+.case-link:hover .idx,
+.case-link:focus-visible .idx{color:var(--ink)}
+
+/* ── spec plate: facts as a record, hairlines not boxes (typography D4) ──── */
+.plate{display:grid;grid-template-columns:minmax(7rem,11rem) 1fr;column-gap:var(--space-6);row-gap:0}
 .plate dt{
-  padding-block:var(--space-4); border-block-start:1px solid var(--rule);
-  font-family:"JetBrains Mono",ui-monospace,monospace; font-size:var(--text-xs);
-  text-transform:uppercase; letter-spacing:.12em; font-weight:500;
-  color:var(--ink-70);
+  padding-block:var(--space-3);border-block-start:1px solid var(--rule);
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:var(--text-xs);
+  text-transform:uppercase;letter-spacing:.12em;font-weight:500;color:var(--ink-70);
 }
 .plate dd{
-  margin:0; padding-block:var(--space-4); border-block-start:1px solid var(--rule);
-  font-variant-numeric:tabular-nums;
+  margin:0;padding-block:var(--space-3);border-block-start:1px solid var(--rule);
+  font-size:var(--text-sm);font-variant-numeric:tabular-nums;
 }
-.plate > :last-child{ border-block-end:1px solid var(--rule); }
-.plate > :nth-last-child(2){ border-block-end:1px solid var(--rule); }
 @media (max-width:40rem){
-  .plate{ grid-template-columns:1fr; }
-  .plate dt{ padding-block-end:0; }
-  .plate dd{ border-block-start:0; padding-block-start:var(--space-2); }
-  .plate > :nth-last-child(2){ border-block-end:0; }
+  .plate{grid-template-columns:1fr}
+  .plate dt{padding-block-end:0}
+  .plate dd{border-block-start:0;padding-block-start:var(--space-1)}
 }
 
-/* ---------- contact: action as a mono label over a rule that firms ---------- */
 .action{
-  display:inline-block; text-decoration:none; color:var(--ink);
-  padding-block-end:var(--space-3);
-  border-block-end:1px solid var(--rule-strong);
-  transition:border-color .4s ease, color .4s ease;
+  display:inline-block;text-decoration:none;color:var(--ink);
+  padding-block-end:var(--space-3);border-block-end:1px solid var(--rule-strong);
+  transition:border-color var(--dur-2) var(--ease-out);
 }
-.action:hover{ border-color:var(--accent); color:var(--accent); }
+.action:hover{border-color:var(--ink)}
 
-/* ============================================================================
-   MOTION — crossfade over travel, <=8px, nothing performs (motion D1/D2, P8)
-   ========================================================================= */
-[data-reveal]{
-  opacity:0; transform:translateY(8px);
-  transition:opacity .7s ease, transform .7s cubic-bezier(.16,1,.3,1);
-}
-[data-reveal].in{ opacity:1; transform:none; }
+/* ── supporting motion: subordinate to the curtain, never louder ──────────── */
+[data-rise]{opacity:0;transform:translateY(8px);
+  transition:opacity var(--dur-3) var(--ease-out),transform var(--dur-3) var(--ease-out)}
+[data-rise].in{opacity:1;transform:none}
 
-/* Complete static equivalent. Invariant, not a nicety. */
-@media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior:auto; }
+/* ═══════════════════════════════════════════════════════════════════════════
+   REDUCED MOTION — a composed static scene, not a gutted page.
+   Hidden states are applied BY SCRIPT only when motion is allowed, so this
+   media query and a JS failure both leave the page complete.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
   *,*::before,*::after{
-    animation-duration:.001ms !important; animation-iteration-count:1 !important;
-    transition-duration:.001ms !important;
+    animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
   }
-  [data-reveal]{ opacity:1 !important; transform:none !important; }
+  .frame::after{transform:translateY(-101%)!important}
+  [data-rise]{opacity:1!important;transform:none!important}
 }
-/* And if JS never runs, the page is still complete. */
-.no-js [data-reveal]{ opacity:1; transform:none; }
 </style>
 </head>
 
-<body class="no-js">
+<body>
 
-<!-- ========================================================================
-     MASTHEAD — a plain rule the ledger rules rhyme with. Not sticky-blurred.
-     ===================================================================== -->
+<a href="#work" class="label" style="position:absolute;left:-9999px;top:var(--space-4)"
+   onfocus="this.style.left='var(--mat)'" onblur="this.style.left='-9999px'">Skip to work</a>
+
+<!-- ══ MASTHEAD ═══════════════════════════════════════════════════════════ -->
 <header class="gutter">
-  <div class="flex items-baseline justify-between gap-s5 py-s5 border-b border-rule">
-    <a href="#top" class="display" style="font-size:var(--text-sm);letter-spacing:.01em;">Alex</a>
+  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-5);
+              padding-block:var(--space-5);border-bottom:1px solid var(--rule)">
+    <a href="#top" class="label" style="color:var(--ink)">Alex</a>
     <nav aria-label="Sections">
-      <ul class="flex gap-s5 list-none m-0 p-0">
-        <li><a class="label hover:text-ink transition-colors" href="#work">Work</a></li>
-        <li><a class="label hover:text-ink transition-colors" href="#approach">Approach</a></li>
-        <li><a class="label hover:text-ink transition-colors" href="#contact">Contact</a></li>
+      <ul style="display:flex;gap:var(--space-5);list-style:none;margin:0;padding:0">
+        <li><a class="label" href="#work">Work</a></li>
+        <li><a class="label" href="#approach">Approach</a></li>
+        <li><a class="label" href="#contact">Contact</a></li>
       </ul>
     </nav>
   </div>
@@ -286,323 +212,351 @@ p{ text-wrap:pretty; }
 
 <main id="top">
 
-  <!-- ======================================================================
-       HERO — type only. Mass above optical centre, deep exhale below (P5).
-       No image: a second full-strength mass would compete with the ledger.
-       ==================================================================== -->
-  <section class="gutter flex flex-col" style="min-height:86svh;">
-    <div style="flex:var(--hero-above) 0 0;min-height:var(--space-9);"></div>
+<!-- ══ CHAPTER 01 — OVERTURE ══════════════════════════════════════════════
+     Full-bleed, no mat. This establishes the subject BEFORE the mat system
+     starts, so it is not a rhythm departure — it is the establishing shot.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section id="work" aria-labelledby="c01-h">
+  <figure class="frame" style="aspect-ratio:var(--ar-frame);min-height:78svh;margin:0">
+    <img src="assets/cases/case-01-frame.webp" data-parallax
+         alt="Stand-in frame for case 01, derived from a vault capture. Awaiting real case assets." />
+  </figure>
 
-    <div class="stack max-w-headline">
-      <p class="label">Selected work &nbsp;—&nbsp; <span class="num">2016 / 2026</span></p>
-      <h1 class="display text-display m-0">
-        Retail sites for cars<br class="hidden lg:inline" />
-        that deserve a <em>record</em>,<br class="hidden lg:inline" />
-        not a carousel.
-      </h1>
-    </div>
-
-    <div style="flex:var(--hero-below) 1 0;min-height:var(--space-10);"></div>
-
-    <!-- metadata as composition, on a hairline — never a leftover row (P3) -->
-    <div class="flex flex-wrap items-baseline justify-between gap-s3 pt-s4 pb-s6 border-t border-rule">
-      <p class="label m-0">Art direction &nbsp;·&nbsp; Interface &nbsp;·&nbsp; Front-end</p>
-      <p class="label m-0">Index <span class="num">/ 08</span></p>
-    </div>
-  </section>
-
-
-  <!-- ======================================================================
-       THE LEDGER — the one committed gesture. A record, not a card grid.
-       (Directly from vault/rmsothebys-com: "repetitive card grids, metronomic
-       cadence, negative space as passive separation" — the failure to avoid.)
-       ==================================================================== -->
-  <section id="work" class="section gutter">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-s7 lg:gap-s9">
-
-      <!-- list: 7/12 -->
-      <div class="lg:col-span-7">
-        <p class="label m-0 pb-s6" data-reveal>The record</p>
-
-        <a class="ledger-row" href="#" data-row="1" data-reveal>
-          <span class="label num idx pt-s2">01</span>
-          <span>
-            <span class="client block">[Client 01]</span>
-            <span class="rowmeta">
-              <span class="label">Collector retail</span>
-              <span class="label num">2026</span>
-              <span class="label">Art direction · UI · Build</span>
-            </span>
-            <!-- mobile: the preview comes inline, because hover does not exist -->
-            <span class="block lg:hidden mt-s5">
-              <span class="tile tile-a block" style="aspect-ratio:4/3;"></span>
-            </span>
-          </span>
-        </a>
-
-        <a class="ledger-row" href="#" data-row="2" data-reveal>
-          <span class="label num idx pt-s2">02</span>
-          <span>
-            <span class="client block">[Client 02]</span>
-            <span class="rowmeta">
-              <span class="label">Marque dealer</span>
-              <span class="label num">2025</span>
-              <span class="label">Redesign · Design system</span>
-            </span>
-            <span class="block lg:hidden mt-s5">
-              <span class="tile tile-b block" style="aspect-ratio:4/3;"></span>
-            </span>
-          </span>
-        </a>
-
-        <a class="ledger-row" href="#" data-row="3" data-reveal>
-          <span class="label num idx pt-s2">03</span>
-          <span>
-            <span class="client block">[Client 03]</span>
-            <span class="rowmeta">
-              <span class="label">Private showroom</span>
-              <span class="label num">2025</span>
-              <span class="label">Art direction · Build</span>
-            </span>
-            <span class="block lg:hidden mt-s5">
-              <span class="tile tile-c block" style="aspect-ratio:4/3;"></span>
-            </span>
-          </span>
-        </a>
-
-        <a class="ledger-row" href="#" data-row="4" data-reveal>
-          <span class="label num idx pt-s2">04</span>
-          <span>
-            <span class="client block">[Client 04]</span>
-            <span class="rowmeta">
-              <span class="label">Auction catalogue</span>
-              <span class="label num">2024</span>
-              <span class="label">Interface · Motion</span>
-            </span>
-            <span class="block lg:hidden mt-s5">
-              <span class="tile tile-d block" style="aspect-ratio:4/3;"></span>
-            </span>
-          </span>
-        </a>
-
-        <a class="ledger-row" href="#" data-row="5" data-reveal>
-          <span class="label num idx pt-s2">05</span>
-          <span>
-            <span class="client block">[Client 05]</span>
-            <span class="rowmeta">
-              <span class="label">Marque dealer</span>
-              <span class="label num">2024</span>
-              <span class="label">Inventory system</span>
-            </span>
-            <span class="block lg:hidden mt-s5">
-              <span class="tile tile-b block" style="aspect-ratio:4/3;"></span>
-            </span>
-          </span>
-        </a>
-
-        <a class="ledger-row" href="#" data-row="6" data-reveal>
-          <span class="label num idx pt-s2">06</span>
-          <span>
-            <span class="client block">[Client 06]</span>
-            <span class="rowmeta">
-              <span class="label">Restoration atelier</span>
-              <span class="label num">2023</span>
-              <span class="label">Identity · Site</span>
-            </span>
-            <span class="block lg:hidden mt-s5">
-              <span class="tile tile-a block" style="aspect-ratio:4/3;"></span>
-            </span>
-          </span>
-        </a>
-
-        <a class="ledger-row" href="#" data-row="7" data-reveal>
-          <span class="label num idx pt-s2">07</span>
-          <span>
-            <span class="client block">[Client 07]</span>
-            <span class="rowmeta">
-              <span class="label">Collector retail</span>
-              <span class="label num">2023</span>
-              <span class="label">Art direction</span>
-            </span>
-            <span class="block lg:hidden mt-s5">
-              <span class="tile tile-d block" style="aspect-ratio:4/3;"></span>
-            </span>
-          </span>
-        </a>
-
-        <a class="ledger-row" href="#" data-row="8" data-reveal>
-          <span class="label num idx pt-s2">08</span>
-          <span>
-            <span class="client block">[Client 08]</span>
-            <span class="rowmeta">
-              <span class="label">Marque dealer</span>
-              <span class="label num">2022</span>
-              <span class="label">Redesign · Build</span>
-            </span>
-            <span class="block lg:hidden mt-s5">
-              <span class="tile tile-c block" style="aspect-ratio:4/3;"></span>
-            </span>
-          </span>
-        </a>
-      </div>
-
-      <!-- the air shaft: 5/12, sticky, filled by the hovered row -->
-      <div class="hidden lg:block lg:col-span-5">
-        <div class="shaft">
-          <div class="shaft-frame" aria-hidden="true">
-            <figure class="tile tile-a on m-0" data-tile="1"><figcaption class="label">[Client 01] &nbsp;/&nbsp; <span class="num">2026</span></figcaption></figure>
-            <figure class="tile tile-b m-0" data-tile="2"><figcaption class="label">[Client 02] &nbsp;/&nbsp; <span class="num">2025</span></figcaption></figure>
-            <figure class="tile tile-c m-0" data-tile="3"><figcaption class="label">[Client 03] &nbsp;/&nbsp; <span class="num">2025</span></figcaption></figure>
-            <figure class="tile tile-d m-0" data-tile="4"><figcaption class="label">[Client 04] &nbsp;/&nbsp; <span class="num">2024</span></figcaption></figure>
-            <figure class="tile tile-b m-0" data-tile="5"><figcaption class="label">[Client 05] &nbsp;/&nbsp; <span class="num">2024</span></figcaption></figure>
-            <figure class="tile tile-a m-0" data-tile="6"><figcaption class="label">[Client 06] &nbsp;/&nbsp; <span class="num">2023</span></figcaption></figure>
-            <figure class="tile tile-d m-0" data-tile="7"><figcaption class="label">[Client 07] &nbsp;/&nbsp; <span class="num">2023</span></figcaption></figure>
-            <figure class="tile tile-c m-0" data-tile="8"><figcaption class="label">[Client 08] &nbsp;/&nbsp; <span class="num">2022</span></figcaption></figure>
-          </div>
-          <p class="label m-0 pt-s4 border-t border-rule">Preview &nbsp;—&nbsp; hover the record</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ======================================================================
-       FEATURED — the single rhythm departure (C7). Bleeds to the left edge,
-       insets right: commit or clear, no ambiguous middle (C9).
-       ==================================================================== -->
-  <section class="pb-s10 lg:pb-s11" aria-labelledby="featured-h">
-    <div class="grid grid-cols-1 lg:grid-cols-12 items-end gap-s7">
-      <!-- image bleeds off the left viewport edge -->
-      <figure class="m-0 lg:col-span-7 tile tile-b" style="aspect-ratio:16/10;" data-reveal></figure>
-
-      <div class="lg:col-span-4 featured-copy stack" data-reveal>
-        <p class="label m-0"><span style="color:var(--accent)">◆</span>&nbsp; Case in focus</p>
-        <h2 id="featured-h" class="display text-h2 m-0">A <em>catalogue</em> for two hundred cars.</h2>
-        <p class="m-0 max-w-measure">
-          Inventory rebuilt as a printed record: numbered lots, specification
-          plates, photography given the width it needs. Time-to-enquiry fell
-          because the page stopped selling and started documenting.
-        </p>
-        <p class="label m-0"><span class="num">[Client 04]</span> &nbsp;·&nbsp; <span class="num">2024</span></p>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ======================================================================
-       APPROACH — 7/12 prose against 5/12 of air. Measure capped (D3).
-       ==================================================================== -->
-  <section id="approach" class="section-open gutter border-t border-rule">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-s7 lg:gap-s9">
-      <div class="lg:col-span-7 stack" data-reveal>
-        <p class="label m-0">Approach</p>
-        <h2 class="display text-h2 m-0">Facts, given a <em>voice</em>.</h2>
-        <p class="max-w-measure m-0">
-          A car listing is a record before it is a product. Specification,
-          provenance, mileage, and price are the content — not the small print
-          under a photograph. I set them as a record, so the page reads as
-          evidence rather than as advertising.
-        </p>
-        <p class="max-w-measure m-0">
-          Hierarchy comes from space and scale first. Containers, rules, and
-          colour arrive later, and only where space has run out. That is why
-          these pages hold up in grayscale, at thumbnail size, and on the phone
-          screen where most of the traffic actually is.
-        </p>
-        <p class="max-w-measure m-0">
-          I build what I design. The prototype you review is the markup that
-          ships, which removes the gap where art direction usually goes to die.
+  <div class="gutter" style="padding-block:var(--space-6) var(--mat-deep)">
+    <div style="display:grid;grid-template-columns:1fr;gap:var(--space-7)">
+      <div class="rail" data-rise>
+        <p class="label" style="margin:0">Selected work &nbsp;/&nbsp; <span class="num">01 — 06</span></p>
+        <h1 id="c01-h" class="display" style="margin:0;max-width:18ch">
+          [ONE-LINE POSITIONING STATEMENT, 40–60 CHARACTERS]
+        </h1>
+        <p class="lead measure" style="margin:0;color:var(--ink-70)">
+          [Two-sentence framing paragraph, 140–180 characters. Written by Alex —
+          intentionally not drafted here, so the page carries no invented voice.]
         </p>
       </div>
-      <div class="lg:col-span-5"></div>
     </div>
-  </section>
+  </div>
+</section>
 
 
-  <!-- ======================================================================
-       CAPABILITIES — one spec plate. Facts as a record (typography D4).
-       ==================================================================== -->
-  <section class="section-cont gutter" aria-labelledby="cap-h">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-s7 lg:gap-s9">
-      <div class="lg:col-span-7" data-reveal>
-        <h2 id="cap-h" class="label m-0 pb-s6">Capabilities</h2>
-        <dl class="plate m-0">
-          <dt>Art direction</dt>      <dd class="m-0">Photography briefs, crop, tonal grading, page composition</dd>
-          <dt>Interface</dt>          <dd class="m-0">Inventory, catalogue, lot detail, enquiry and finance flows</dd>
-          <dt>Design systems</dt>     <dd class="m-0">Token scales, type roles, component records, documentation</dd>
-          <dt>Front-end</dt>          <dd class="m-0">Semantic HTML, Tailwind, WCAG AA, reduced-motion parity</dd>
-          <dt>Motion</dt>             <dd class="m-0">State-change only — crossfade, hover, no performance</dd>
-          <dt>Availability</dt>       <dd class="m-0 num">Selective, from Q4 2026</dd>
-        </dl>
-      </div>
-      <div class="lg:col-span-5"></div>
+<!-- ══ CHAPTERS 02, 03 — THE MAT SYSTEM ═══════════════════════════════════
+     Constant paspartout, rail left, frame bleeding to the right edge.
+     Asymmetry with the rail as the counterweight (academic-composition D1).
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="chapter" aria-labelledby="c02-h" data-case>
+  <div class="case-grid">
+    <div class="case-rail">
+      <a class="case-link" href="#" data-rise>
+        <span class="label idx num" style="display:block">02</span>
+        <span class="title" id="c02-h" style="display:block;margin-block-start:var(--space-3)">[Client 02]</span>
+      </a>
+      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
+        <dt>Sector</dt>   <dd>[Marque dealer]</dd>
+        <dt>Year</dt>     <dd class="num">[2025]</dd>
+        <dt>Role</dt>     <dd>[Art direction · Interface]</dd>
+        <dt>Shipped</dt>  <dd>[What shipped]</dd>
+      </dl>
     </div>
-  </section>
+    <figure class="frame ar-frame case-frame" style="margin:0">
+      <img src="assets/cases/case-02-frame.webp" data-parallax
+           alt="Stand-in frame for case 02, derived from a vault capture. Awaiting real case assets." />
+    </figure>
+  </div>
+
+  <div class="case-details">
+    <figure class="frame ar-band" style="margin:0">
+      <img src="assets/cases/case-02-band.webp"
+           alt="Stand-in detail band for case 02. Awaiting real case assets." />
+    </figure>
+    <figure class="frame ar-portrait detail-portrait" style="margin:0">
+      <img src="assets/cases/case-02-portrait.webp"
+           alt="Stand-in detail crop for case 02. Awaiting real case assets." />
+    </figure>
+  </div>
+</section>
+
+<section class="chapter" aria-labelledby="c03-h" data-case>
+  <div class="case-grid">
+    <div class="case-rail">
+      <a class="case-link" href="#" data-rise>
+        <span class="label idx num" style="display:block">03</span>
+        <span class="title" id="c03-h" style="display:block;margin-block-start:var(--space-3)">[Client 03]</span>
+      </a>
+      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
+        <dt>Sector</dt>   <dd>[Private showroom]</dd>
+        <dt>Year</dt>     <dd class="num">[2025]</dd>
+        <dt>Role</dt>     <dd>[Design system · Build]</dd>
+        <dt>Shipped</dt>  <dd>[What shipped]</dd>
+      </dl>
+    </div>
+    <figure class="frame ar-frame case-frame" style="margin:0">
+      <img src="assets/cases/case-03-frame.webp" data-parallax
+           alt="Stand-in frame for case 03, derived from a vault capture. Awaiting real case assets." />
+    </figure>
+  </div>
+
+  <div class="case-details">
+    <figure class="frame ar-band" style="margin:0">
+      <img src="assets/cases/case-03-band.webp"
+           alt="Stand-in detail band for case 03. Awaiting real case assets." />
+    </figure>
+    <figure class="frame ar-portrait detail-portrait" style="margin:0">
+      <img src="assets/cases/case-03-portrait.webp"
+           alt="Stand-in detail crop for case 03. Awaiting real case assets." />
+    </figure>
+  </div>
+</section>
 
 
-  <!-- ======================================================================
-       CONTACT — quiet close. One action. Deep field beneath it.
-       ==================================================================== -->
-  <section id="contact" class="section gutter border-t border-rule">
-    <div class="stack max-w-headline" data-reveal>
-      <p class="label m-0">Contact</p>
-      <h2 class="display text-h2 m-0">Bring the <em>hard</em> one.</h2>
-      <p class="max-w-measure m-0 lead">
-        Two hundred cars, forty specification fields, and a photographer who
-        shoots at night. That is the brief I want.
+<!-- ══ CHAPTER 04 — THE ONE DISRUPTION ════════════════════════════════════
+     Three coordinated departures, so the break reads as ONE decision and not
+     as three accidents (anti-patterns U8 — consistency of the break):
+       1. tonal value inverts — this is the only light case on the page;
+       2. the mat collapses — the frame bleeds the full width, both edges;
+       3. the rail moves beneath the frame and runs horizontally.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<section class="chapter disrupt" aria-labelledby="c04-h" data-case>
+  <figure class="frame" style="margin:0;aspect-ratio:var(--ar-band)">
+    <img src="assets/cases/case-04-frame.webp" data-parallax
+         alt="Stand-in frame for case 04, derived from a vault capture. Awaiting real case assets." />
+  </figure>
+
+  <div class="gutter" style="padding-block-start:var(--space-6)">
+    <div class="disrupt-rail">
+      <a class="case-link" href="#" data-rise>
+        <span class="label idx num" style="display:block">04</span>
+        <span class="title" id="c04-h" style="display:block;margin-block-start:var(--space-3)">[Client 04]</span>
+      </a>
+      <dl class="plate" data-rise>
+        <dt>Sector</dt>  <dd>[Auction catalogue]</dd>
+        <dt>Year</dt>    <dd class="num">[2024]</dd>
+        <dt>Role</dt>    <dd>[Art direction · Motion]</dd>
+        <dt>Shipped</dt> <dd>[What shipped]</dd>
+      </dl>
+      <!-- the mobile frame, hard right: the disruption's second axis, and the
+           evidence this audience actually checks. No band here — 04 is the only
+           chapter without one. -->
+      <figure class="frame ar-mobile disrupt-mobile" style="margin:0">
+        <img src="assets/cases/case-04-mobile.webp"
+             alt="Stand-in mobile frame for case 04. Awaiting real case assets." />
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ CHAPTERS 05, 06 — the mat system resumes ═══════════════════════════ -->
+<section class="chapter" aria-labelledby="c05-h" data-case>
+  <div class="case-grid">
+    <div class="case-rail">
+      <a class="case-link" href="#" data-rise>
+        <span class="label idx num" style="display:block">05</span>
+        <span class="title" id="c05-h" style="display:block;margin-block-start:var(--space-3)">[Client 05]</span>
+      </a>
+      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
+        <dt>Sector</dt>   <dd>[Collector retail]</dd>
+        <dt>Year</dt>     <dd class="num">[2023]</dd>
+        <dt>Role</dt>     <dd>[Interface · Build]</dd>
+        <dt>Shipped</dt>  <dd>[What shipped]</dd>
+      </dl>
+    </div>
+    <figure class="frame ar-frame case-frame" style="margin:0">
+      <img src="assets/cases/case-05-frame.webp" data-parallax
+           alt="Stand-in frame for case 05, derived from a vault capture. Awaiting real case assets." />
+    </figure>
+  </div>
+
+  <div class="case-details">
+    <figure class="frame ar-band" style="margin:0">
+      <img src="assets/cases/case-05-band.webp"
+           alt="Stand-in detail band for case 05. Awaiting real case assets." />
+    </figure>
+    <figure class="frame ar-portrait detail-portrait" style="margin:0">
+      <img src="assets/cases/case-05-portrait.webp"
+           alt="Stand-in detail crop for case 05. Awaiting real case assets." />
+    </figure>
+  </div>
+</section>
+
+<section class="chapter" aria-labelledby="c06-h" data-case>
+  <div class="case-grid">
+    <div class="case-rail">
+      <a class="case-link" href="#" data-rise>
+        <span class="label idx num" style="display:block">06</span>
+        <span class="title" id="c06-h" style="display:block;margin-block-start:var(--space-3)">[Client 06]</span>
+      </a>
+      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
+        <dt>Sector</dt>   <dd>[Restoration atelier]</dd>
+        <dt>Year</dt>     <dd class="num">[2022]</dd>
+        <dt>Role</dt>     <dd>[Identity · Site]</dd>
+        <dt>Shipped</dt>  <dd>[What shipped]</dd>
+      </dl>
+    </div>
+    <figure class="frame ar-frame case-frame" style="margin:0">
+      <img src="assets/cases/case-06-frame.webp" data-parallax
+           alt="Stand-in frame for case 06, derived from a vault capture. Awaiting real case assets." />
+    </figure>
+  </div>
+
+  <!-- the close: band only. The page winds down rather than stopping when the
+       last module ends (academic-composition C11). -->
+  <div class="case-details">
+    <figure class="frame ar-band" style="margin:0">
+      <img src="assets/cases/case-06-band.webp"
+           alt="Stand-in detail band for case 06. Awaiting real case assets." />
+    </figure>
+  </div>
+</section>
+
+
+<!-- ══ APPROACH + CAPABILITIES — one chapter, internal gap < closing gap ══ -->
+<section id="approach" class="gutter chapter-tight" style="border-top:1px solid var(--rule)">
+  <div class="two-col">
+    <div class="stack" data-rise>
+      <p class="label" style="margin:0">Approach</p>
+      <h2 class="h2" style="margin:0;max-width:16ch">[Approach headline, 30–45 characters]</h2>
+      <p class="measure" style="margin:0;color:var(--ink-70)">
+        [Paragraph one, 220–280 characters. Placeholder of realistic length so the
+        text mass is compositionally correct; the actual argument is Alex's to write.]
       </p>
-      <p class="m-0 pt-s4">
-        <a class="action label" href="mailto:[EMAIL]">[EMAIL] &nbsp;→</a>
+      <p class="measure" style="margin:0;color:var(--ink-70)">
+        [Paragraph two, 200–260 characters.]
       </p>
     </div>
-  </section>
+    <div></div>
+  </div>
+</section>
+
+<section class="gutter" style="padding-block:0 var(--mat-deep)" aria-labelledby="cap-h">
+  <div class="two-col">
+    <div data-rise>
+      <h2 id="cap-h" class="label" style="margin:0 0 var(--space-6)">Capabilities</h2>
+      <dl class="plate" style="margin:0">
+        <dt>Art direction</dt>  <dd>Photography briefs, crop, tonal grading, page composition</dd>
+        <dt>Interface</dt>      <dd>Inventory, catalogue, lot detail, enquiry and finance flows</dd>
+        <dt>Design systems</dt> <dd>Token scales, type roles, component records, documentation</dd>
+        <dt>Front-end</dt>      <dd>Semantic HTML, WCAG AA, reduced-motion parity</dd>
+        <dt>Availability</dt>   <dd class="num">[Availability window]</dd>
+      </dl>
+    </div>
+    <div></div>
+  </div>
+</section>
+
+
+<!-- ══ CONTACT ═══════════════════════════════════════════════════════════ -->
+<section id="contact" class="gutter chapter" style="border-top:1px solid var(--rule)">
+  <div class="stack" style="max-width:24ch" data-rise>
+    <p class="label" style="margin:0">Contact</p>
+    <h2 class="h2" style="margin:0">[Contact headline, 20–30 characters]</h2>
+    <p style="margin-block-start:var(--space-6)">
+      <a class="action label" href="mailto:[EMAIL]">[EMAIL] &nbsp;→</a>
+    </p>
+  </div>
+</section>
 
 </main>
 
-
-<!-- ========================================================================
-     COLOPHON — the page resolves on a rule; it does not stop (C11).
-     ===================================================================== -->
-<footer class="gutter border-t border-rule">
-  <div class="flex flex-wrap items-baseline justify-between gap-s3 py-s6">
-    <p class="label m-0">Set in Bodoni Moda, Inter Tight, JetBrains Mono</p>
-    <p class="label m-0">[Full name] &nbsp;·&nbsp; <span class="num">© 2026</span></p>
+<footer class="gutter" style="border-top:1px solid var(--rule)">
+  <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+              gap:var(--space-3);padding-block:var(--space-6)">
+    <p class="label" style="margin:0">Composition rehearsal — all imagery is stand-in</p>
+    <p class="label" style="margin:0">[Full name] &nbsp;·&nbsp; <span class="num">© 2026</span></p>
   </div>
 </footer>
 
-<script>
-document.body.classList.remove('no-js');
+<style>
+/* ── layout: mat system ─────────────────────────────────────────────────── */
+.case-grid{display:grid;grid-template-columns:1fr;gap:var(--space-6);padding-inline:var(--mat)}
+.case-details{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--space-5);
+              padding-inline:var(--mat);margin-block-start:var(--space-6)}
+.case-details>.ar-band{grid-column:1 / -1}
+.detail-portrait{grid-column:1 / -1}
+.disrupt-rail{display:grid;grid-template-columns:1fr;gap:var(--space-6)}
 
-/* Reveal — opacity + 8px. Nothing travels further. */
+@media (min-width:64rem){
+  /* rail 3/12, frame bleeds to the RIGHT viewport edge — commit, not inset */
+  .case-grid{grid-template-columns:minmax(14rem,3fr) 9fr;gap:var(--space-8);
+             padding-inline:var(--mat) 0;align-items:start}
+  .case-rail{position:sticky;top:var(--space-9)}
+  .case-details{margin-block-start:var(--space-7)}
+  /* scale contrast: the band spans 8/12, the portrait is small and offset,
+     so the two masses read as 1:0.34 rather than as two equal columns */
+  .case-details>.ar-band{grid-column:1 / span 8}
+  .detail-portrait{grid-column:10 / span 3;align-self:end}
+
+  /* the disruption: mat collapses, rail runs horizontally beneath the frame */
+  /* disruption: rail runs horizontally under the frame, mobile frame hard right */
+  .disrupt-rail{grid-template-columns:minmax(14rem,3fr) 5fr minmax(9rem,2fr);
+                gap:var(--space-8);align-items:start}
+  .disrupt-mobile{justify-self:end;width:100%;max-width:var(--space-11)}
+
+  .two-col{display:grid;grid-template-columns:7fr 5fr;gap:var(--space-9)}
+}
+@media (max-width:63.99rem){
+  /* responsive recomposition (C12): dominance moves from horizontal isolation
+     to scale. The frame goes portrait-crop rather than shrinking the landscape,
+     and NO case is dropped (U7 content parity). */
+  .case-frame{aspect-ratio:var(--ar-portrait)}
+  .case-details>.ar-band{aspect-ratio:var(--ar-frame)}
+}
+</style>
+
+<script>
 (function(){
-  var items = document.querySelectorAll('[data-reveal]');
-  if (!('IntersectionObserver' in window)) {
-    items.forEach(function(el){ el.classList.add('in'); });
+  var allowMotion = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Hidden states are applied by script ONLY when motion is allowed, so a JS
+     failure or reduced-motion both leave a complete, composed page.
+     (motion-taste I1, and immersive-authored-world INVARIANT COMPLIANCE.) */
+  if (!allowMotion || !('IntersectionObserver' in window)) {
+    document.querySelectorAll('.frame').forEach(function(f){ f.classList.add('revealed'); });
+    document.querySelectorAll('[data-rise]').forEach(function(e){ e.classList.add('in'); });
     return;
   }
-  var io = new IntersectionObserver(function(entries){
+
+  /* EFFECT HIERARCHY — strict, and in this order:
+     primary event -> supporting motion -> ambient motion -> interaction feedback
+     At most ONE primary event at a time. */
+
+  // primary: the curtain lifting off a frame
+  var frameIO = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
-      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      if (!e.isIntersecting) return;
+      e.target.classList.add('revealed');
+      frameIO.unobserve(e.target);
     });
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
-  items.forEach(function(el){ io.observe(el); });
-})();
+  }, { rootMargin: '0px 0px -18% 0px', threshold: 0.15 });
+  document.querySelectorAll('.frame').forEach(function(f){ frameIO.observe(f); });
 
-/* Ledger -> preview crossfade. Pointer AND keyboard parity (motion invariant). */
-(function(){
-  var rows  = document.querySelectorAll('.ledger-row[data-row]');
-  var tiles = document.querySelectorAll('.shaft-frame [data-tile]');
-  if (!rows.length || !tiles.length) return;
+  // supporting: rail + plate arrive AFTER their frame, subordinate to it
+  var riseIO = new IntersectionObserver(function(entries){
+    entries.forEach(function(e, i){
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      setTimeout(function(){ el.classList.add('in'); }, 90 * (i % 4));
+      riseIO.unobserve(el);
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.1 });
+  document.querySelectorAll('[data-rise]').forEach(function(e){ riseIO.observe(e); });
 
-  function show(n){
-    tiles.forEach(function(t){ t.classList.toggle('on', t.dataset.tile === n); });
+  // ambient: the scene breathing. Low amplitude, transform only, rAF-throttled.
+  var parallax = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+  var ticking = false;
+  function drift(){
+    var vh = window.innerHeight;
+    parallax.forEach(function(img){
+      var r = img.parentElement.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > vh) return;
+      var p = (r.top + r.height / 2 - vh / 2) / vh;   // -1 .. 1
+      img.style.transform = 'scale(1.06) translateY(' + (p * -1.6).toFixed(2) + '%)';
+    });
+    ticking = false;
   }
-  rows.forEach(function(row){
-    var n = row.dataset.row;
-    row.addEventListener('mouseenter', function(){ show(n); });
-    row.addEventListener('focus',      function(){ show(n); });
-  });
+  addEventListener('scroll', function(){
+    if (!ticking) { ticking = true; requestAnimationFrame(drift); }
+  }, { passive: true });
+  drift();
 })();
 </script>
 </body>
