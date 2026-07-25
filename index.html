@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Alex — Selected Work (composition rehearsal)</title>
-<meta name="description" content="Art direction, interface design and front-end for collector-car retail. Composition rehearsal build with stand-in assets." />
+<title>Alexander Sigoff — Selected Work</title>
+<meta name="description" content="Art direction and interface design for collector-car retail. Pagani, McLaren, Ferrari, Koenigsegg, Porsche." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="preload" as="image" href="assets/cases/case-01-frame.webp" />
+<link rel="preload" as="image" href="assets/cases/case-01-frame.webp" fetchpriority="high" />
 
 <style>
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ===========================================================================
    TOKENS — the only source of space, type, colour, duration and ratio.
    Scales taken verbatim from design_dna/skills/*.
-   ═══════════════════════════════════════════════════════════════════════════ */
+   ======================================================================== */
 :root{
   /* space — 4px base, 11 steps (spacing-taste I2) */
   --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
@@ -46,16 +46,13 @@
   --ease-out:cubic-bezier(.22,1,.36,1);
   --ease-in:cubic-bezier(.55,0,1,.45);
 
-  /* ratio tokens — every crop lands on one of these (see assets/cases) */
+  /* ratio tokens — every crop lands on one of these, and the derivation script
+     reads the SAME set, so a frame can never be re-cropped on output */
   --ar-frame:16/10; --ar-portrait:4/5; --ar-band:21/9; --ar-mobile:9/19.5;
 
   /* the paspartout — constant mat around every framed case */
   --mat:clamp(1.5rem,5vw,7rem);
   --mat-deep:clamp(2.5rem,9vw,12rem);
-
-  /* documented composition ratios */
-  --overture-above:.34;   /* mass above optical centre */
-  --overture-below:.66;   /* deeper field beneath it   */
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -69,9 +66,10 @@ body{
 }
 img{display:block;max-width:100%;height:auto}
 
-/* ── type roles: TWO families. The expressive role belongs to the work. ─────
-   No didone: the audience's own sector is saturated with cosmetic luxury serif,
-   and authority here comes from scale and space (vault/thegentlewoman-co-uk). */
+/* -- type roles: TWO families. The expressive role belongs to the work. ------
+   No didone: this audience's own sector is saturated with cosmetic luxury
+   serif, and authority here comes from scale and space — the lesson recorded
+   in vault/thegentlewoman-co-uk. */
 .display{font-weight:500;line-height:.95;letter-spacing:-.028em;text-wrap:balance}
 .h2{font-size:var(--text-h2);font-weight:500;line-height:1.02;letter-spacing:-.02em;text-wrap:balance}
 .lead{font-size:var(--text-lead);line-height:1.45;text-wrap:balance}
@@ -84,7 +82,7 @@ p{text-wrap:pretty}
 .num{font-variant-numeric:tabular-nums}
 .measure{max-width:66ch}
 
-/* ── spatial hierarchy: every gap decided (spacing-taste I1) ─────────────── */
+/* -- spatial hierarchy: every gap decided (spacing-taste I1) --------------- */
 .stack>*+*{margin-block-start:var(--space-4)}
 .stack>.label+*{margin-block-start:var(--space-3)}
 .stack>.display+*,.stack>.h2+*{margin-block-start:var(--space-6)}
@@ -94,7 +92,7 @@ p{text-wrap:pretty}
 .chapter{padding-block:var(--space-9) var(--mat-deep)}   /* bottom-heavy */
 .chapter-tight{padding-block:var(--space-7) var(--space-8)}
 
-/* ── focus: survives ANY background, including the light case ────────────── */
+/* -- focus: survives ANY background, including the light chapter ----------- */
 :where(a,button,[tabindex]):focus-visible{
   outline:2px solid var(--ink);
   outline-offset:2px;
@@ -102,17 +100,13 @@ p{text-wrap:pretty}
   border-radius:1px;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ===========================================================================
    THE FRAME — three planes per case: mat (ground) / frame (subject) / rail
    (interface). Depth cues stay truthful: the rail never claims to float
    (anti-patterns U9). No glassmorphism, no decorative shadow.
-   ═══════════════════════════════════════════════════════════════════════════ */
+   ======================================================================== */
 .frame{position:relative;overflow:hidden;background:var(--bg-raised);isolation:isolate}
-.frame>img{width:100%;height:100%;object-fit:cover}
-
-/* ambient plane: the image drifts inside its own window. Low amplitude, well
-   under the 15% parallax cap (motion-taste D1). Transform only. */
-.frame>img{will-change:transform}
+.frame>img{width:100%;height:100%;object-fit:cover;will-change:transform}
 
 /* primary event: a curtain in the page's own ground rises off the frame.
    Pure transform, no layout shift, no clip-path (motion-taste I4). */
@@ -128,24 +122,21 @@ p{text-wrap:pretty}
 .ar-band{aspect-ratio:var(--ar-band)}
 .ar-mobile{aspect-ratio:var(--ar-mobile)}
 
-/* ── the rail: the only furniture. Same place on every case, so the eye
-     learns to ignore it and compare the work. ─────────────────────────────── */
+/* -- the rail: the only furniture. Same place on every case, so the eye
+     learns to ignore it and compare the work. ------------------------------ */
 .rail{display:flex;flex-direction:column;gap:var(--space-4)}
-/* Index stays a micro-label; the title carries the rank step. Not scoped to an
-   ancestor — the cases use .case-rail, and an ancestor-scoped rule silently
-   missed them. */
 .idx{color:var(--ink-58)}
 .case-link{text-decoration:none;color:inherit;display:block}
 .case-link .title{font-size:var(--text-h3);font-weight:500;line-height:1.05;letter-spacing:-.015em}
 .case-link .title,
 .case-link .idx{transition:transform var(--dur-2) var(--ease-out),color var(--dur-2) var(--ease-out)}
 .case-link:hover .title,
-.case-link:focus-visible .title{transform:translateX(4px)}     /* interaction tier: quietest */
+.case-link:focus-visible .title{transform:translateX(4px)}   /* interaction tier: quietest */
 .case-link:hover .idx,
 .case-link:focus-visible .idx{color:var(--ink)}
 
-/* ── spec plate: facts as a record, hairlines not boxes (typography D4) ──── */
-.plate{display:grid;grid-template-columns:minmax(7rem,11rem) 1fr;column-gap:var(--space-6);row-gap:0}
+/* -- spec plate: facts as a record, hairlines not boxes (typography D4) ---- */
+.plate{display:grid;grid-template-columns:minmax(6rem,9rem) 1fr;column-gap:var(--space-5);row-gap:0}
 .plate dt{
   padding-block:var(--space-3);border-block-start:1px solid var(--rule);
   font-family:"JetBrains Mono",ui-monospace,monospace;font-size:var(--text-xs);
@@ -161,6 +152,19 @@ p{text-wrap:pretty}
   .plate dd{border-block-start:0;padding-block-start:var(--space-1)}
 }
 
+/* -- the index: the six chapters are the argument, this is the evidence that
+     there is more. Subordinate by construction — mono, hairlines, no imagery. */
+.index-row{
+  display:grid;grid-template-columns:1fr auto;gap:var(--space-4);
+  align-items:baseline;padding-block:var(--space-4);
+  border-block-start:1px solid var(--rule);
+  text-decoration:none;color:inherit;
+  transition:border-color var(--dur-2) var(--ease-out);
+}
+.index-row:last-of-type{border-block-end:1px solid var(--rule)}
+.index-row:hover,.index-row:focus-visible{border-color:var(--rule-strong)}
+.index-row .name{font-size:var(--text-sm)}
+
 .action{
   display:inline-block;text-decoration:none;color:var(--ink);
   padding-block-end:var(--space-3);border-block-end:1px solid var(--rule-strong);
@@ -168,16 +172,16 @@ p{text-wrap:pretty}
 }
 .action:hover{border-color:var(--ink)}
 
-/* ── supporting motion: subordinate to the curtain, never louder ──────────── */
+/* -- supporting motion: subordinate to the curtain, never louder ----------- */
 [data-rise]{opacity:0;transform:translateY(8px);
   transition:opacity var(--dur-3) var(--ease-out),transform var(--dur-3) var(--ease-out)}
 [data-rise].in{opacity:1;transform:none}
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* ===========================================================================
    REDUCED MOTION — a composed static scene, not a gutted page.
    Hidden states are applied BY SCRIPT only when motion is allowed, so this
    media query and a JS failure both leave the page complete.
-   ═══════════════════════════════════════════════════════════════════════════ */
+   ======================================================================== */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{
@@ -187,286 +191,8 @@ p{text-wrap:pretty}
   .frame::after{transform:translateY(-101%)!important}
   [data-rise]{opacity:1!important;transform:none!important}
 }
-</style>
-</head>
 
-<body>
-
-<a href="#work" class="label" style="position:absolute;left:-9999px;top:var(--space-4)"
-   onfocus="this.style.left='var(--mat)'" onblur="this.style.left='-9999px'">Skip to work</a>
-
-<!-- ══ MASTHEAD ═══════════════════════════════════════════════════════════ -->
-<header class="gutter">
-  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-5);
-              padding-block:var(--space-5);border-bottom:1px solid var(--rule)">
-    <a href="#top" class="label" style="color:var(--ink)">Alex</a>
-    <nav aria-label="Sections">
-      <ul style="display:flex;gap:var(--space-5);list-style:none;margin:0;padding:0">
-        <li><a class="label" href="#work">Work</a></li>
-        <li><a class="label" href="#approach">Approach</a></li>
-        <li><a class="label" href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<main id="top">
-
-<!-- ══ CHAPTER 01 — OVERTURE ══════════════════════════════════════════════
-     Full-bleed, no mat. This establishes the subject BEFORE the mat system
-     starts, so it is not a rhythm departure — it is the establishing shot.
-     ═══════════════════════════════════════════════════════════════════════ -->
-<section id="work" aria-labelledby="c01-h">
-  <figure class="frame" style="aspect-ratio:var(--ar-frame);min-height:78svh;margin:0">
-    <img src="assets/cases/case-01-frame.webp" data-parallax
-         alt="Stand-in frame for case 01, derived from a vault capture. Awaiting real case assets." />
-  </figure>
-
-  <div class="gutter" style="padding-block:var(--space-6) var(--mat-deep)">
-    <div style="display:grid;grid-template-columns:1fr;gap:var(--space-7)">
-      <div class="rail" data-rise>
-        <p class="label" style="margin:0">Selected work &nbsp;/&nbsp; <span class="num">01 — 06</span></p>
-        <h1 id="c01-h" class="display" style="margin:0;max-width:18ch">
-          [ONE-LINE POSITIONING STATEMENT, 40–60 CHARACTERS]
-        </h1>
-        <p class="lead measure" style="margin:0;color:var(--ink-70)">
-          [Two-sentence framing paragraph, 140–180 characters. Written by Alex —
-          intentionally not drafted here, so the page carries no invented voice.]
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ══ CHAPTERS 02, 03 — THE MAT SYSTEM ═══════════════════════════════════
-     Constant paspartout, rail left, frame bleeding to the right edge.
-     Asymmetry with the rail as the counterweight (academic-composition D1).
-     ═══════════════════════════════════════════════════════════════════════ -->
-<section class="chapter" aria-labelledby="c02-h" data-case>
-  <div class="case-grid">
-    <div class="case-rail">
-      <a class="case-link" href="#" data-rise>
-        <span class="label idx num" style="display:block">02</span>
-        <span class="title" id="c02-h" style="display:block;margin-block-start:var(--space-3)">[Client 02]</span>
-      </a>
-      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
-        <dt>Sector</dt>   <dd>[Marque dealer]</dd>
-        <dt>Year</dt>     <dd class="num">[2025]</dd>
-        <dt>Role</dt>     <dd>[Art direction · Interface]</dd>
-        <dt>Shipped</dt>  <dd>[What shipped]</dd>
-      </dl>
-    </div>
-    <figure class="frame ar-frame case-frame" style="margin:0">
-      <img src="assets/cases/case-02-frame.webp" data-parallax
-           alt="Stand-in frame for case 02, derived from a vault capture. Awaiting real case assets." />
-    </figure>
-  </div>
-
-  <div class="case-details">
-    <figure class="frame ar-band" style="margin:0">
-      <img src="assets/cases/case-02-band.webp"
-           alt="Stand-in detail band for case 02. Awaiting real case assets." />
-    </figure>
-    <figure class="frame ar-portrait detail-portrait" style="margin:0">
-      <img src="assets/cases/case-02-portrait.webp"
-           alt="Stand-in detail crop for case 02. Awaiting real case assets." />
-    </figure>
-  </div>
-</section>
-
-<section class="chapter" aria-labelledby="c03-h" data-case>
-  <div class="case-grid">
-    <div class="case-rail">
-      <a class="case-link" href="#" data-rise>
-        <span class="label idx num" style="display:block">03</span>
-        <span class="title" id="c03-h" style="display:block;margin-block-start:var(--space-3)">[Client 03]</span>
-      </a>
-      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
-        <dt>Sector</dt>   <dd>[Private showroom]</dd>
-        <dt>Year</dt>     <dd class="num">[2025]</dd>
-        <dt>Role</dt>     <dd>[Design system · Build]</dd>
-        <dt>Shipped</dt>  <dd>[What shipped]</dd>
-      </dl>
-    </div>
-    <figure class="frame ar-frame case-frame" style="margin:0">
-      <img src="assets/cases/case-03-frame.webp" data-parallax
-           alt="Stand-in frame for case 03, derived from a vault capture. Awaiting real case assets." />
-    </figure>
-  </div>
-
-  <div class="case-details">
-    <figure class="frame ar-band" style="margin:0">
-      <img src="assets/cases/case-03-band.webp"
-           alt="Stand-in detail band for case 03. Awaiting real case assets." />
-    </figure>
-    <figure class="frame ar-portrait detail-portrait" style="margin:0">
-      <img src="assets/cases/case-03-portrait.webp"
-           alt="Stand-in detail crop for case 03. Awaiting real case assets." />
-    </figure>
-  </div>
-</section>
-
-
-<!-- ══ CHAPTER 04 — THE ONE DISRUPTION ════════════════════════════════════
-     Three coordinated departures, so the break reads as ONE decision and not
-     as three accidents (anti-patterns U8 — consistency of the break):
-       1. tonal value inverts — this is the only light case on the page;
-       2. the mat collapses — the frame bleeds the full width, both edges;
-       3. the rail moves beneath the frame and runs horizontally.
-     ═══════════════════════════════════════════════════════════════════════ -->
-<section class="chapter disrupt" aria-labelledby="c04-h" data-case>
-  <figure class="frame" style="margin:0;aspect-ratio:var(--ar-band)">
-    <img src="assets/cases/case-04-frame.webp" data-parallax
-         alt="Stand-in frame for case 04, derived from a vault capture. Awaiting real case assets." />
-  </figure>
-
-  <div class="gutter" style="padding-block-start:var(--space-6)">
-    <div class="disrupt-rail">
-      <a class="case-link" href="#" data-rise>
-        <span class="label idx num" style="display:block">04</span>
-        <span class="title" id="c04-h" style="display:block;margin-block-start:var(--space-3)">[Client 04]</span>
-      </a>
-      <dl class="plate" data-rise>
-        <dt>Sector</dt>  <dd>[Auction catalogue]</dd>
-        <dt>Year</dt>    <dd class="num">[2024]</dd>
-        <dt>Role</dt>    <dd>[Art direction · Motion]</dd>
-        <dt>Shipped</dt> <dd>[What shipped]</dd>
-      </dl>
-      <!-- the mobile frame, hard right: the disruption's second axis, and the
-           evidence this audience actually checks. No band here — 04 is the only
-           chapter without one. -->
-      <figure class="frame ar-mobile disrupt-mobile" style="margin:0">
-        <img src="assets/cases/case-04-mobile.webp"
-             alt="Stand-in mobile frame for case 04. Awaiting real case assets." />
-      </figure>
-    </div>
-  </div>
-</section>
-
-
-<!-- ══ CHAPTERS 05, 06 — the mat system resumes ═══════════════════════════ -->
-<section class="chapter" aria-labelledby="c05-h" data-case>
-  <div class="case-grid">
-    <div class="case-rail">
-      <a class="case-link" href="#" data-rise>
-        <span class="label idx num" style="display:block">05</span>
-        <span class="title" id="c05-h" style="display:block;margin-block-start:var(--space-3)">[Client 05]</span>
-      </a>
-      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
-        <dt>Sector</dt>   <dd>[Collector retail]</dd>
-        <dt>Year</dt>     <dd class="num">[2023]</dd>
-        <dt>Role</dt>     <dd>[Interface · Build]</dd>
-        <dt>Shipped</dt>  <dd>[What shipped]</dd>
-      </dl>
-    </div>
-    <figure class="frame ar-frame case-frame" style="margin:0">
-      <img src="assets/cases/case-05-frame.webp" data-parallax
-           alt="Stand-in frame for case 05, derived from a vault capture. Awaiting real case assets." />
-    </figure>
-  </div>
-
-  <div class="case-details">
-    <figure class="frame ar-band" style="margin:0">
-      <img src="assets/cases/case-05-band.webp"
-           alt="Stand-in detail band for case 05. Awaiting real case assets." />
-    </figure>
-    <figure class="frame ar-portrait detail-portrait" style="margin:0">
-      <img src="assets/cases/case-05-portrait.webp"
-           alt="Stand-in detail crop for case 05. Awaiting real case assets." />
-    </figure>
-  </div>
-</section>
-
-<section class="chapter" aria-labelledby="c06-h" data-case>
-  <div class="case-grid">
-    <div class="case-rail">
-      <a class="case-link" href="#" data-rise>
-        <span class="label idx num" style="display:block">06</span>
-        <span class="title" id="c06-h" style="display:block;margin-block-start:var(--space-3)">[Client 06]</span>
-      </a>
-      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
-        <dt>Sector</dt>   <dd>[Restoration atelier]</dd>
-        <dt>Year</dt>     <dd class="num">[2022]</dd>
-        <dt>Role</dt>     <dd>[Identity · Site]</dd>
-        <dt>Shipped</dt>  <dd>[What shipped]</dd>
-      </dl>
-    </div>
-    <figure class="frame ar-frame case-frame" style="margin:0">
-      <img src="assets/cases/case-06-frame.webp" data-parallax
-           alt="Stand-in frame for case 06, derived from a vault capture. Awaiting real case assets." />
-    </figure>
-  </div>
-
-  <!-- the close: band only. The page winds down rather than stopping when the
-       last module ends (academic-composition C11). -->
-  <div class="case-details">
-    <figure class="frame ar-band" style="margin:0">
-      <img src="assets/cases/case-06-band.webp"
-           alt="Stand-in detail band for case 06. Awaiting real case assets." />
-    </figure>
-  </div>
-</section>
-
-
-<!-- ══ APPROACH + CAPABILITIES — one chapter, internal gap < closing gap ══ -->
-<section id="approach" class="gutter chapter-tight" style="border-top:1px solid var(--rule)">
-  <div class="two-col">
-    <div class="stack" data-rise>
-      <p class="label" style="margin:0">Approach</p>
-      <h2 class="h2" style="margin:0;max-width:16ch">[Approach headline, 30–45 characters]</h2>
-      <p class="measure" style="margin:0;color:var(--ink-70)">
-        [Paragraph one, 220–280 characters. Placeholder of realistic length so the
-        text mass is compositionally correct; the actual argument is Alex's to write.]
-      </p>
-      <p class="measure" style="margin:0;color:var(--ink-70)">
-        [Paragraph two, 200–260 characters.]
-      </p>
-    </div>
-    <div></div>
-  </div>
-</section>
-
-<section class="gutter" style="padding-block:0 var(--mat-deep)" aria-labelledby="cap-h">
-  <div class="two-col">
-    <div data-rise>
-      <h2 id="cap-h" class="label" style="margin:0 0 var(--space-6)">Capabilities</h2>
-      <dl class="plate" style="margin:0">
-        <dt>Art direction</dt>  <dd>Photography briefs, crop, tonal grading, page composition</dd>
-        <dt>Interface</dt>      <dd>Inventory, catalogue, lot detail, enquiry and finance flows</dd>
-        <dt>Design systems</dt> <dd>Token scales, type roles, component records, documentation</dd>
-        <dt>Front-end</dt>      <dd>Semantic HTML, WCAG AA, reduced-motion parity</dd>
-        <dt>Availability</dt>   <dd class="num">[Availability window]</dd>
-      </dl>
-    </div>
-    <div></div>
-  </div>
-</section>
-
-
-<!-- ══ CONTACT ═══════════════════════════════════════════════════════════ -->
-<section id="contact" class="gutter chapter" style="border-top:1px solid var(--rule)">
-  <div class="stack" style="max-width:24ch" data-rise>
-    <p class="label" style="margin:0">Contact</p>
-    <h2 class="h2" style="margin:0">[Contact headline, 20–30 characters]</h2>
-    <p style="margin-block-start:var(--space-6)">
-      <a class="action label" href="mailto:[EMAIL]">[EMAIL] &nbsp;→</a>
-    </p>
-  </div>
-</section>
-
-</main>
-
-<footer class="gutter" style="border-top:1px solid var(--rule)">
-  <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
-              gap:var(--space-3);padding-block:var(--space-6)">
-    <p class="label" style="margin:0">Composition rehearsal — all imagery is stand-in</p>
-    <p class="label" style="margin:0">[Full name] &nbsp;·&nbsp; <span class="num">© 2026</span></p>
-  </div>
-</footer>
-
-<style>
-/* ── layout: mat system ─────────────────────────────────────────────────── */
+/* -- layout: the mat system ----------------------------------------------- */
 .case-grid{display:grid;grid-template-columns:1fr;gap:var(--space-6);padding-inline:var(--mat)}
 .case-details{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--space-5);
               padding-inline:var(--mat);margin-block-start:var(--space-6)}
@@ -480,27 +206,317 @@ p{text-wrap:pretty}
              padding-inline:var(--mat) 0;align-items:start}
   .case-rail{position:sticky;top:var(--space-9)}
   .case-details{margin-block-start:var(--space-7)}
-  /* scale contrast: the band spans 8/12, the portrait is small and offset,
-     so the two masses read as 1:0.34 rather than as two equal columns */
+  /* scale contrast: the band spans 8/12, the portrait is small and offset, so
+     the two masses read as roughly 1:0.34 rather than as two equal columns */
   .case-details>.ar-band{grid-column:1 / span 8}
   .detail-portrait{grid-column:10 / span 3;align-self:end}
-
-  /* the disruption: mat collapses, rail runs horizontally beneath the frame */
-  /* disruption: rail runs horizontally under the frame, mobile frame hard right */
+  /* the disruption: mat collapses, rail runs horizontally under the frame */
   .disrupt-rail{grid-template-columns:minmax(14rem,3fr) 5fr minmax(9rem,2fr);
                 gap:var(--space-8);align-items:start}
   .disrupt-mobile{justify-self:end;width:100%;max-width:var(--space-11)}
-
   .two-col{display:grid;grid-template-columns:7fr 5fr;gap:var(--space-9)}
 }
 @media (max-width:63.99rem){
   /* responsive recomposition (C12): dominance moves from horizontal isolation
-     to scale. The frame goes portrait-crop rather than shrinking the landscape,
-     and NO case is dropped (U7 content parity). */
+     to scale. The frame goes to a portrait crop rather than shrinking the
+     landscape, and NO case is dropped (U7 content parity). */
   .case-frame{aspect-ratio:var(--ar-portrait)}
   .case-details>.ar-band{aspect-ratio:var(--ar-frame)}
 }
 </style>
+</head>
+
+<body>
+
+<a href="#work" class="label" style="position:absolute;left:-9999px;top:var(--space-4)"
+   onfocus="this.style.left='var(--mat)'" onblur="this.style.left='-9999px'">Skip to work</a>
+
+<!-- == MASTHEAD ========================================================== -->
+<header class="gutter">
+  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-5);
+              padding-block:var(--space-5);border-bottom:1px solid var(--rule)">
+    <a href="#top" class="label" style="color:var(--ink)">Alexander Sigoff</a>
+    <nav aria-label="Sections">
+      <ul style="display:flex;gap:var(--space-5);list-style:none;margin:0;padding:0">
+        <li><a class="label" href="#work">Work</a></li>
+        <li><a class="label" href="#index">Index</a></li>
+        <li><a class="label" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- == CHAPTER 01 — OVERTURE ==============================================
+     Full bleed, no mat. This establishes the subject BEFORE the mat system
+     starts, so it is not a rhythm departure — it is the establishing shot.
+     ==================================================================== -->
+<section id="work" aria-labelledby="c01-h">
+  <figure class="frame" style="aspect-ratio:var(--ar-frame);min-height:78svh;margin:0">
+    <img src="assets/cases/case-01-frame.webp" width="1728" height="1080" data-parallax
+         fetchpriority="high"
+         alt="Pagani Lake Forest — the dealership home page: a Huayra at dusk in a European piazza." />
+  </figure>
+
+  <div class="gutter" style="padding-block:var(--space-6) var(--mat-deep)">
+    <div class="case-grid" style="padding-inline:0">
+      <div class="case-rail" style="position:static">
+        <a class="case-link" href="https://www.behance.net/gallery/218140899/PAGANI-LAKE-FOREST"
+           rel="noopener" data-rise>
+          <span class="label idx num" style="display:block">01</span>
+          <span class="title" id="c01-h" style="display:block;margin-block-start:var(--space-3)">Pagani Lake Forest</span>
+        </a>
+        <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
+          <dt>Sector</dt> <dd>Marque dealer</dd>
+          <dt>Year</dt>   <dd class="num">2025</dd>
+          <dt>Role</dt>   <dd>Art direction &middot; Web design &middot; UI</dd>
+        </dl>
+      </div>
+      <div class="rail" data-rise>
+        <p class="label" style="margin:0">Selected work &nbsp;/&nbsp; <span class="num">01 &mdash; 06</span></p>
+        <p class="display" style="margin:0;max-width:18ch;font-size:var(--text-display)">
+          [ONE-LINE POSITIONING STATEMENT, 40&ndash;60 CHARACTERS]
+        </p>
+        <p class="lead measure" style="margin:0;color:var(--ink-70)">
+          [Two sentences, 140&ndash;180 characters. Yours to write &mdash; no voice
+          has been invented here.]
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- == CHAPTERS 02, 03 — THE MAT SYSTEM =================================== -->
+<section class="chapter" aria-labelledby="c02-h">
+  <div class="case-grid">
+    <div class="case-rail">
+      <a class="case-link" href="https://www.behance.net/gallery/217724607/McLaren-Orlando"
+         rel="noopener" data-rise>
+        <span class="label idx num" style="display:block">02</span>
+        <span class="title" id="c02-h" style="display:block;margin-block-start:var(--space-3)">McLaren Orlando</span>
+      </a>
+      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
+        <dt>Sector</dt> <dd>Marque dealer</dd>
+        <dt>Year</dt>   <dd class="num">2025</dd>
+        <dt>Role</dt>   <dd>Art direction &middot; Web design &middot; UI</dd>
+      </dl>
+    </div>
+    <figure class="frame ar-frame case-frame" style="margin:0">
+      <img src="assets/cases/case-02-frame.webp" width="1728" height="1080" loading="lazy" data-parallax
+           alt="McLaren Orlando — home page hero." />
+    </figure>
+  </div>
+  <div class="case-details">
+    <figure class="frame ar-band" style="margin:0">
+      <img src="assets/cases/case-02-band.webp" width="1900" height="814" loading="lazy"
+           alt="McLaren Orlando — inventory section." />
+    </figure>
+    <figure class="frame ar-portrait detail-portrait" style="margin:0">
+      <img src="assets/cases/case-02-portrait.webp" width="864" height="1080" loading="lazy"
+           alt="McLaren Orlando — vehicle detail crop." />
+    </figure>
+  </div>
+</section>
+
+<section class="chapter" aria-labelledby="c03-h">
+  <div class="case-grid">
+    <div class="case-rail">
+      <a class="case-link" href="https://www.behance.net/gallery/136885845/Ferrari-Official-Dealer-US"
+         rel="noopener" data-rise>
+        <span class="label idx num" style="display:block">03</span>
+        <span class="title" id="c03-h" style="display:block;margin-block-start:var(--space-3)">Ferrari Official Dealer / US</span>
+      </a>
+      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
+        <dt>Sector</dt> <dd>Marque dealer network</dd>
+        <dt>Year</dt>   <dd class="num">2022</dd>
+        <dt>Role</dt>   <dd>Art direction &middot; Web design &middot; UI</dd>
+      </dl>
+    </div>
+    <figure class="frame ar-frame case-frame" style="margin:0">
+      <img src="assets/cases/case-03-frame.webp" width="1800" height="1125" loading="lazy" data-parallax
+           alt="Ferrari Official Dealer — page composition." />
+    </figure>
+  </div>
+  <div class="case-details">
+    <figure class="frame ar-band" style="margin:0">
+      <img src="assets/cases/case-03-band.webp" width="1900" height="814" loading="lazy"
+           alt="Ferrari Official Dealer — model presentation band." />
+    </figure>
+    <figure class="frame ar-portrait detail-portrait" style="margin:0">
+      <img src="assets/cases/case-03-portrait.webp" width="1200" height="1500" loading="lazy"
+           alt="Ferrari Official Dealer — detail crop." />
+    </figure>
+  </div>
+</section>
+
+
+<!-- == CHAPTER 04 — THE ONE DISRUPTION ====================================
+     Three coordinated departures, so the break reads as ONE decision and not
+     as three accidents (anti-patterns U8 — consistency of the break):
+       1. the tonal value inverts — the only light chapter, mean 87 against
+          16-58 everywhere else, and that comes from the material itself, not
+          from a filter applied to make the claim true;
+       2. the paspartout collapses — the frame bleeds the full width;
+       3. the rail moves beneath the frame and runs horizontally.
+     It is also the only project that is not a dealer site, so the break is
+     carried by the content and not only by the layout.
+     ==================================================================== -->
+<section class="chapter" aria-labelledby="c04-h">
+  <figure class="frame ar-band" style="margin:0">
+    <img src="assets/cases/case-04-frame.webp" width="1364" height="585" loading="lazy" data-parallax
+         alt="MODA Miami for Sotheby's — a classic Ferrari under the Biltmore colonnade." />
+  </figure>
+
+  <div class="gutter" style="padding-block-start:var(--space-6)">
+    <div class="disrupt-rail">
+      <a class="case-link" href="https://www.behance.net/gallery/179848061/MODA-MIAMI-Sothebys"
+         rel="noopener" data-rise>
+        <span class="label idx num" style="display:block">04</span>
+        <span class="title" id="c04-h" style="display:block;margin-block-start:var(--space-3)">MODA Miami / Sotheby&rsquo;s</span>
+      </a>
+      <dl class="plate" data-rise>
+        <dt>Sector</dt> <dd>Concours &amp; auction</dd>
+        <dt>Year</dt>   <dd class="num">2023</dd>
+        <dt>Role</dt>   <dd>Art direction &middot; Web design &middot; UI</dd>
+      </dl>
+      <figure class="frame ar-mobile disrupt-mobile" style="margin:0">
+        <img src="assets/cases/case-04-mobile.webp" width="900" height="1950" loading="lazy"
+             alt="MODA Miami — the event page on a phone." />
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<!-- == CHAPTERS 05, 06 — the mat system resumes, then closes ============== -->
+<section class="chapter" aria-labelledby="c05-h">
+  <div class="case-grid">
+    <div class="case-rail">
+      <a class="case-link" href="https://www.behance.net/gallery/151306223/Koenigsegg-Boston"
+         rel="noopener" data-rise>
+        <span class="label idx num" style="display:block">05</span>
+        <span class="title" id="c05-h" style="display:block;margin-block-start:var(--space-3)">Koenigsegg Boston</span>
+      </a>
+      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
+        <dt>Sector</dt> <dd>Marque dealer</dd>
+        <dt>Year</dt>   <dd class="num">2022</dd>
+        <dt>Role</dt>   <dd>Art direction &middot; Web design &middot; UI</dd>
+      </dl>
+    </div>
+    <figure class="frame ar-frame case-frame" style="margin:0">
+      <img src="assets/cases/case-05-frame.webp" width="1800" height="1125" loading="lazy" data-parallax
+           alt="Koenigsegg Boston — home page composition." />
+    </figure>
+  </div>
+  <div class="case-details">
+    <figure class="frame ar-band" style="margin:0">
+      <img src="assets/cases/case-05-band.webp" width="1900" height="814" loading="lazy"
+           alt="Koenigsegg Boston — page band." />
+    </figure>
+    <figure class="frame ar-portrait detail-portrait" style="margin:0">
+      <img src="assets/cases/case-05-portrait.webp" width="1200" height="1500" loading="lazy"
+           alt="Koenigsegg Boston — detail crop." />
+    </figure>
+  </div>
+</section>
+
+<section class="chapter" aria-labelledby="c06-h">
+  <div class="case-grid">
+    <div class="case-rail">
+      <a class="case-link" href="https://www.behance.net/gallery/130127865/Porsche-Restoration-Services"
+         rel="noopener" data-rise>
+        <span class="label idx num" style="display:block">06</span>
+        <span class="title" id="c06-h" style="display:block;margin-block-start:var(--space-3)">Porsche Restoration Services</span>
+      </a>
+      <dl class="plate" style="margin-block-start:var(--space-6)" data-rise>
+        <dt>Sector</dt> <dd>Restoration service</dd>
+        <dt>Year</dt>   <dd class="num">2021</dd>
+        <dt>Role</dt>   <dd>Art direction &middot; Web design &middot; UI</dd>
+      </dl>
+    </div>
+    <figure class="frame ar-frame case-frame" style="margin:0">
+      <img src="assets/cases/case-06-frame.webp" width="1728" height="1080" loading="lazy" data-parallax
+           alt="Porsche Restoration Services — home page." />
+    </figure>
+  </div>
+  <!-- the close: band only. The page winds down rather than stopping when the
+       last module ends (academic-composition C11). -->
+  <div class="case-details">
+    <figure class="frame ar-band" style="margin:0">
+      <img src="assets/cases/case-06-band.webp" width="1900" height="814" loading="lazy"
+           alt="Porsche Restoration Services — services band." />
+    </figure>
+  </div>
+</section>
+
+
+<!-- == INDEX =============================================================
+     The six chapters are the argument; this is the evidence that there is
+     more, without turning the page into a grid. Subordinate by construction.
+     ==================================================================== -->
+<section id="index" class="gutter chapter-tight" style="border-top:1px solid var(--rule)">
+  <div class="two-col">
+    <div data-rise>
+      <h2 class="label" style="margin:0 0 var(--space-6)">Also shipped</h2>
+      <a class="index-row" href="https://www.behance.net/gallery/218140327/Miller-Motor-Cars-Portal" rel="noopener">
+        <span class="name">Miller Motor Cars Portal</span><span class="label">Dealer group portal</span></a>
+      <a class="index-row" href="https://www.behance.net/gallery/217165691/iLUSSO-Hypercar-Inventory" rel="noopener">
+        <span class="name">iLusso Hypercar Inventory</span><span class="label">Inventory system</span></a>
+      <a class="index-row" href="https://www.behance.net/gallery/125156053/RIMAC-Central-Florida" rel="noopener">
+        <span class="name">Rimac Central Florida</span><span class="label">Marque dealer</span></a>
+      <a class="index-row" href="https://www.behance.net/gallery/128908527/Aston-Martin-Summit" rel="noopener">
+        <span class="name">Aston Martin Summit</span><span class="label">Marque dealer</span></a>
+      <a class="index-row" href="https://www.behance.net/gallery/217166933/Dallara-EXP" rel="noopener">
+        <span class="name">Dallara EXP</span><span class="label">Marque &amp; product</span></a>
+      <a class="index-row" href="https://www.behance.net/gallery/217164785/CZINGER-WEBSITE" rel="noopener">
+        <span class="name">Czinger</span><span class="label">Marque &amp; product</span></a>
+    </div>
+    <div></div>
+  </div>
+</section>
+
+
+<!-- == CAPABILITIES ====================================================== -->
+<section class="gutter" style="padding-block:0 var(--mat-deep)" aria-labelledby="cap-h">
+  <div class="two-col">
+    <div data-rise>
+      <h2 id="cap-h" class="label" style="margin:0 0 var(--space-6)">Capabilities</h2>
+      <dl class="plate" style="margin:0">
+        <dt>Art direction</dt>  <dd>Photography selection, crop, tonal grading, page composition</dd>
+        <dt>Interface</dt>      <dd>Inventory, model pages, vehicle detail, enquiry flows</dd>
+        <dt>Design systems</dt> <dd>Type roles, spacing scales, component records</dd>
+        <dt>Sectors</dt>        <dd>Marque dealers, dealer groups, concours and auction</dd>
+        <dt>Based</dt>          <dd>Vernon Hills, Illinois</dd>
+        <dt>Availability</dt>   <dd class="num">[Availability window]</dd>
+      </dl>
+    </div>
+    <div></div>
+  </div>
+</section>
+
+
+<!-- == CONTACT =========================================================== -->
+<section id="contact" class="gutter chapter" style="border-top:1px solid var(--rule)">
+  <div class="stack" style="max-width:24ch" data-rise>
+    <p class="label" style="margin:0">Contact</p>
+    <p class="h2" style="margin:0">[Contact headline, 20&ndash;30 characters]</p>
+    <p style="margin-block-start:var(--space-6)">
+      <a class="action label" href="mailto:[EMAIL]">[EMAIL] &nbsp;&rarr;</a>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<footer class="gutter" style="border-top:1px solid var(--rule)">
+  <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+              gap:var(--space-3);padding-block:var(--space-6)">
+    <p class="label" style="margin:0">Set in Inter Tight and JetBrains Mono</p>
+    <p class="label" style="margin:0">Alexander Sigoff &nbsp;&middot;&nbsp; <span class="num">&copy; 2026</span></p>
+  </div>
+</footer>
 
 <script>
 (function(){
@@ -529,7 +545,7 @@ p{text-wrap:pretty}
   }, { rootMargin: '0px 0px -18% 0px', threshold: 0.15 });
   document.querySelectorAll('.frame').forEach(function(f){ frameIO.observe(f); });
 
-  // supporting: rail + plate arrive AFTER their frame, subordinate to it
+  // supporting: rail and plate arrive AFTER their frame, subordinate to it
   var riseIO = new IntersectionObserver(function(entries){
     entries.forEach(function(e, i){
       if (!e.isIntersecting) return;
