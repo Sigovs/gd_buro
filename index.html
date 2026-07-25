@@ -46,6 +46,14 @@
   --ease-out:cubic-bezier(.22,1,.36,1);
   --ease-in:cubic-bezier(.55,0,1,.45);
 
+  /* Authored entrance. This EXCEEDS the dialect's 8px travel budget
+     (motion-taste D1) on Alex's explicit direction for a raised register.
+     Tokenised rather than hand-typed so the whole page moves by one number,
+     and every image still enters on its own — never in pairs. */
+  --rise-far:4rem;      /* 64px */
+  --rise-blur:10px;
+  --rise-step:110ms;    /* gap between neighbours in one chapter */
+
   /* ratio tokens — every crop lands on one of these, and the derivation script
      reads the SAME set, so a frame can never be re-cropped on output */
   --ar-frame:16/10; --ar-portrait:4/5; --ar-band:21/9; --ar-mobile:9/19.5;
@@ -108,14 +116,24 @@ p{text-wrap:pretty}
 .frame{position:relative;overflow:hidden;background:var(--bg-raised);isolation:isolate}
 .frame>img{width:100%;height:100%;object-fit:cover;will-change:transform}
 
-/* primary event: a curtain in the page's own ground rises off the frame.
-   Pure transform, no layout shift, no clip-path (motion-taste I4). */
-.frame::after{
-  content:"";position:absolute;inset:0;z-index:2;background:var(--bg);
-  transform:translateY(0);
-  transition:transform var(--dur-4) var(--ease-out);
+/* PRIMARY EVENT: every image rises from below and resolves out of blur.
+   One image at a time — neighbours in the same chapter are stepped apart by
+   --rise-step so nothing ever enters in pairs.
+   Transform + opacity + filter: none of these force layout (motion-taste I4).
+   The hidden state is added BY SCRIPT, so no-JS and reduced-motion never trap
+   an image at opacity 0. */
+.frame{
+  transition:opacity var(--dur-4) var(--ease-out),
+             transform var(--dur-4) var(--ease-out),
+             filter var(--dur-4) var(--ease-out);
 }
-.frame.revealed::after{transform:translateY(-101%)}
+.frame.armed{
+  opacity:0;
+  transform:translate3d(0,var(--rise-far),0);
+  filter:blur(var(--rise-blur));
+  will-change:transform,opacity,filter;
+}
+.frame.revealed{opacity:1;transform:none;filter:blur(0);will-change:auto}
 
 .ar-frame{aspect-ratio:var(--ar-frame)}
 .ar-portrait{aspect-ratio:var(--ar-portrait)}
@@ -153,17 +171,39 @@ p{text-wrap:pretty}
 }
 
 /* -- the index: the six chapters are the argument, this is the evidence that
-     there is more. Subordinate by construction — mono, hairlines, no imagery. */
+     there is more. An accordion — closed it is a record, hovered it shows the
+     work. Subordinate by construction: hairlines, mono, no boxes. */
+.index-item{border-block-start:1px solid var(--rule);transition:border-color var(--dur-2) var(--ease-out)}
+.index-item:last-of-type{border-block-end:1px solid var(--rule)}
+.index-item:hover,.index-item:focus-within{border-color:var(--rule-strong)}
 .index-row{
   display:grid;grid-template-columns:1fr auto;gap:var(--space-4);
   align-items:baseline;padding-block:var(--space-4);
-  border-block-start:1px solid var(--rule);
   text-decoration:none;color:inherit;
-  transition:border-color var(--dur-2) var(--ease-out);
 }
-.index-row:last-of-type{border-block-end:1px solid var(--rule)}
-.index-row:hover,.index-row:focus-visible{border-color:var(--rule-strong)}
-.index-row .name{font-size:var(--text-sm)}
+.index-row .name{font-size:var(--text-sm);display:inline-block;
+  transition:transform var(--dur-2) var(--ease-out)}
+.index-item:hover .name,.index-item:focus-within .name{transform:translateX(4px)}
+
+/* grid-template-rows 0fr -> 1fr is the accessible way to animate an accordion.
+   It does change layout, which motion-taste I4 warns about — accepted here
+   because it is user-initiated, affects one row, and never moves content the
+   reader is already reading (the list sits below the six chapters). */
+.index-reveal{display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows var(--dur-3) var(--ease-out)}
+.index-item:hover .index-reveal,.index-item:focus-within .index-reveal{grid-template-rows:1fr}
+.index-inner{overflow:hidden;min-height:0}
+.index-thumb{margin:0 0 var(--space-4);background:var(--bg-raised);overflow:hidden}
+.index-thumb img{width:100%;height:100%;object-fit:cover;
+  opacity:.55;transition:opacity var(--dur-3) var(--ease-out)}
+.index-item:hover .index-thumb img,
+.index-item:focus-within .index-thumb img{opacity:1}
+
+@media (max-width:63.99rem){
+  /* no hover on touch: the previews are simply present (U7 content parity) */
+  .index-reveal{grid-template-rows:1fr}
+  .index-thumb img{opacity:1}
+}
 
 .action{
   display:inline-block;text-decoration:none;color:var(--ink);
@@ -188,8 +228,10 @@ p{text-wrap:pretty}
     animation-duration:.001ms!important;animation-iteration-count:1!important;
     transition-duration:.001ms!important;
   }
-  .frame::after{transform:translateY(-101%)!important}
+  .frame,.frame.armed{opacity:1!important;transform:none!important;filter:none!important}
   [data-rise]{opacity:1!important;transform:none!important}
+  /* the accordion still opens — it just opens instantly */
+  .index-reveal{grid-template-rows:1fr!important}
 }
 
 /* -- layout: the mat system ----------------------------------------------- */
@@ -460,18 +502,60 @@ p{text-wrap:pretty}
   <div class="two-col">
     <div data-rise>
       <h2 class="label" style="margin:0 0 var(--space-6)">Also shipped</h2>
-      <a class="index-row" href="https://www.behance.net/gallery/218140327/Miller-Motor-Cars-Portal" rel="noopener">
-        <span class="name">Miller Motor Cars Portal</span><span class="label">Dealer group portal</span></a>
-      <a class="index-row" href="https://www.behance.net/gallery/217165691/iLUSSO-Hypercar-Inventory" rel="noopener">
-        <span class="name">iLusso Hypercar Inventory</span><span class="label">Inventory system</span></a>
-      <a class="index-row" href="https://www.behance.net/gallery/125156053/RIMAC-Central-Florida" rel="noopener">
-        <span class="name">Rimac Central Florida</span><span class="label">Marque dealer</span></a>
-      <a class="index-row" href="https://www.behance.net/gallery/128908527/Aston-Martin-Summit" rel="noopener">
-        <span class="name">Aston Martin Summit</span><span class="label">Marque dealer</span></a>
-      <a class="index-row" href="https://www.behance.net/gallery/217166933/Dallara-EXP" rel="noopener">
-        <span class="name">Dallara EXP</span><span class="label">Marque &amp; product</span></a>
-      <a class="index-row" href="https://www.behance.net/gallery/217164785/CZINGER-WEBSITE" rel="noopener">
-        <span class="name">Czinger</span><span class="label">Marque &amp; product</span></a>
+
+      <div class="index-item">
+        <a class="index-row" href="https://www.behance.net/gallery/218140327/Miller-Motor-Cars-Portal" rel="noopener">
+          <span class="name">Miller Motor Cars Portal</span><span class="label">Dealer group portal</span></a>
+        <div class="index-reveal"><div class="index-inner">
+          <figure class="index-thumb ar-band"><img src="assets/index/miller.webp" width="1200" height="514"
+            loading="lazy" alt="Miller Motor Cars Portal — page detail." /></figure>
+        </div></div>
+      </div>
+
+      <div class="index-item">
+        <a class="index-row" href="https://www.behance.net/gallery/217165691/iLUSSO-Hypercar-Inventory" rel="noopener">
+          <span class="name">iLusso Hypercar Inventory</span><span class="label">Inventory system</span></a>
+        <div class="index-reveal"><div class="index-inner">
+          <figure class="index-thumb ar-band"><img src="assets/index/ilusso.webp" width="1200" height="514"
+            loading="lazy" alt="iLusso Hypercar Inventory — listing detail." /></figure>
+        </div></div>
+      </div>
+
+      <div class="index-item">
+        <a class="index-row" href="https://www.behance.net/gallery/125156053/RIMAC-Central-Florida" rel="noopener">
+          <span class="name">Rimac Central Florida</span><span class="label">Marque dealer</span></a>
+        <div class="index-reveal"><div class="index-inner">
+          <figure class="index-thumb ar-band"><img src="assets/index/rimac.webp" width="1200" height="514"
+            loading="lazy" alt="Rimac Central Florida — page detail." /></figure>
+        </div></div>
+      </div>
+
+      <div class="index-item">
+        <a class="index-row" href="https://www.behance.net/gallery/128908527/Aston-Martin-Summit" rel="noopener">
+          <span class="name">Aston Martin Summit</span><span class="label">Marque dealer</span></a>
+        <div class="index-reveal"><div class="index-inner">
+          <figure class="index-thumb ar-band"><img src="assets/index/aston.webp" width="1200" height="514"
+            loading="lazy" alt="Aston Martin Summit — page detail." /></figure>
+        </div></div>
+      </div>
+
+      <div class="index-item">
+        <a class="index-row" href="https://www.behance.net/gallery/217166933/Dallara-EXP" rel="noopener">
+          <span class="name">Dallara EXP</span><span class="label">Marque &amp; product</span></a>
+        <div class="index-reveal"><div class="index-inner">
+          <figure class="index-thumb ar-band"><img src="assets/index/dallara.webp" width="1200" height="514"
+            loading="lazy" alt="Dallara EXP — page detail." /></figure>
+        </div></div>
+      </div>
+
+      <div class="index-item">
+        <a class="index-row" href="https://www.behance.net/gallery/217164785/CZINGER-WEBSITE" rel="noopener">
+          <span class="name">Czinger</span><span class="label">Marque &amp; product</span></a>
+        <div class="index-reveal"><div class="index-inner">
+          <figure class="index-thumb ar-band"><img src="assets/index/czinger.webp" width="1200" height="514"
+            loading="lazy" alt="Czinger — page detail." /></figure>
+        </div></div>
+      </div>
     </div>
     <div></div>
   </div>
@@ -526,24 +610,36 @@ p{text-wrap:pretty}
      failure or reduced-motion both leave a complete, composed page.
      (motion-taste I1, and immersive-authored-world INVARIANT COMPLIANCE.) */
   if (!allowMotion || !('IntersectionObserver' in window)) {
-    document.querySelectorAll('.frame').forEach(function(f){ f.classList.add('revealed'); });
     document.querySelectorAll('[data-rise]').forEach(function(e){ e.classList.add('in'); });
-    return;
+    return;   // .frame is never armed, so every image is simply present
   }
 
   /* EFFECT HIERARCHY — strict, and in this order:
      primary event -> supporting motion -> ambient motion -> interaction feedback
      At most ONE primary event at a time. */
 
-  // primary: the curtain lifting off a frame
+  // primary: each image rises out of blur. ONE AT A TIME — neighbours that
+  // enter the viewport together are stepped apart, so nothing arrives in pairs.
+  var frames = Array.prototype.slice.call(document.querySelectorAll('.frame'));
+  frames.forEach(function(f){ f.classList.add('armed'); });
+
+  var step = parseInt(getComputedStyle(document.documentElement)
+               .getPropertyValue('--rise-step'), 10) || 110;
+  var lastAt = 0;
+
   var frameIO = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if (!e.isIntersecting) return;
-      e.target.classList.add('revealed');
+    // top-down, so the stagger follows the reading order rather than DOM order
+    entries.filter(function(e){ return e.isIntersecting; })
+           .sort(function(a,b){ return a.boundingClientRect.top - b.boundingClientRect.top; })
+           .forEach(function(e){
+      var now = Date.now();
+      var wait = Math.max(0, lastAt + step - now);
+      lastAt = now + wait;
+      setTimeout(function(){ e.target.classList.add('revealed'); }, wait);
       frameIO.unobserve(e.target);
     });
-  }, { rootMargin: '0px 0px -18% 0px', threshold: 0.15 });
-  document.querySelectorAll('.frame').forEach(function(f){ frameIO.observe(f); });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.1 });
+  frames.forEach(function(f){ frameIO.observe(f); });
 
   // supporting: rail and plate arrive AFTER their frame, subordinate to it
   var riseIO = new IntersectionObserver(function(entries){
