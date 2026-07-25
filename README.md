@@ -1,9 +1,6 @@
-# gd_buro — portfolio, composition rehearsal (Phase B-COMP)
+# gd_buro — Alexander Sigoff, selected work
 
 Art-directed under [design_dna](https://github.com/Sigovs/design_dna).
-
-**This is a composition rehearsal, not a portfolio.** Every image is a stand-in
-and says so, in the frame. The layout is the deliverable; real case assets follow.
 
 ## View it
 
@@ -26,36 +23,38 @@ shown in its client's own art direction and the portfolio never puts a frame
 around it — the only furniture is a rail that sits in the same place on every
 case, so the eye stops seeing it and starts comparing the work.*
 
-## Why the stand-ins are honest
+## The six chapters
 
-They are real captures, so they carry real masses, tonal structure and edges —
-the composition pass can be **run**, not declared.
+| # | Case | Year | Sector | Frame mean L | Role in the page |
+|---|---|---|---|---|---|
+| 01 | Pagani Lake Forest | 2025 | Marque dealer | 30 | establishing shot, full bleed |
+| 02 | McLaren Orlando | 2025 | Marque dealer | 25 | the mat system |
+| 03 | Ferrari Official Dealer / US | 2022 | Marque dealer network | 57 | the mat system |
+| **04** | **MODA Miami / Sotheby's** | **2023** | **Concours & auction** | **88** | **the one disruption** |
+| 05 | Koenigsegg Boston | 2022 | Marque dealer | 58 | the mat system |
+| 06 | Porsche Restoration Services | 2021 | Restoration service | 16 | the close |
 
-- Sources: `design_dna/vault/shots/*` and `design_dna/screenshots/*`.
-- Crop windows are **chosen by scanning for tonal structure**, not guessed.
-- A generated asset is **rejected** if its luminance standard deviation falls
-  below 8 — that guard is what caught `electrafilmworks-com` (flat orange
-  preloader, sd 3.6) and `trionn-com` (near-black, sd 10.4 with no structure).
-- Every frame carries a scrimmed mono mark: `STAND-IN — AWAITING CASE ASSETS`,
-  plus its derivation source.
+**The tonal arc is not graded into existence.** In the earlier rehearsal build it
+was, because the assets were stand-ins. Here it comes from the *order* of the
+chapters on real material — 30, 25, 57, 88, 58, 16 — so the light peak on 04 is
+a fact about the work, not a filter. Nothing is desaturated or darkened: the
+ground is a gallery wall and the colour belongs to the cases.
 
-## Chapter rhythm
+**The disruption is three coordinated departures**, so the break reads as one
+decision rather than three accidents: the tonal value inverts, the paspartout
+collapses to full bleed, and the rail turns horizontal. It is also the only
+project that is not a dealer site, so the content carries the break too.
 
-Declared as data, not left to chance:
+Six further projects sit in a subordinate hairline index rather than being
+promoted into the chapter rhythm.
 
-| Chapter | Content | Tonal mean | Role |
-|---|---|---|---|
-| 01 | frame only, full bleed | 10.4 | establishing shot |
-| 02 | frame + band + portrait | 17.7 | the system |
-| 03 | frame + band + portrait | 22.6 | the system |
-| **04** | **wide frame + mobile, hard right** | **41.3** | **the one disruption** |
-| 05 | frame + band + portrait | 27.1 | the quietest chapter |
-| 06 | frame + band | 7.4 | the close |
+## Assets
 
-The disruption is **three coordinated departures**, so the break reads as one
-decision rather than three accidents: the tonal value inverts (04 is the only
-light chapter, and the grading was redone to make that true rather than
-asserted), the paspartout collapses, and the rail turns horizontal.
+Derived from the Behance **originals** (`/project_modules/source/`, 1920–3840px
+wide), never from the 1200px display copies — a full-bleed frame would otherwise
+have to be upscaled. Crops land only on the declared ratio tokens, and the
+derivation script reads the same token set the stylesheet does, so a frame can
+never be re-cropped on output. Total imagery: 1.4 MB across 14 files.
 
 ## Measured contrast (WCAG AA)
 
@@ -65,14 +64,14 @@ asserted), the paspartout collapses, and the rail turns horizontal.
 | ink-70 micro-label, 11px | 9.03:1 | 4.5 |
 | ink-58 case index, 11px | 6.16:1 | 4.5 |
 | action underline | 3.29:1 | 3 |
-| STAND-IN mark vs worst-case band, all 14 assets | 10.2–13.4:1 | 4.5 |
 
-The focus ring is ink with a 5px ground-coloured halo, so it is always measured
-against the page ground and holds over any frame, including the light one.
+No page text sits over imagery. The focus ring is ink with a 5px
+ground-coloured halo, so it is measured against the page ground and holds over
+any frame, including the light chapter.
 
-**No chromatic accent.** Every colour event on the page belongs to the work; the
-ground is a gallery wall. This is the named structural differentiation from the
-banned "navy + gold luxury" archetype.
+**No chromatic accent.** That is the named structural differentiation from the
+banned "navy + gold luxury" archetype: not a muted gold instead of gold, but no
+brand colour at all.
 
 ## Motion — effect hierarchy
 
@@ -80,29 +79,23 @@ banned "navy + gold luxury" archetype.
 primary event  →  supporting motion  →  ambient motion  →  interaction feedback
 ```
 
-- **Primary** — a curtain in the page's own ground lifts off each frame. One at a time.
-- **Supporting** — the rail and spec plate arrive after their frame, staggered.
-- **Ambient** — the image drifts 1.6% inside its own window, well under the 15% cap.
-- **Interaction** — 4px title shift and an index colour change; never suppressed.
+Curtain lifts off a frame (one at a time) → rail and plate follow → the image
+drifts 1.6% inside its window → 4px title shift on hover and focus. Transform
+and opacity only. Hidden states are applied **by script only when motion is
+allowed**, so reduced-motion and a JS failure both leave a complete, composed
+page rather than a gutted one.
 
-Transform and opacity only, no layout shift. Hidden states are applied **by
-script only when motion is allowed**, so reduced-motion and a JS failure both
-leave a complete, composed page rather than a gutted one.
+## Still open
 
-## Not verified yet
-
-The nine-point composition pass has **not been run in a browser** — chrome-devtools
-MCP is connected but its tools register at session start, so this session has no
-renderer. Deferred by explicit decision. Outstanding: grayscale and thumbnail
-survival, breakpoints 1440/1024/768/390, reduced-motion scene, keyboard order.
-
-## Placeholders
-
-All copy is bracketed and length-specified so the text masses are compositionally
-correct. No voice has been invented — headlines, paragraphs, name, and email are
-Alex's to write. Asset requirements per case are listed in the Phase A document.
-
-## Known compromise
-
-Tailwind was dropped; this is hand-written CSS with a token layer. Fonts still
-come from a CDN.
+- **The composition pass has not been run in a browser.** chrome-devtools MCP is
+  connected but its tools register at session start, so this session has no
+  renderer. Outstanding: grayscale and thumbnail survival, breakpoints
+  1440/1024/768/390, the reduced-motion scene, keyboard order.
+- **Copy.** The positioning line, the contact headline, the email and the
+  availability window are bracketed with target lengths so the text masses are
+  compositionally correct. No voice has been invented.
+- **Per-case scope.** Role is stated as what the source evidences — art
+  direction, web design, UI — and deliberately does not claim front-end build.
+  Confirm the real scope per case.
+- **Rights.** Client names are used as published on Behance. Confirm any that
+  need to be anonymised.
