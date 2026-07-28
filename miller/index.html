@@ -53,8 +53,18 @@
      wrong result — corporate blue. Colour is left to the photography.
    ======================================================================== */
 :root{
-  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem;
-  --s6:2rem;  --s8:4rem;  --s10:8rem;
+  /* The ramp had holes at s7 and s9, so it jumped 1.33x, 1.33x, then 2x, 2x.
+     Completed: the 4px scale end to end — 4 8 12 16 24 32 48 64 96 128 — which
+     alternates 1.5x and 1.33x with no gap. */
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem;  --s5:1.5rem;
+  --s6:2rem;   --s7:3rem;  --s8:4rem;   --s9:6rem;  --s10:8rem;
+
+  /* THE MEASURE. Content is bounded, backgrounds and photography are not.
+     --bleed is the distance from the content edge out to the viewport edge, so
+     anything that should leave the measure does it with one token rather than a
+     hand-written negative margin per element. */
+  --maxw:84rem;
+  --bleed:calc((100vw - min(100vw,var(--maxw))) / 2 + var(--pad));
 
   --bg:#0a0e12; --bg2:#11161d; --bg3:#1c232c; --edge:#29323d;
   --ink:#f2f4f6; --ink70:rgba(242,244,246,.70); --ink58:rgba(242,244,246,.58);
@@ -81,6 +91,7 @@ a{color:inherit}
 h1,h2,h3{margin:0;font-family:var(--serif);font-weight:700;line-height:1;
   letter-spacing:-.02em;text-wrap:balance}
 p{margin:0;text-wrap:pretty}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad);width:100%}
 .num{font-variant-numeric:tabular-nums}
 .measure{max-width:54ch;color:var(--ink70)}
 .lbl{font-size:var(--t-2xs);font-weight:600;letter-spacing:.14em;
@@ -103,16 +114,17 @@ p{margin:0;text-wrap:pretty}
 .btn--sm{padding:.5rem .85rem;font-size:var(--t-2xs)}
 
 /* ---------------------------------------------------------------- masthead */
-.util{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s5);
-  background:var(--bg2);padding:.4rem var(--pad);font-size:var(--t-2xs)}
+.util{background:var(--bg2);font-size:var(--t-2xs)}
+.util__in{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s5);
+  padding-block:.4rem}
 .util a{text-decoration:none;color:var(--ink58)}
 .util a:hover{color:var(--ink)}
 .util b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600}
 .util__sp{margin-left:auto}
 @media (max-width:47.99rem){ .util__sp{margin-left:0} }
 
-.bar{position:relative;z-index:20;display:flex;align-items:center;gap:var(--s5);
-  padding:var(--s4) var(--pad);border-bottom:1px solid var(--edge)}
+.bar{position:relative;z-index:20;border-bottom:1px solid var(--edge)}
+.bar__in{display:flex;align-items:center;gap:var(--s5);padding-block:var(--s4)}
 .brand img{width:clamp(9rem,14vw,12.5rem);height:auto}
 .bar nav{flex:1 1 auto;display:flex;justify-content:center}
 .bar nav ul{display:flex;flex-wrap:wrap;gap:var(--s5);list-style:none;margin:0;padding:0}
@@ -143,8 +155,8 @@ p{margin:0;text-wrap:pretty}
       rgba(10,14,18,.42) 52%,rgba(10,14,18,.06) 72%,rgba(10,14,18,0) 100%),
     linear-gradient(to top,rgba(10,14,18,.96) 0%,rgba(10,14,18,.72) 16%,
       rgba(10,14,18,0) 38%)}
-.hero__say{position:relative;z-index:2;padding:var(--s10) var(--pad) var(--s6);
-  max-width:min(46rem,86vw)}
+.hero__say{position:relative;z-index:2;padding-block:var(--s10) var(--s6)}
+.hero__say .wrap>*{max-width:min(46rem,100%)}
 .hero__say h1{font-size:var(--t-xl);line-height:.94;letter-spacing:-.03em}
 .hero__say h1 em{font-style:italic;color:var(--accent)}
 .hero__sub{margin-top:var(--s5);color:var(--ink70);font-size:var(--t-md);max-width:36ch}
@@ -152,8 +164,9 @@ p{margin:0;text-wrap:pretty}
 
 /* the routing layer, on the image. Grouped so no run of identical marks
    exceeds six, and every mark is a live external link. */
-.rail{position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);
-  padding:var(--s5) var(--pad) var(--s6);border-top:1px solid rgba(242,244,246,.16)}
+.rail{position:relative;z-index:2;border-top:1px solid rgba(242,244,246,.16)}
+.rail__in{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);
+  padding-block:var(--s5) var(--s6)}
 .rail__grp{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s5)}
 .rail__grp+.rail__grp{padding-left:var(--s6);border-left:1px solid rgba(242,244,246,.16)}
 .mk{display:flex;align-items:center;justify-content:center;height:2.6rem;
@@ -169,8 +182,8 @@ p{margin:0;text-wrap:pretty}
 /* ==========================================================================
    3 — THE FILTER. One drawn object with its own edge.
    ======================================================================= */
-.findwrap{padding:var(--s10) var(--pad) var(--s8)}
-.find{max-width:64rem;border:1px solid var(--edge);background:var(--bg2)}
+.findwrap{padding-block:var(--s10) var(--s9)}
+.find{border:1px solid var(--edge);background:var(--bg2)}
 .find__top{display:flex;flex-wrap:wrap;gap:var(--s5);align-items:baseline;
   justify-content:space-between;padding:var(--s5) var(--s5) 0}
 .find__top h2{font-size:var(--t-lg)}
@@ -207,13 +220,12 @@ p{margin:0;text-wrap:pretty}
 .find__count b{color:var(--ink);font-variant-numeric:tabular-nums}
 
 /* ---------------------------------------------------------- on the floor */
-/* the third section interval: only 64 and 128 were reaching the page */
-.floor{padding:var(--s6) 0 var(--s10)}
+.floor{padding-block:var(--s8) var(--s10)}
 .sec__head{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);align-items:baseline;
-  justify-content:space-between;padding-inline:var(--pad);margin-bottom:var(--s6)}
+  justify-content:space-between;margin-bottom:var(--s6)}
 .sec__head h2{font-size:var(--t-lg)}
 .row{position:relative;display:grid;gap:var(--s4);align-items:center;
-  border-top:1px solid var(--edge);padding:var(--s5) 0 var(--s5) var(--pad)}
+  border-top:1px solid var(--edge);padding-block:var(--s5)}
 .row:last-of-type{border-bottom:1px solid var(--edge)}
 @media (min-width:60rem){ .row{grid-template-columns:1fr 14rem 30%;padding-block:var(--s4);
   gap:var(--s6)} }
@@ -226,7 +238,7 @@ p{margin:0;text-wrap:pretty}
   margin-top:var(--s1)}
 .row__act{position:relative;z-index:2;display:flex;gap:var(--s2);flex-wrap:wrap}
 .row__img{aspect-ratio:16/9;overflow:hidden;background:var(--bg2);
-  margin-right:calc(var(--pad) * -1)}
+  margin-right:calc(var(--bleed) * -1)}
 @media (max-width:59.99rem){ .row__img{margin-right:0} }
 .row__img img{width:100%;height:100%;object-fit:cover}
 
@@ -234,7 +246,7 @@ p{margin:0;text-wrap:pretty}
    4 — INVENTORY INDEX. No nested scroll. The spread from 67 to 1 is the
    material, so each make carries a proportional bar.
    ======================================================================= */
-.detail{padding:var(--s8) var(--pad) var(--s10);border-top:1px solid var(--edge)}
+.detail{padding-block:var(--s9) var(--s10);border-top:1px solid var(--edge)}
 .detail__grid{display:grid;gap:var(--s8)}
 @media (min-width:64rem){ .detail__grid{grid-template-columns:23rem 1fr;gap:var(--s10)} }
 .makes__cap{margin:var(--s5) 0 var(--s3)}
@@ -265,9 +277,9 @@ p{margin:0;text-wrap:pretty}
 .detail__note{margin-top:var(--s4);font-size:var(--t-2xs);color:var(--ink58)}
 
 /* ------------------------------------------------------------------ sell */
-.split{display:grid;gap:var(--s8);padding:var(--s10) var(--pad);
-  border-top:1px solid var(--edge)}
-@media (min-width:60rem){ .split{grid-template-columns:6fr 5fr;gap:var(--s10)} }
+.split{border-top:1px solid var(--edge);padding-block:var(--s10)}
+.split__in{display:grid;gap:var(--s8)}
+@media (min-width:60rem){ .split__in{grid-template-columns:6fr 5fr;gap:var(--s10)} }
 .split h2{font-size:var(--t-lg)}
 .steps{display:grid;margin-top:var(--s6)}
 .step{display:grid;grid-template-columns:auto 1fr;gap:var(--s5);padding:var(--s5) 0;
@@ -277,7 +289,7 @@ p{margin:0;text-wrap:pretty}
 .step strong{display:block;font-weight:600;font-size:var(--t-sm)}
 .step span{display:block;margin-top:var(--s2);color:var(--ink70);font-size:var(--t-xs)}
 .sell__img{overflow:hidden;background:var(--bg2);aspect-ratio:4/3;
-  margin-right:calc(var(--pad) * -1)}
+  margin-right:calc(var(--bleed) * -1)}
 @media (max-width:59.99rem){ .sell__img{margin-right:0} }
 .sell__img img{width:100%;height:100%;object-fit:cover}
 
@@ -285,8 +297,8 @@ p{margin:0;text-wrap:pretty}
    5 — LEGACY AND SHOWROOMS, composed rather than stacked. The fifty-year
    figure carries display scale; the two showrooms are deliberately unequal.
    ======================================================================= */
-.legacy{position:relative;border-top:1px solid var(--edge);padding:var(--s10) 0 0}
-.legacy__grid{display:grid;gap:var(--s6);padding-inline:var(--pad)}
+.legacy{position:relative;border-top:1px solid var(--edge);padding-block:var(--s10) 0}
+.legacy__grid{display:grid;gap:var(--s6)}
 @media (min-width:64rem){ .legacy__grid{grid-template-columns:5fr 7fr;gap:var(--s10);
   align-items:end} }
 .legacy__fig{font-family:var(--serif);font-weight:700;font-size:var(--t-xl);
@@ -300,7 +312,7 @@ p{margin:0;text-wrap:pretty}
 
 .shops{display:grid;border-top:1px solid var(--edge)}
 @media (min-width:64rem){ .shops{grid-template-columns:7fr 5fr} }
-.shop{padding:var(--s8) var(--pad)}
+.shop{padding-block:var(--s9)}
 .shop+.shop{border-top:1px solid var(--edge)}
 @media (min-width:64rem){ .shop+.shop{border-top:0;border-left:1px solid var(--edge);
   background:var(--bg2)} }
@@ -314,7 +326,7 @@ p{margin:0;text-wrap:pretty}
 .shop__acts{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s5)}
 .shop__note{margin-top:var(--s4);font-size:var(--t-2xs);color:var(--ink58)}
 
-footer{padding:var(--s8) var(--pad) var(--s6);border-top:1px solid var(--edge)}
+footer{padding-block:var(--s9) var(--s8);border-top:1px solid var(--edge)}
 .fgrid{display:grid;gap:var(--s6)}
 @media (min-width:48rem){ .fgrid{grid-template-columns:1.6fr 1fr 1fr 1fr 1.2fr} }
 footer a{color:var(--ink70);text-decoration:none;font-size:var(--t-xs)}
@@ -342,13 +354,16 @@ footer a:hover{color:var(--accent)}
 <a href="#find" class="skip">Skip to inventory search</a>
 
 <div class="util">
+  <div class="wrap util__in">
   <a href="#shops">Roadside assistance</a>
   <a class="util__sp" href="tel:+18668232251">Sales <b class="num">866-823-2251</b></a>
   <a href="tel:+18668252561">Service &amp; parts <b class="num">866-825-2561</b></a>
   <a href="mailto:info@millermotorcars.com">Email us</a>
+  </div>
 </div>
 
 <header class="bar">
+  <div class="wrap bar__in">
   <a class="brand" href="#top"><img src="assets/logos/miller-wordmark.svg" width="287" height="59"
     alt="Miller Motorcars" /></a>
   <nav aria-label="Main">
@@ -369,6 +384,7 @@ footer a:hover{color:var(--accent)}
            stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
     </button>
   </form>
+  </div>
 </header>
 
 <main id="top">
@@ -381,6 +397,7 @@ footer a:hover{color:var(--accent)}
   </div>
 
   <div class="hero__say">
+    <div class="wrap">
     <h1 id="hero-h">Where luxury meets <em>legacy</em></h1>
     <p class="hero__sub">Seventeen marques under two Connecticut roofs, and
       <span class="num">357</span> cars on the floor. Fifty years on West Putnam.</p>
@@ -388,9 +405,11 @@ footer a:hover{color:var(--accent)}
       <a class="btn btn--fill" href="#find">Search the inventory</a>
       <a class="btn btn--line" href="tel:+18668232251">Call <span class="num">866-823-2251</span></a>
     </div>
+    </div>
   </div>
 
   <nav class="rail" aria-label="Marque showrooms">
+    <div class="wrap rail__in">
     <span class="rail__grp">
       <a class="mk" href="https://bugattiofgreenwich.com" rel="noopener" title="Bugatti"><img src="assets/logos/opt/bugatti.png" alt="Bugatti" /></a>
       <a class="mk" href="https://paganiofgreenwich.com" rel="noopener" title="Pagani"><img src="assets/logos/opt/pagani.png" alt="Pagani" /></a>
@@ -420,11 +439,13 @@ footer a:hover{color:var(--accent)}
       <a class="mk" href="https://store.millermotorcars.com" rel="noopener" title="Miller e-store"><img src="assets/logos/opt/store.png" alt="Miller e-store" /></a>
       <a class="mk" href="#legacy" title="Meet our team"><img src="assets/logos/opt/meet-our-team.png" alt="Meet our team" /></a>
     </span>
+    </div>
   </nav>
 </section>
 
 <!-- == 3 — THE FILTER, one drawn object ================================== -->
 <div class="findwrap">
+  <div class="wrap">
   <section class="find" id="find" aria-labelledby="find-h">
     <div class="find__top">
       <h2 id="find-h">Find your driving passion</h2>
@@ -459,10 +480,12 @@ footer a:hover{color:var(--accent)}
     <p class="find__count" id="find-count">Matching <b class="num">357</b> cars across
       <b class="num">22</b> makes.</p>
   </section>
+  </div>
 </div>
 
 <!-- == ON THE FLOOR ====================================================== -->
 <section class="floor" aria-labelledby="floor-h">
+  <div class="wrap">
   <div class="sec__head">
     <h2 id="floor-h">On the floor this week</h2>
     <a class="btn btn--line" href="#find">Search all <span class="num">357</span></a>
@@ -523,11 +546,13 @@ footer a:hover{color:var(--accent)}
     <div class="row__img"><img src="assets/car-rr-2-tight.webp" width="720" height="405"
       loading="lazy" alt="2027 Rolls-Royce Black Badge Cullinan in white." /></div>
   </article>
+  </div>
 </section>
 
 <!-- == 4 — INVENTORY INDEX, no nested scroll ============================= -->
 <section class="detail" id="detail" aria-labelledby="det-h">
-  <div class="sec__head" style="padding-inline:0">
+  <div class="wrap">
+  <div class="sec__head">
     <h2 id="det-h">Inventory in details</h2>
     <p class="lbl"><span class="num">86</span> model lines &middot; <span class="num">357</span> cars</p>
   </div>
@@ -582,10 +607,12 @@ footer a:hover{color:var(--accent)}
       <p class="detail__note" id="models-note">22 model lines, 47 cars</p>
     </div>
   </div>
+  </div>
 </section>
 
 <!-- == SELL ============================================================== -->
 <section class="split" id="sell" aria-labelledby="sell-h">
+  <div class="wrap split__in">
   <div>
     <h2 id="sell-h">Sell your car with confidence</h2>
     <p class="measure" style="margin-top:var(--s5)">
@@ -613,11 +640,12 @@ footer a:hover{color:var(--accent)}
   </div>
   <div class="sell__img"><img src="assets/sell.webp" width="548" height="411"
     loading="lazy" alt="Two supercars in the Miller Motorcars delivery bay." /></div>
+  </div>
 </section>
 
 <!-- == 5 — LEGACY, composed ============================================== -->
 <section class="legacy" id="legacy" aria-labelledby="leg-h">
-  <div class="legacy__grid">
+  <div class="wrap legacy__grid">
     <p class="legacy__fig num">50<span>years on West Putnam</span></p>
     <div>
       <h2 id="leg-h">Iconic brands, unmatched experiences, and a commitment to
@@ -641,6 +669,7 @@ footer a:hover{color:var(--accent)}
 <!-- == SHOWROOMS, deliberately unequal =================================== -->
 <section id="shops" aria-labelledby="shops-h">
   <h2 id="shops-h" class="vh">Two showrooms</h2>
+  <div class="wrap">
   <div class="shops">
     <div class="shop">
       <p class="lbl">Showroom</p>
@@ -679,11 +708,13 @@ footer a:hover{color:var(--accent)}
         opening hours on its homepage, so neither is stated here.</p>
     </div>
   </div>
+  </div>
 </section>
 
 </main>
 
 <footer>
+  <div class="wrap">
   <div class="fgrid">
     <div>
       <a class="brand" href="#top"><img src="assets/logos/miller-footer.svg" width="339" height="22"
@@ -762,6 +793,7 @@ footer a:hover{color:var(--accent)}
     <a href="#legacy">Sitemap</a>
     &nbsp;&mdash;&nbsp; Redesign study, not affiliated with Miller Motorcars.
   </p>
+  </div>
 </footer>
 
 <script>
