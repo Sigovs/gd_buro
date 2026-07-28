@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Miller Motorcars — Greenwich &amp; Westport, Connecticut</title>
+<meta name="description" content="Fifty years of Ferrari, Aston Martin, Bugatti, Rolls-Royce, McLaren, Pagani and Bentley in Greenwich, Connecticut. 326 cars in stock." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="assets/plate-bugatti.webp" fetchpriority="high" />
+
+<style>
+/* ===========================================================================
+   MILLER MOTORCARS — homepage redesign study.
+   Not affiliated with Miller Motorcars. Photography and inventory figures are
+   the dealer's own, captured from millermotorcars.com for this study.
+
+   DESIGN READ
+     Reading this as the homepage of a fifty-year multi-marque luxury dealer
+     whose real asset is holding Bugatti, Pagani and Koenigsegg at all, for a
+     buyer who already knows what those names cost.
+     Dialect: auction-editorial.
+     Dimensionality: SUPPORT — the photography carries depth by tonal recession
+     and full-bleed scale; one restrained scroll device, page complete without it.
+     Vault: 5 relevant references, 3 unusable for missing notes.
+
+   WHAT THE EXISTING PAGE DOES, measured before anything was drawn
+     147 leaf text nodes set in Roboto, and 16px occurs 111 times — a car name
+     (H2), its price (H3) and the $799 conveyance fee (H3) all share one rank.
+     That is typography I1 failing outright: rank cannot be read at all.
+     Twenty-one marque logos in identically sized tiles. Miller's actual asset
+     is scarcity — one Bugatti, one Pininfarina, three Pagani — and the tile
+     wall flattens it to the same weight as sixty-seven Aston Martins.
+     Six 1920x960 marque photographs stacked at one size: precisely the cadence
+     vault/rmsothebys-com is filed OUT for, with the same cause — exceptional
+     automotive assets inside a generic corporate-luxury CMS.
+
+   THE COMMITTED GESTURE (auction-editorial P4)
+     Scarcity ranks the marques. Every name is set at a size derived from how
+     many are actually in stock, so Bugatti at 1 is the largest thing on the
+     page and Aston Martin at 67 is the smallest. It inverts the logo wall using
+     the dealer's own numbers. One gesture; nothing else on the page competes.
+
+   PALETTE — derived, not chosen
+     A hue census of the six marque photographs: 66.7% of every saturated pixel
+     is blue, 55% of it in one 10-degree band at 210deg. The cars are shot
+     against sky. So the existing site's blue theme repeats the photographs' own
+     dominant hue, which is exactly why nothing separates — and blue is the one
+     hue this interface must not take.
+     Green does not appear at all: no band between 40deg and 190deg clears 1%.
+     Accent #1F4B3F therefore sits in a measured gap.
+     Ink #111112 is the photographs' own mean shadow tone (76,284 px sampled).
+
+   FIGURE-GROUND, and a hypothesis that measurement killed
+     The lower 12% of every marque frame averages #C3DDFB — pale sky. I expected
+     a light ground to meet it. It does, far too well: 1.15:1 of separation, so
+     the frames would dissolve into the page with no edge (C4). Every frame
+     therefore carries a hairline. Against a dark ground it would have been
+     13.47:1 — a hard bright edge needing a scrim. Neither ground is free.
+
+   DM3 budget, written before building: 60fps on integrated graphics; imagery
+     ceiling 1.2 MB, measured at 821 KB; transform and opacity only.
+   ======================================================================== */
+:root{
+  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2rem;
+  --s7:3rem; --s8:4rem; --s9:6rem; --s10:8rem; --s11:12rem;
+
+  --bg:#e7e7e4; --bg2:#f4f3f1; --ink:#111112;
+  /* Solved, not guessed: on this paper the minimum alpha meeting 4.5:1 for a
+     micro-label is .60 (4.57:1) and the minimum meeting 3:1 for a boundary is
+     .47 (3.10:1). My first pass used .55 and .42 and failed both. */
+  --ink70:rgba(17,17,18,.70); --ink60:rgba(17,17,18,.60);
+  --rule:rgba(17,17,18,.18); --rule2:rgba(17,17,18,.47);
+  /* The frames' bottom edge measures 1.13:1 against the paper — the sky
+     dissolves into the ground — so the frame border cannot be the faint rule. */
+  --rule-frame:rgba(17,17,18,.34);
+  --accent:#1f4b3f;
+
+  --font-display:"Bodoni Moda",Didot,"GFS Didot",Georgia,serif;
+  --font-body:"Instrument Sans",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+
+  --d1:.15s; --d2:.28s; --d3:.5s; --e:cubic-bezier(.22,1,.36,1);
+  --pad:clamp(1.25rem,5vw,5rem); --max:94rem;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+  font-size:clamp(.9375rem,.3vw+.9rem,1.0625rem);line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:var(--font-display);font-weight:400;
+  line-height:1;letter-spacing:-.015em;text-wrap:balance}
+p{text-wrap:pretty}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--pad)}
+.num{font-variant-numeric:tabular-nums}
+.measure{max-width:56ch;color:var(--ink70)}
+
+/* mono is the machine register (typography D3) — tracked and short (I4) */
+.kicker,.btn,.plate dt,.spec dt,.car__stock,.marque__label,.fig span{
+  font-family:var(--font-mono);font-size:.6875rem;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase}
+.kicker{color:var(--ink60);margin:0}
+:where(a,button,[tabindex]):focus-visible{
+  outline:2px solid var(--accent);outline-offset:3px}
+.skip{position:absolute;left:-9999px;top:var(--s3);z-index:99}
+.skip:focus{left:var(--pad)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;
+  padding:.9rem 1.6rem;text-decoration:none;border:1px solid transparent;
+  cursor:pointer;transition:background var(--d2) var(--e),
+  color var(--d2) var(--e),border-color var(--d2) var(--e)}
+.btn--solid{background:var(--accent);color:#fff}
+.btn--solid:hover{background:#163a30}
+.btn--line{border-color:var(--rule2);color:var(--ink)}
+.btn--line:hover{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+
+/* ---------------------------------------------------------------- masthead */
+.nav{position:sticky;top:0;z-index:50;background:rgba(231,231,228,.94);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;
+  gap:var(--s5);padding-block:var(--s4)}
+.brand{text-decoration:none;font-family:var(--font-display);font-size:1.125rem;
+  letter-spacing:.02em;line-height:1}
+.brand span{display:block;font-family:var(--font-mono);font-size:.625rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--ink60);margin-top:5px}
+.nav ul{display:flex;gap:var(--s6);list-style:none;margin:0;padding:0}
+.nav ul a{font-size:.875rem;text-decoration:none;color:var(--ink70)}
+.nav ul a:hover{color:var(--ink)}
+@media (max-width:63.99rem){ .nav ul{display:none} }
+
+/* =========================================================================
+   FRAMES. The hairline is not decoration: the lower 12% of every marque
+   photograph measures #C3DDFB against a #E7E7E4 ground — 1.15:1, so without
+   an edge the frame has no boundary at all (C4).
+   ====================================================================== */
+.frame{position:relative;overflow:hidden;background:#dcdcd8;
+  border:1px solid var(--rule-frame)}
+.frame img{width:100%;height:100%;object-fit:cover}
+.bleed{border-inline:0}
+
+/* ------------------------------------------------------------------- hero */
+.hero{padding-top:var(--s7)}
+.hero__claim{display:grid;gap:var(--s6);align-items:end;padding-block:var(--s7) var(--s8)}
+@media (min-width:60rem){ .hero__claim{grid-template-columns:8fr 4fr;gap:var(--s9)} }
+.hero h1{font-size:clamp(2.5rem,6.4vw,5.75rem);letter-spacing:-.025em;line-height:.98}
+.hero h1 em{font-style:italic}
+.hero__side{display:flex;flex-direction:column;gap:var(--s4)}
+.hero__acts{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s2)}
+
+/* =========================================================================
+   THE ROSTER — the committed gesture. Name size is a function of how many are
+   in stock, so the page's largest word is the marque there is one of.
+   ====================================================================== */
+.roster{padding-block:var(--s8) var(--s7);border-top:1px solid var(--rule2)}
+.roster__head{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);
+  align-items:baseline;justify-content:space-between;margin-bottom:var(--s7)}
+.marque{display:grid;grid-template-columns:1fr auto;align-items:baseline;
+  gap:var(--s4) var(--s5);padding-block:var(--s4);text-decoration:none;
+  border-top:1px solid var(--rule);transition:color var(--d2) var(--e)}
+.marque:first-of-type{border-top:0}
+.marque:hover,.marque:focus-visible{color:var(--accent)}
+.marque__name{font-family:var(--font-display);font-weight:400;line-height:.94;
+  letter-spacing:-.02em;
+  /* --m is the scarcity factor, 1.0 at a single car down to 0.50 at 67 */
+  font-size:calc(var(--m) * clamp(2.25rem,7vw,6.25rem))}
+.marque:hover .marque__name{font-style:italic}
+.marque__meta{display:flex;align-items:baseline;gap:var(--s3);white-space:nowrap}
+.marque__count{font-family:var(--font-display);font-size:clamp(1.25rem,2vw,2rem);
+  font-variant-numeric:tabular-nums}
+.marque__label{color:var(--ink60)}
+/* C12 — the governing idea has to be re-established, not merely stacked. At
+   390px the desktop range resolves to 36px down to 18px, which drops the
+   largest marques below body size and kills the gesture outright. So the size
+   range compresses and the count takes over part of the job, scaling with
+   scarcity itself — 26px at one car down to 21px at sixty-seven.
+   A third carrier, modulating the rule weight per row, was built and removed:
+   calc(1px + var(--m)*1.5px) lands on sub-pixel widths that round to 0, 1 and
+   2 in no useful order, so it read as noise rather than as rank. */
+@media (max-width:47.99rem){
+  .marque__name{font-size:calc((.60 + var(--m) * .40) * clamp(2rem,11vw,3.25rem))}
+  .marque__count{font-size:calc((.70 + var(--m) * .50) * 1.375rem)}
+  .marque__meta{flex-direction:column;align-items:flex-end;gap:2px}
+}
+.roster__foot{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);
+  justify-content:space-between;align-items:baseline;
+  border-top:1px solid var(--rule2);padding-top:var(--s5);margin-top:var(--s2)}
+
+/* the plate closes a group of marques so the roster reads in movements */
+.plate{margin-block:var(--s8)}
+.plate figcaption{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);
+  justify-content:space-between;align-items:baseline;
+  padding-top:var(--s3);color:var(--ink60)}
+.plate figcaption b{font-family:var(--font-display);font-weight:400;
+  font-size:1.125rem;color:var(--ink)}
+
+/* -------------------------------------------------------------- inventory */
+.inv{padding-block:var(--s8);border-top:1px solid var(--rule2)}
+.inv__grid{display:grid;gap:var(--s6) var(--s5);grid-template-columns:1fr;
+  margin-top:var(--s7)}
+@media (min-width:40rem){ .inv__grid{grid-template-columns:repeat(2,1fr)} }
+@media (min-width:66rem){ .inv__grid{grid-template-columns:repeat(4,1fr)} }
+.car{position:relative;display:flex;flex-direction:column}
+.car .frame{aspect-ratio:16/9}
+.car__name{font-family:var(--font-display);font-size:1.125rem;line-height:1.15;
+  margin-top:var(--s4)}
+.car__name a{text-decoration:none}
+.car__name a::after{content:"";position:absolute;inset:0}
+/* the price outranks the fee by three steps — on the live site both are H3 */
+.car__price{font-family:var(--font-display);font-size:clamp(1.5rem,2.2vw,2rem);
+  font-variant-numeric:tabular-nums;margin-top:var(--s3)}
+.car__fee{font-size:.8125rem;color:var(--ink60);margin:var(--s1) 0 0;
+  font-variant-numeric:tabular-nums}
+.car__stock{color:var(--ink60);margin-top:var(--s3)}
+.car__act{margin-top:var(--s4);position:relative;z-index:2}
+
+/* ------------------------------------------------- spec plate (D4), no box */
+.spec{display:grid;grid-template-columns:auto 1fr;column-gap:var(--s5);
+  row-gap:0;margin:var(--s6) 0 0}
+.spec dt{padding-block:var(--s4);border-top:1px solid var(--rule);
+  color:var(--accent);font-variant-numeric:tabular-nums}
+.spec dd{margin:0;padding-block:var(--s4);border-top:1px solid var(--rule)}
+.spec dd b{display:block;font-weight:600;font-size:.9375rem}
+.spec dd span{display:block;margin-top:2px;font-size:.875rem;color:var(--ink70)}
+
+.band{padding-block:var(--s8);border-top:1px solid var(--rule2)}
+.band__grid{display:grid;gap:var(--s7)}
+@media (min-width:60rem){
+  .band--sell .band__grid{grid-template-columns:6fr 5fr;gap:var(--s9)}
+  .band--about .band__grid{grid-template-columns:6fr 5fr;gap:var(--s9);align-items:end}
+  .band--visit .band__grid{grid-template-columns:repeat(2,1fr);gap:var(--s8)}
+}
+.h-lg{font-size:clamp(2rem,4.2vw,3.5rem);letter-spacing:-.02em;line-height:1}
+.h-lg em{font-style:italic}
+.h-md{font-size:clamp(1.375rem,2.2vw,2rem)}
+
+/* the figures are the About section's dominant — facts as the argument */
+.figures{display:grid;grid-template-columns:repeat(2,1fr);
+  border-top:1px solid var(--rule2);margin-top:var(--s7)}
+@media (min-width:52rem){ .figures{grid-template-columns:repeat(4,1fr)} }
+.fig{padding:var(--s6) var(--s5) var(--s7) 0;border-bottom:1px solid var(--rule)}
+@media (min-width:52rem){ .fig{border-bottom:0;border-right:1px solid var(--rule)}
+  .fig:last-child{border-right:0} }
+.fig b{display:block;font-family:var(--font-display);font-weight:400;
+  font-size:clamp(2.5rem,5.5vw,4.5rem);line-height:.9;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums}
+.fig span{display:block;margin-top:var(--s4);color:var(--ink60)}
+
+.shop h3{font-size:1.5rem}
+.shop dl{display:grid;grid-template-columns:auto 1fr;gap:0 var(--s5);margin:var(--s5) 0 0}
+.shop dt{padding-block:var(--s3);border-top:1px solid var(--rule);
+  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink60)}
+.shop dd{margin:0;padding-block:var(--s3);border-top:1px solid var(--rule);
+  text-align:right;font-variant-numeric:tabular-nums}
+
+footer{border-top:1px solid var(--rule2);padding-block:var(--s8) var(--s6);
+  margin-top:var(--s8)}
+.fgrid{display:grid;gap:var(--s6)}
+@media (min-width:48rem){ .fgrid{grid-template-columns:2fr 1fr 1fr 1fr} }
+footer a{display:block;color:var(--ink70);text-decoration:none;padding-block:3px;
+  font-size:.9375rem}
+footer a:hover{color:var(--ink)}
+/* the live page carries four columns of check-fraud statute on the homepage.
+   It is a legal obligation, not a homepage section: it keeps its words and
+   loses its rank. */
+.legal{margin-top:var(--s7);border-top:1px solid var(--rule);padding-top:var(--s5)}
+.legal summary{cursor:pointer;color:var(--ink60);font-family:var(--font-mono);
+  font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase}
+.legal p{max-width:78ch;font-size:.8125rem;color:var(--ink60);margin:var(--s4) 0 0}
+
+/* =========================================================================
+   The one motion device (SUPPORT). Frames rise a short distance as they
+   arrive. Travel is small, it runs once, and nothing loops anywhere near a
+   reading zone (DM9). With JS off or reduced motion requested, everything is
+   simply already in place — which is the authored still, not a stopped
+   animation (DM4).
+   ====================================================================== */
+.motion .rise{opacity:0;transform:translate3d(0,14px,0);
+  transition:opacity var(--d3) var(--e),transform var(--d3) var(--e)}
+.motion .rise.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .motion .rise{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{transition-duration:.001ms!important}
+}
+</style>
+</head>
+
+<body>
+<a href="#roster" class="skip btn btn--line">Skip to the marques</a>
+
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top">Miller Motorcars<span>Greenwich &amp; Westport &middot; Since 1976</span></a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#roster">Marques</a></li>
+        <li><a href="#inventory">Inventory</a></li>
+        <li><a href="#sell">Sell your car</a></li>
+        <li><a href="#visit">Visit</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--solid" href="tel:+14752605150">475&#8209;260&#8209;5150</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- == HERO — the photograph, then the claim on the paper beneath it. No copy
+        sits over the image at all, so there is no scrim and no per-frame
+        contrast problem to solve (DM5). -->
+<section class="hero">
+  <div class="wrap">
+    <figure class="frame rise" style="margin:0;aspect-ratio:21/9">
+      <img src="assets/plate-bugatti.webp" width="1920" height="823" fetchpriority="high"
+           alt="A Bugatti photographed outside the Miller Motorcars showroom in Greenwich." />
+    </figure>
+    <div class="hero__claim">
+      <h1>Fifty years of the cars most dealers <em>never</em> see.</h1>
+      <div class="hero__side">
+        <p class="kicker">In stock today</p>
+        <p style="margin:0;color:var(--ink70)">
+          One Bugatti. One Pininfarina. Three Pagani. And three hundred and
+          twenty-two other reasons to drive to Greenwich.
+        </p>
+        <div class="hero__acts">
+          <a class="btn btn--solid" href="#roster">See the marques</a>
+          <a class="btn btn--line" href="#inventory">New arrivals</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- == THE ROSTER ========================================================
+     Ranked by scarcity, sized by scarcity. The counts are the dealer's own.
+     This is the page's one committed gesture. -->
+<section class="roster wrap" id="roster" aria-labelledby="roster-h">
+  <div class="roster__head">
+    <div>
+      <p class="kicker">The roster</p>
+      <h2 class="h-lg" id="roster-h" style="margin-top:var(--s4)">
+        Ranked by how <em>few</em> there are.</h2>
+    </div>
+    <p class="measure" style="max-width:34ch;margin:0">
+      Every franchise Miller holds, ordered by what is actually on the floor —
+      not alphabetically, and not by how large the sign is.
+    </p>
+  </div>
+
+  <div class="rise">
+    <a class="marque" href="#inventory" style="--m:1.00">
+      <span class="marque__name">Bugatti</span>
+      <span class="marque__meta"><span class="marque__count num">1</span>
+        <span class="marque__label">in stock</span></span></a>
+    <a class="marque" href="#inventory" style="--m:1.00">
+      <span class="marque__name">Pininfarina</span>
+      <span class="marque__meta"><span class="marque__count num">1</span>
+        <span class="marque__label">in stock</span></span></a>
+    <a class="marque" href="#inventory" style="--m:.92">
+      <span class="marque__name">Pagani</span>
+      <span class="marque__meta"><span class="marque__count num">3</span>
+        <span class="marque__label">in stock</span></span></a>
+  </div>
+</section>
+
+<figure class="plate wrap rise" style="margin-inline:auto">
+  <div class="frame" style="aspect-ratio:21/9">
+    <img src="assets/plate-pagani.webp" width="1920" height="823" loading="lazy"
+         alt="A Pagani photographed outside the Miller Motorcars showroom." />
+  </div>
+  <figcaption><b>Pagani</b><span class="kicker">Three in stock &middot; Greenwich</span></figcaption>
+</figure>
+
+<section class="roster wrap" style="border-top:0;padding-top:0" aria-label="Marques, continued">
+  <div class="rise">
+    <a class="marque" href="#inventory" style="--m:.72">
+      <span class="marque__name">Rolls-Royce</span>
+      <span class="marque__meta"><span class="marque__count num">26</span>
+        <span class="marque__label">in stock</span></span></a>
+    <a class="marque" href="#inventory" style="--m:.68">
+      <span class="marque__name">Alfa Romeo</span>
+      <span class="marque__meta"><span class="marque__count num">31</span>
+        <span class="marque__label">in stock</span></span></a>
+    <a class="marque" href="#inventory" style="--m:.66">
+      <span class="marque__name">McLaren</span>
+      <span class="marque__meta"><span class="marque__count num">35</span>
+        <span class="marque__label">in stock</span></span></a>
+    <a class="marque" href="#inventory" style="--m:.60">
+      <span class="marque__name">Ferrari</span>
+      <span class="marque__meta"><span class="marque__count num">47</span>
+        <span class="marque__label">in stock</span></span></a>
+  </div>
+</section>
+
+<figure class="plate wrap rise" style="margin-inline:auto">
+  <div class="frame" style="aspect-ratio:21/9">
+    <img src="assets/plate-ferrari.webp" width="1920" height="823" loading="lazy"
+         alt="A Ferrari photographed outside the Miller Motorcars showroom." />
+  </div>
+  <figcaption><b>Ferrari</b><span class="kicker">Forty-seven in stock &middot; Greenwich</span></figcaption>
+</figure>
+
+<section class="roster wrap" style="border-top:0;padding-top:0" aria-label="Marques, continued">
+  <div class="rise">
+    <a class="marque" href="#inventory" style="--m:.58">
+      <span class="marque__name">Maserati</span>
+      <span class="marque__meta"><span class="marque__count num">51</span>
+        <span class="marque__label">in stock</span></span></a>
+    <a class="marque" href="#inventory" style="--m:.52">
+      <span class="marque__name">Bentley</span>
+      <span class="marque__meta"><span class="marque__count num">64</span>
+        <span class="marque__label">in stock</span></span></a>
+    <a class="marque" href="#inventory" style="--m:.50">
+      <span class="marque__name">Aston Martin</span>
+      <span class="marque__meta"><span class="marque__count num">67</span>
+        <span class="marque__label">in stock</span></span></a>
+  </div>
+  <div class="roster__foot">
+    <p class="kicker" style="margin:0">Also represented &middot; Czinger &middot; Koenigsegg &middot; McMurtry &middot; Rimac &middot; Superformance</p>
+    <p class="kicker" style="margin:0"><span class="num">326</span> cars across two showrooms</p>
+  </div>
+</section>
+
+<!-- == INVENTORY ==========================================================
+     Real cars, real figures. The live page sets the price and the $799
+     conveyance fee at the same rank; here the price is display-scale and the
+     fee is a footnote, which is what it is. -->
+<section class="inv wrap" id="inventory" aria-labelledby="inv-h">
+  <div class="roster__head" style="margin-bottom:0">
+    <div>
+      <p class="kicker">New arrivals</p>
+      <h2 class="h-lg" id="inv-h" style="margin-top:var(--s4)">On the floor this week.</h2>
+    </div>
+    <a class="btn btn--line" href="#roster">All <span class="num">326</span> cars</a>
+  </div>
+
+  <div class="inv__grid">
+    <article class="car rise">
+      <div class="frame"><img src="assets/car-mclaren-1.webp" width="600" height="338"
+        loading="lazy" alt="2027 McLaren 750S Spider in teal." /></div>
+      <h3 class="car__name"><a href="#visit">2027 McLaren 750S Spider</a></h3>
+      <p class="car__price num">$461,010</p>
+      <p class="car__fee num">+ $799 conveyance &middot; $461,809 total</p>
+      <p class="car__stock num">25 mi &middot; Stock MC707</p>
+      <a class="btn btn--line car__act" href="#visit">Enquire</a>
+    </article>
+
+    <article class="car rise">
+      <div class="frame"><img src="assets/car-mclaren-2.webp" width="594" height="334"
+        loading="lazy" alt="2027 McLaren 750S Spider in silver." /></div>
+      <h3 class="car__name"><a href="#visit">2027 McLaren 750S Spider</a></h3>
+      <p class="car__price num">$433,250</p>
+      <p class="car__fee num">+ $799 conveyance &middot; $434,049 total</p>
+      <p class="car__stock num">25 mi &middot; Stock 010579</p>
+      <a class="btn btn--line car__act" href="#visit">Enquire</a>
+    </article>
+
+    <article class="car rise">
+      <div class="frame"><img src="assets/car-rr-1.webp" width="599" height="337"
+        loading="lazy" alt="2027 Rolls-Royce Black Badge Cullinan." /></div>
+      <h3 class="car__name"><a href="#visit">2027 Rolls-Royce Black Badge Cullinan</a></h3>
+      <p class="car__price num">$576,350</p>
+      <p class="car__fee num">+ $799 conveyance &middot; $577,149 total</p>
+      <p class="car__stock num">25 mi &middot; Stock R818</p>
+      <a class="btn btn--line car__act" href="#visit">Enquire</a>
+    </article>
+
+    <article class="car rise">
+      <div class="frame"><img src="assets/car-rr-2.webp" width="594" height="334"
+        loading="lazy" alt="2027 Rolls-Royce Black Badge Cullinan in white." /></div>
+      <h3 class="car__name"><a href="#visit">2027 Rolls-Royce Black Badge Cullinan</a></h3>
+      <p class="car__price num">$588,050</p>
+      <p class="car__fee num">+ $799 conveyance &middot; $588,849 total</p>
+      <p class="car__stock num">25 mi &middot; Stock H6&#8209;1040097</p>
+      <a class="btn btn--line car__act" href="#visit">Enquire</a>
+    </article>
+  </div>
+</section>
+
+<!-- == SELL ============================================================== -->
+<section class="band band--sell wrap" id="sell" aria-labelledby="sell-h">
+  <div class="band__grid">
+    <div>
+      <p class="kicker">Sell or consign</p>
+      <h2 class="h-lg" id="sell-h" style="margin-top:var(--s4)">
+        An exclusive selling experience for <em>discerning</em> owners.</h2>
+      <p class="measure" style="margin-top:var(--s5)">
+        Miller understands that selling a luxury or exotic vehicle requires a
+        refined approach. As curators of the world's most prestigious
+        automobiles, we offer a seamless, discreet and highly professional
+        consignment service.
+      </p>
+      <dl class="spec">
+        <dt>01</dt><dd><b>Expert evaluation</b>
+          <span>Our specialists assess condition, history and market value.</span></dd>
+        <dt>02</dt><dd><b>A competitive offer</b>
+          <span>A market-driven figure that reflects the car's true value.</span></dd>
+        <dt>03</dt><dd><b>Seamless transaction</b>
+          <span>Negotiation to paperwork, handled end to end.</span></dd>
+      </dl>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s6)">
+        <a class="btn btn--solid" href="#visit">Start selling</a>
+        <a class="btn btn--line" href="tel:+14752605150">Speak to a specialist</a>
+      </div>
+    </div>
+    <figure class="frame rise" style="margin:0;aspect-ratio:4/3">
+      <img src="assets/sell.webp" width="548" height="411" loading="lazy"
+           alt="Two supercars in the Miller Motorcars delivery bay." />
+    </figure>
+  </div>
+</section>
+
+<!-- == SINCE 1976 ========================================================
+     The figures are the dominant: the facts are the argument. -->
+<section class="band band--about wrap" id="about" aria-labelledby="about-h">
+  <div class="band__grid">
+    <div>
+      <p class="kicker">Since 1976</p>
+      <h2 class="h-lg" id="about-h" style="margin-top:var(--s4);max-width:15ch">
+        Where luxury meets <em>legacy</em>.</h2>
+    </div>
+    <p class="measure">
+      Iconic brands, unmatched experience and a commitment to excellence since
+      1976. Whether you are buying a specialty motorcar or entrusting us with
+      servicing one you already own, the team is the same one that has been on
+      West Putnam Avenue for five decades.
+    </p>
+  </div>
+  <div class="figures">
+    <div class="fig"><b>50</b><span>years on West Putnam</span></div>
+    <div class="fig"><b>15</b><span>marques represented</span></div>
+    <div class="fig"><b>326</b><span>cars in stock</span></div>
+    <div class="fig"><b>2</b><span>Connecticut showrooms</span></div>
+  </div>
+</section>
+
+<!-- == VISIT ============================================================= -->
+<section class="band band--visit wrap" id="visit" aria-labelledby="visit-h">
+  <p class="kicker">Visit</p>
+  <h2 class="h-lg" id="visit-h" style="margin:var(--s4) 0 var(--s7)">Two showrooms, thirty minutes apart.</h2>
+  <div class="band__grid">
+    <div class="shop">
+      <h3>Greenwich</h3>
+      <dl>
+        <dt>Address</dt><dd>342 West Putnam Ave, CT 06830</dd>
+        <dt>Sales</dt><dd>475-260-5150</dd>
+        <dt>Mon&ndash;Fri</dt><dd>9:00 &ndash; 18:00</dd>
+        <dt>Saturday</dt><dd>9:00 &ndash; 17:00</dd>
+        <dt>Sunday</dt><dd>Closed</dd>
+      </dl>
+      <div style="display:flex;gap:var(--s3);margin-top:var(--s5)">
+        <a class="btn btn--solid" href="#visit">Book a viewing</a>
+      </div>
+    </div>
+    <div class="shop">
+      <h3>Westport</h3>
+      <dl>
+        <dt>Address</dt><dd>Post Road East, CT 06880</dd>
+        <dt>Sales</dt><dd>475-260-5150</dd>
+        <dt>Mon&ndash;Fri</dt><dd>9:00 &ndash; 18:00</dd>
+        <dt>Saturday</dt><dd>9:00 &ndash; 17:00</dd>
+        <dt>Sunday</dt><dd>Closed</dd>
+      </dl>
+      <div style="display:flex;gap:var(--s3);margin-top:var(--s5)">
+        <a class="btn btn--line" href="#visit">Book a viewing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="#top">Miller Motorcars<span>Greenwich &amp; Westport &middot; Since 1976</span></a>
+        <p style="color:var(--ink60);font-size:.9375rem;margin-top:var(--s4)">
+          342 West Putnam Avenue, Greenwich, CT 06830</p>
+      </div>
+      <div><p class="kicker" style="margin-bottom:var(--s3)">Inventory</p>
+        <a href="#inventory">New</a><a href="#inventory">Pre-owned</a>
+        <a href="#inventory">Certified</a><a href="#inventory">Classics</a></div>
+      <div><p class="kicker" style="margin-bottom:var(--s3)">Services</p>
+        <a href="#sell">Sell or consign</a><a href="#sell">Leasing &amp; financing</a>
+        <a href="#visit">Service &amp; parts</a><a href="#visit">Car storage</a></div>
+      <div><p class="kicker" style="margin-bottom:var(--s3)">Company</p>
+        <a href="#about">About</a><a href="#visit">Visit</a>
+        <a href="#visit">Roadside assistance</a><a href="#visit">Careers</a></div>
+    </div>
+
+    <details class="legal">
+      <summary>Pricing, disclosures and Connecticut check notices</summary>
+      <p>Images, prices and options shown, including vehicle colour, trim, options,
+        pricing and other specifications, are subject to availability, incentive
+        offerings, current pricing and credit worthiness. The advertised price does
+        not include sales tax, vehicle registration fees, other fees required by law,
+        finance charges and any documentation charges.</p>
+      <p>If a person writes a check without sufficient funds in an associated account
+        to cover it, the check will bounce, or be returned for insufficient funds.
+        Such state has laws regulating how merchants may respond to bounced checks.
+        In Connecticut, the merchant may file a civil suit and press criminal charges
+        if the check writer does not reimburse them for a bounced check after the
+        merchant has sent several notices regarding the matter.</p>
+      <p>Merchants and other business owners who accept checks must post a notice
+        where customers are likely to see it warning them of the potential
+        consequences of writing bad checks. The notice must include the civil
+        penalties that bad check writers may also face criminal penalties.</p>
+    </details>
+
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;
+                gap:var(--s3);margin-top:var(--s7);padding-top:var(--s5);
+                border-top:1px solid var(--rule)">
+      <p class="kicker" style="margin:0">Redesign study &middot; not affiliated with Miller Motorcars</p>
+      <p class="kicker" style="margin:0">&copy; <span class="num">2026</span></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* SUPPORT-tier motion only. The class is added by script, so with JS off the
+     page is simply already in place — the authored still is the default state,
+     not a stopped animation (DM4, DM1). */
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(!('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('motion');
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{rootMargin:'0px 0px -12% 0px',threshold:.06});
+  [].slice.call(document.querySelectorAll('.rise')).forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>
