@@ -3,711 +3,543 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Miller Motorcars | Luxury Dealership in Greenwich and Westport, CT</title>
-<meta name="description" content="Where luxury meets legacy. Ferrari, Aston Martin, Bugatti, Rolls-Royce, McLaren, Pagani, Bentley and more in Greenwich, Connecticut since 1976." />
+<title>Miller Motorcars — Greenwich, Connecticut. Since 1976.</title>
+<meta name="description" content="An independent house for the world's most significant motorcars. Ferrari, Bugatti, Pagani, Rolls-Royce, Bentley, Aston Martin, McLaren, Maserati and classics. Greenwich, Connecticut, since 1976." />
 <link rel="stylesheet" href="assets/fonts.css" />
+<link rel="stylesheet" href="assets/home.css" />
 <link rel="preload" as="image" href="assets/brands/hero.webp" fetchpriority="high" />
-
-<style>
-/* ===========================================================================
-   MILLER MOTORCARS — surface pass. Structure, content and section order are
-   unchanged. Not affiliated with Miller Motorcars; logos, photography, counts
-   and copy are Miller's own.
-
-   MANDATE  REDESIGN.
-   CARRIED  the 21-marque routing layer with real logos and real external
-            domains · Miller's navy at 213deg · the wordmark · "Where luxury
-            meets legacy" · since 1976 · the 22-make / 86-model index, both
-            sides summing to 357 · both showrooms · phone-forward contact.
-   TASK     route to a marque site; search by make and model; browse the floor
-            with price and stock; act on one car; sell or consign; visit either
-            showroom.
-   MEANS    hero routing rail (21 live external links) · the filter object
-            (tabs, make, model, year, submit) · four priced rows with stock
-            numbers · tel and mailto on every row · the three-step consignment
-            block · two showroom blocks with directions and phone.
-            C14: none of these may be removed by a compositional decision.
-
-   C13 — the dominant is the SUBJECT. The first screen is the car, full bleed.
-   The routing rail serves it and sits under it; it never takes its place.
-
-   SURFACE DECISIONS
-   1 Hero is a photograph at 100svh, edge to edge. Pagani was chosen by
-     measurement: of the eight frames it has the darkest usable band (p90 0.221
-     across the middle) so type can sit on the picture. The scrim is
-     directional — a wedge from the left plus a foot for the rail — never a
-     flat wash, and contrast is measured on the real text boxes.
-   2 Every mark is cropped and scaled individually to equal INK AREA, not to a
-     common box: equal boxes are what made Pininfarina a sliver and Superleggera
-     a speck. De Tomaso and Gordon Murray keep their own colour, because their
-     artwork is a filled panel and painting it white produced a solid block.
-   3 The filter is one drawn object with its own edge, not fields across a band.
-   4 The inventory index has no nested scroll. The spread from 67 down to 1 is
-     the material: each make carries a proportional bar.
-   5 Legacy and the showrooms are composed asymmetrically, and the fifty-year
-     figure is set at display scale.
-   6 Display is Source Serif 4 — Miller's own wordmark is a roman serif, and a
-     serif reads as a fifty-year house rather than as a sports brand. Both faces
-     are self-hosted; the handoff forbids a CDN.
-     The accent is a warm near-neutral. #4A7DB8 was a sound derivation and a
-     wrong result — corporate blue. Colour is left to the photography.
-   ======================================================================== */
-:root{
-  /* The ramp had holes at s7 and s9, so it jumped 1.33x, 1.33x, then 2x, 2x.
-     Completed: the 4px scale end to end — 4 8 12 16 24 32 48 64 96 128 — which
-     alternates 1.5x and 1.33x with no gap. */
-  --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem;  --s5:1.5rem;
-  --s6:2rem;   --s7:3rem;  --s8:4rem;   --s9:6rem;  --s10:8rem;
-
-  /* THE MEASURE. Content is bounded, backgrounds and photography are not.
-     --bleed is the distance from the content edge out to the viewport edge, so
-     anything that should leave the measure does it with one token rather than a
-     hand-written negative margin per element. */
-  --maxw:84rem;
-  --bleed:calc((100vw - min(100vw,var(--maxw))) / 2 + var(--pad));
-
-  --bg:#0a0e12; --bg2:#11161d; --bg3:#1c232c; --edge:#29323d;
-  --ink:#f2f4f6; --ink70:rgba(242,244,246,.70); --ink58:rgba(242,244,246,.58);
-  --accent:#d9d2c4;                       /* warm near-neutral, not a blue */
-  --accent-dim:#a79f90;
-
-  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
-  --sans:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-
-  --t-xl:clamp(3rem,7.6vw,7rem);
-  --t-lg:clamp(1.5rem,2.4vw,2.25rem);
-  --t-md:1.25rem; --t-sm:1rem; --t-xs:.875rem; --t-2xs:.75rem;
-
-  --d2:.28s; --e:cubic-bezier(.22,1,.36,1);
-  --pad:clamp(1rem,3vw,3rem);
-}
-*,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-html,body{overflow-x:clip}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
-  font-size:var(--t-sm);line-height:1.5;-webkit-font-smoothing:antialiased}
-img,svg{display:block;max-width:100%}
-a{color:inherit}
-h1,h2,h3{margin:0;font-family:var(--serif);font-weight:700;line-height:1;
-  letter-spacing:-.02em;text-wrap:balance}
-p{margin:0;text-wrap:pretty}
-.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad);width:100%}
-.num{font-variant-numeric:tabular-nums}
-.measure{max-width:54ch;color:var(--ink70)}
-.lbl{font-size:var(--t-2xs);font-weight:600;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--ink58)}
-:where(a,button,input,select,[tabindex]):focus-visible{
-  outline:3px solid var(--accent);outline-offset:2px}
-.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.skip{position:absolute;left:-9999px;top:0;z-index:99;background:var(--accent);
-  color:var(--bg);padding:.75rem 1rem}
-.skip:focus{left:0}
-
-.btn{display:inline-flex;align-items:center;gap:var(--s2);padding:.8rem 1.25rem;
-  font-size:var(--t-xs);font-weight:600;text-decoration:none;border:1px solid transparent;
-  cursor:pointer;background:none;color:inherit;
-  transition:background var(--d2) var(--e),color var(--d2) var(--e),border-color var(--d2) var(--e)}
-.btn--fill{background:var(--accent);color:var(--bg)}
-.btn--fill:hover{background:#efe9dd}
-.btn--line{border-color:var(--edge);color:var(--ink)}
-.btn--line:hover{border-color:var(--accent);color:var(--accent)}
-.btn--sm{padding:.5rem .85rem;font-size:var(--t-2xs)}
-
-/* ---------------------------------------------------------------- masthead */
-.util{background:var(--bg2);font-size:var(--t-2xs)}
-.util__in{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3) var(--s5);
-  padding-block:.4rem}
-.util a{text-decoration:none;color:var(--ink58)}
-.util a:hover{color:var(--ink)}
-.util b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600}
-.util__sp{margin-left:auto}
-@media (max-width:47.99rem){ .util__sp{margin-left:0} }
-
-.bar{position:relative;z-index:20;border-bottom:1px solid var(--edge)}
-.bar__in{display:flex;align-items:center;gap:var(--s5);padding-block:var(--s4)}
-.brand img{width:clamp(9rem,14vw,12.5rem);height:auto}
-.bar nav{flex:1 1 auto;display:flex;justify-content:center}
-.bar nav ul{display:flex;flex-wrap:wrap;gap:var(--s5);list-style:none;margin:0;padding:0}
-.bar nav a{font-size:var(--t-xs);text-decoration:none;color:var(--ink70);white-space:nowrap}
-.bar nav a:hover{color:var(--accent)}
-.hunt{display:flex;flex:0 0 auto;border:1px solid var(--edge)}
-.hunt input{border:0;background:transparent;padding:.5rem .7rem;font:inherit;
-  font-size:var(--t-xs);color:inherit;width:9.5rem;min-width:0}
-.hunt input::placeholder{color:var(--ink58)}
-.hunt button{border:0;border-left:1px solid var(--edge);background:transparent;
-  padding:.5rem .8rem;cursor:pointer;color:var(--ink70)}
-.hunt button:hover{background:var(--accent);color:var(--bg)}
-@media (max-width:79.99rem){ .bar nav{display:none} }
-@media (max-width:37.49rem){ .hunt{display:none} }
-
-/* ==========================================================================
-   1 — HERO. The car is the dominant (C13). Full bleed, 100svh, no container.
-   ======================================================================= */
-.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;
-  justify-content:flex-end;overflow:hidden;background:var(--bg2)}
-.hero__img{position:absolute;inset:0;z-index:0}
-.hero__img img{width:100%;height:100%;object-fit:cover;object-position:58% 45%}
-/* directional: a wedge from the left for the type, a foot for the rail.
-   Never a flat wash — the picture keeps its right side untouched. */
-.hero__img::after{content:"";position:absolute;inset:0;
-  background:
-    linear-gradient(100deg,rgba(10,14,18,.95) 0%,rgba(10,14,18,.88) 26%,
-      rgba(10,14,18,.42) 52%,rgba(10,14,18,.06) 72%,rgba(10,14,18,0) 100%),
-    linear-gradient(to top,rgba(10,14,18,.96) 0%,rgba(10,14,18,.72) 16%,
-      rgba(10,14,18,0) 38%)}
-.hero__say{position:relative;z-index:2;padding-block:var(--s10) var(--s6)}
-.hero__say .wrap>*{max-width:min(46rem,100%)}
-.hero__say h1{font-size:var(--t-xl);line-height:.94;letter-spacing:-.03em}
-.hero__say h1 em{font-style:italic;color:var(--accent)}
-.hero__sub{margin-top:var(--s5);color:var(--ink70);font-size:var(--t-md);max-width:36ch}
-.hero__acts{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s6)}
-
-/* the routing layer, on the image. Grouped so no run of identical marks
-   exceeds six, and every mark is a live external link. */
-.rail{position:relative;z-index:2;border-top:1px solid rgba(242,244,246,.16)}
-.rail__in{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);
-  padding-block:var(--s5) var(--s6)}
-.rail__grp{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s5)}
-.rail__grp+.rail__grp{padding-left:var(--s6);border-left:1px solid rgba(242,244,246,.16)}
-.mk{display:flex;align-items:center;justify-content:center;height:2.6rem;
-  width:5.4rem;text-decoration:none;opacity:.72;transition:opacity var(--d2) var(--e)}
-.mk:hover,.mk:focus-visible{opacity:1}
-.mk img{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain}
-@media (max-width:63.99rem){
-  .rail{gap:var(--s4)}
-  .rail__grp+.rail__grp{padding-left:0;border-left:0}
-  .mk{width:4.2rem;height:2.1rem}
-}
-
-/* ==========================================================================
-   3 — THE FILTER. One drawn object with its own edge.
-   ======================================================================= */
-.findwrap{padding-block:var(--s10) var(--s9)}
-.find{border:1px solid var(--edge);background:var(--bg2)}
-.find__top{display:flex;flex-wrap:wrap;gap:var(--s5);align-items:baseline;
-  justify-content:space-between;padding:var(--s5) var(--s5) 0}
-.find__top h2{font-size:var(--t-lg)}
-.tabs{display:flex;flex-wrap:wrap;gap:var(--s4);padding:var(--s4) var(--s5) 0}
-.tab{border:0;background:none;cursor:pointer;padding:0 0 var(--s3);font:inherit;
-  font-size:var(--t-2xs);font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--ink58);border-bottom:2px solid transparent}
-.tab:hover{color:var(--ink)}
-.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
-.finder{display:grid;border-top:1px solid var(--edge)}
-@media (min-width:48rem){ .finder{grid-template-columns:1fr 1fr .9fr auto} }
-.field{padding:var(--s4) var(--s5);border-top:1px solid var(--edge)}
-@media (min-width:48rem){ .field{border-top:0;border-left:1px solid var(--edge)}
-  .field:first-child{border-left:0} }
-.field label{display:block;font-size:var(--t-2xs);font-weight:600;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--ink58);margin-bottom:var(--s2)}
-.field select,.field input{width:100%;border:0;background:transparent;font:inherit;
-  font-size:var(--t-sm);font-weight:600;color:var(--ink);padding:0;
-  font-variant-numeric:tabular-nums}
-.field select{-webkit-appearance:none;appearance:none;
-  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),
-    linear-gradient(135deg,currentColor 50%,transparent 50%);
-  background-position:calc(100% - 9px) calc(50% + 1px),calc(100% - 4px) calc(50% + 1px);
-  background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:1.4rem}
-.field select option{background:var(--bg2);color:var(--ink)}
-.years{display:flex;gap:var(--s3)}
-.find__go{display:flex;align-items:stretch}
-.find__go button{width:100%;border:0;background:var(--accent);color:var(--bg);
-  font:inherit;font-size:var(--t-xs);font-weight:700;letter-spacing:.06em;
-  padding:var(--s4) var(--s6);cursor:pointer}
-.find__go button:hover{background:#efe9dd}
-.find__count{padding:var(--s4) var(--s5);border-top:1px solid var(--edge);
-  font-size:var(--t-xs);color:var(--ink58)}
-.find__count b{color:var(--ink);font-variant-numeric:tabular-nums}
-
-/* ---------------------------------------------------------- on the floor */
-.floor{padding-block:var(--s8) var(--s10)}
-.sec__head{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);align-items:baseline;
-  justify-content:space-between;margin-bottom:var(--s6)}
-.sec__head h2{font-size:var(--t-lg)}
-.row{position:relative;display:grid;gap:var(--s4);align-items:center;
-  border-top:1px solid var(--edge);padding-block:var(--s5)}
-.row:last-of-type{border-bottom:1px solid var(--edge)}
-@media (min-width:60rem){ .row{grid-template-columns:1fr 14rem 30%;padding-block:var(--s4);
-  gap:var(--s6)} }
-.row__price{font-family:var(--serif);font-weight:700;font-size:var(--t-lg);
-  letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums;order:-1}
-.row__name{font-size:var(--t-sm);font-weight:600}
-.row__name a{text-decoration:none}
-.row__name a::after{content:"";position:absolute;inset:0}
-.row__meta{font-size:var(--t-2xs);color:var(--ink58);font-variant-numeric:tabular-nums;
-  margin-top:var(--s1)}
-.row__act{position:relative;z-index:2;display:flex;gap:var(--s2);flex-wrap:wrap}
-.row__img{aspect-ratio:16/9;overflow:hidden;background:var(--bg2);
-  margin-right:calc(var(--bleed) * -1)}
-@media (max-width:59.99rem){ .row__img{margin-right:0} }
-.row__img img{width:100%;height:100%;object-fit:cover}
-
-/* ==========================================================================
-   4 — INVENTORY INDEX. No nested scroll. The spread from 67 to 1 is the
-   material, so each make carries a proportional bar.
-   ======================================================================= */
-.detail{padding-block:var(--s9) var(--s10);border-top:1px solid var(--edge)}
-.detail__grid{display:grid;gap:var(--s8)}
-@media (min-width:64rem){ .detail__grid{grid-template-columns:23rem 1fr;gap:var(--s10)} }
-.makes__cap{margin:var(--s5) 0 var(--s3)}
-.makes__cap:first-child{margin-top:0}
-.mk-row{display:grid;grid-template-columns:1fr auto;gap:2px var(--s4);width:100%;
-  border:0;background:none;cursor:pointer;font:inherit;text-align:left;
-  color:var(--ink70);padding:var(--s2) 0}
-.mk-row:hover{color:var(--ink)}
-.mk-row[aria-selected="true"]{color:var(--accent)}
-.mk-row__n{font-size:var(--t-xs);font-weight:600}
-.mk-row__c{font-size:var(--t-xs);font-variant-numeric:tabular-nums}
-.mk-row__bar{grid-column:1/-1;height:3px;background:var(--bg3)}
-.mk-row__bar i{display:block;height:100%;background:var(--accent-dim)}
-.mk-row[aria-selected="true"] .mk-row__bar i{background:var(--accent)}
-
-.models{display:grid;gap:2px;grid-template-columns:repeat(2,1fr);align-content:start}
-@media (min-width:48rem){ .models{grid-template-columns:repeat(3,1fr)} }
-.model{display:flex;justify-content:space-between;gap:var(--s3);align-items:baseline;
-  background:var(--bg2);padding:.7rem .85rem;text-decoration:none;font-size:var(--t-xs);
-  color:var(--ink70);transition:background var(--d2) var(--e)}
-.model:hover{background:var(--bg3);color:var(--ink)}
-.model b{font-family:var(--serif);font-weight:700;font-variant-numeric:tabular-nums;
-  color:var(--ink);font-size:var(--t-md)}
-.models__tail{margin-top:var(--s5);font-size:var(--t-xs);color:var(--ink58);line-height:1.7}
-.models__tail a{color:var(--ink70);text-decoration:none;
-  border-bottom:1px solid rgba(242,244,246,.2)}
-.models__tail a:hover{color:var(--accent);border-bottom-color:var(--accent)}
-.detail__note{margin-top:var(--s4);font-size:var(--t-2xs);color:var(--ink58)}
-
-/* ------------------------------------------------------------------ sell */
-.split{border-top:1px solid var(--edge);padding-block:var(--s10)}
-.split__in{display:grid;gap:var(--s8)}
-@media (min-width:60rem){ .split__in{grid-template-columns:6fr 5fr;gap:var(--s10)} }
-.split h2{font-size:var(--t-lg)}
-.steps{display:grid;margin-top:var(--s6)}
-.step{display:grid;grid-template-columns:auto 1fr;gap:var(--s5);padding:var(--s5) 0;
-  border-top:1px solid var(--edge)}
-.step b{font-family:var(--serif);font-weight:700;font-size:var(--t-md);
-  color:var(--accent);font-variant-numeric:tabular-nums;line-height:1}
-.step strong{display:block;font-weight:600;font-size:var(--t-sm)}
-.step span{display:block;margin-top:var(--s2);color:var(--ink70);font-size:var(--t-xs)}
-.sell__img{overflow:hidden;background:var(--bg2);aspect-ratio:4/3;
-  margin-right:calc(var(--bleed) * -1)}
-@media (max-width:59.99rem){ .sell__img{margin-right:0} }
-.sell__img img{width:100%;height:100%;object-fit:cover}
-
-/* ==========================================================================
-   5 — LEGACY AND SHOWROOMS, composed rather than stacked. The fifty-year
-   figure carries display scale; the two showrooms are deliberately unequal.
-   ======================================================================= */
-.legacy{position:relative;border-top:1px solid var(--edge);padding-block:var(--s10) 0}
-.legacy__grid{display:grid;gap:var(--s6)}
-@media (min-width:64rem){ .legacy__grid{grid-template-columns:5fr 7fr;gap:var(--s10);
-  align-items:end} }
-.legacy__fig{font-family:var(--serif);font-weight:700;font-size:var(--t-xl);
-  line-height:.82;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.legacy__fig span{display:block;font-family:var(--sans);font-size:var(--t-2xs);
-  font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink58);
-  margin-top:var(--s4)}
-.legacy h2{font-size:var(--t-lg);max-width:20ch}
-.legacy__band{margin-top:var(--s8);aspect-ratio:21/9;overflow:hidden;background:var(--bg2)}
-.legacy__band img{width:100%;height:100%;object-fit:cover;object-position:50% 42%}
-
-.shops{display:grid;border-top:1px solid var(--edge)}
-@media (min-width:64rem){ .shops{grid-template-columns:7fr 5fr} }
-.shop{padding-block:var(--s9)}
-.shop+.shop{border-top:1px solid var(--edge)}
-@media (min-width:64rem){ .shop+.shop{border-top:0;border-left:1px solid var(--edge);
-  background:var(--bg2)} }
-.shop h3{font-size:var(--t-lg)}
-.shop--minor h3{font-size:var(--t-md)}
-.shop address{font-style:normal;margin-top:var(--s4);color:var(--ink70)}
-.shop__marques{margin-top:var(--s5);font-size:var(--t-xs);color:var(--ink58);line-height:1.8}
-.shop__marques a{color:var(--ink70);text-decoration:none;
-  border-bottom:1px solid rgba(242,244,246,.22)}
-.shop__marques a:hover{color:var(--accent);border-bottom-color:var(--accent)}
-.shop__acts{display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s5)}
-.shop__note{margin-top:var(--s4);font-size:var(--t-2xs);color:var(--ink58)}
-
-footer{padding-block:var(--s9) var(--s8);border-top:1px solid var(--edge)}
-.fgrid{display:grid;gap:var(--s6)}
-@media (min-width:48rem){ .fgrid{grid-template-columns:1.6fr 1fr 1fr 1fr 1.2fr} }
-footer a{color:var(--ink70);text-decoration:none;font-size:var(--t-xs)}
-footer nav a{display:block;padding-block:3px}
-footer a:hover{color:var(--accent)}
-.fh{font-size:var(--t-2xs);color:var(--ink58);letter-spacing:.14em;text-transform:uppercase;
-  font-weight:600;margin-bottom:var(--s3)}
-.legal{margin-top:var(--s6);border-top:1px solid var(--bg3);padding-top:var(--s5)}
-.legal summary{cursor:pointer;color:var(--ink58);font-size:var(--t-2xs);
-  letter-spacing:.14em;text-transform:uppercase;font-weight:600}
-.legal p{max-width:80ch;font-size:var(--t-2xs);color:var(--ink58);margin-top:var(--s4)}
-.social{display:flex;gap:var(--s4);margin-top:var(--s5)}
-.social a{color:var(--ink58)}
-.social a:hover{color:var(--accent)}
-.social svg{width:18px;height:18px;fill:currentColor}
-
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{transition-duration:.001ms!important}
-}
-</style>
 </head>
-
 <body>
-<a href="#find" class="skip">Skip to inventory search</a>
+<a class="skip t-cta" href="#collection">Skip to the collection</a>
 
-<div class="util">
-  <div class="wrap util__in">
-  <a href="#shops">Roadside assistance</a>
-  <a class="util__sp" href="tel:+18668232251">Sales <b class="num">866-823-2251</b></a>
-  <a href="tel:+18668252561">Service &amp; parts <b class="num">866-825-2561</b></a>
-  <a href="mailto:info@millermotorcars.com">Email us</a>
-  </div>
-</div>
-
-<header class="bar">
-  <div class="wrap bar__in">
-  <a class="brand" href="#top"><img src="assets/logos/miller-wordmark.svg" width="287" height="59"
-    alt="Miller Motorcars" /></a>
-  <nav aria-label="Main">
-    <ul>
-      <li><a href="#find">Inventory</a></li>
-      <li><a href="https://millermotorcarsclassics.com" rel="noopener">Classics</a></li>
-      <li><a href="#sell">Leasing &amp; financing</a></li>
-      <li><a href="#shops">Service &amp; storage</a></li>
-      <li><a href="https://store.millermotorcars.com" rel="noopener">Parts &amp; merch</a></li>
-      <li><a href="#legacy">Company</a></li>
-    </ul>
-  </nav>
-  <form class="hunt" role="search" onsubmit="return false">
-    <label for="kw" class="vh">Search by keyword</label>
-    <input id="kw" type="search" placeholder="Search by keyword" />
-    <button type="submit" aria-label="Search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-    </button>
-  </form>
+<!-- ============================================================ 01 HEADER -->
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="hdr__mark" href="#top" aria-label="Miller Motorcars, home">
+      <img src="assets/logos/miller-wordmark.svg" width="287" height="59" alt="Miller Motorcars" /></a>
+    <nav aria-label="Primary">
+      <ul class="t-nav">
+        <li><a href="#collection">Inventory</a></li>
+        <li><a href="#marques">Marques</a></li>
+        <li><a href="https://millermotorcarsclassics.com" rel="noopener">Classics</a></li>
+        <li><a href="#sell">Sell Your Car</a></li>
+        <li><a href="#ownership">Ownership</a></li>
+        <li><a href="#fifty">About</a></li>
+      </ul>
+    </nav>
+    <div class="hdr__util t-nav">
+      <a class="u-hide" href="#collection">Search</a>
+      <a class="u-hide" href="#greenwich">Locations</a>
+      <a href="#greenwich">Contact</a>
+    </div>
   </div>
 </header>
 
 <main id="top">
 
-<!-- == 1 — HERO. The subject is the car; the rail routes. ================ -->
+<!-- ============================================================== 02 HERO -->
 <section class="hero" aria-labelledby="hero-h">
   <div class="hero__img">
     <img src="assets/brands/hero.webp" width="2400" height="1349" fetchpriority="high"
-         alt="A Pagani Huayra in bare carbon, in the Miller Motorcars showroom." />
+      alt="A Pagani Huayra in bare carbon inside the Miller Motorcars showroom." />
   </div>
-
-  <div class="hero__say">
-    <div class="wrap">
-    <h1 id="hero-h">Where luxury meets <em>legacy</em></h1>
-    <p class="hero__sub">Seventeen marques under two Connecticut roofs, and
-      <span class="num">357</span> cars on the floor. Fifty years on West Putnam.</p>
-    <div class="hero__acts">
-      <a class="btn btn--fill" href="#find">Search the inventory</a>
-      <a class="btn btn--line" href="tel:+18668232251">Call <span class="num">866-823-2251</span></a>
-    </div>
+  <div class="wrap hero__in">
+    <div class="hero__cluster">
+      <p class="t-eyebrow">Miller Motorcars</p>
+      <h1 class="t-display" id="hero-h">Fifty years<br />in motion.</h1>
+      <p class="t-lead">An independent house for the world's most significant
+        motorcars. Greenwich, Connecticut — since <span class="t-spec">1976</span>.</p>
+      <div class="hero__acts">
+        <a class="btn btn--sig" href="#collection">Explore Inventory</a>
+        <a class="btn" href="#fifty">Discover Miller Motorcars</a>
+      </div>
     </div>
   </div>
-
-  <nav class="rail" aria-label="Marque showrooms">
-    <div class="wrap rail__in">
-    <span class="rail__grp">
-      <a class="mk" href="https://bugattiofgreenwich.com" rel="noopener" title="Bugatti"><img src="assets/logos/opt/bugatti.png" alt="Bugatti" /></a>
-      <a class="mk" href="https://paganiofgreenwich.com" rel="noopener" title="Pagani"><img src="assets/logos/opt/pagani.png" alt="Pagani" /></a>
-      <a class="mk" href="https://automobili-pininfarina.com" rel="noopener" title="Pininfarina"><img src="assets/logos/opt/pininfarina.png" alt="Pininfarina" /></a>
-      <a class="mk" href="https://rimac-automobili.com" rel="noopener" title="Rimac"><img src="assets/logos/opt/rimac.png" alt="Rimac" /></a>
-      <a class="mk" href="https://mcmurtrygreenwich.com" rel="noopener" title="McMurtry"><img src="assets/logos/opt/mcmurtry.png" alt="McMurtry" /></a>
-      <a class="mk" href="https://gordonmurrayautomotive.com" rel="noopener" title="Gordon Murray"><img src="assets/logos/opt/gordon-murray.png" alt="Gordon Murray" /></a>
-    </span>
-    <span class="rail__grp">
-      <a class="mk" href="https://ferrariofgreenwich.com" rel="noopener" title="Ferrari"><img src="assets/logos/opt/ferrari.png" alt="Ferrari" /></a>
-      <a class="mk" href="https://astonmartinofgreenwich.com" rel="noopener" title="Aston Martin"><img src="assets/logos/opt/aston-martin.png" alt="Aston Martin" /></a>
-      <a class="mk" href="https://bentleyofgreenwich.com" rel="noopener" title="Bentley"><img src="assets/logos/opt/bentley.png" alt="Bentley" /></a>
-      <a class="mk" href="https://maseratiofgreenwich.com" rel="noopener" title="Maserati"><img src="assets/logos/opt/maserati.png" alt="Maserati" /></a>
-      <a class="mk" href="https://mclarenofgreenwich.com" rel="noopener" title="McLaren"><img src="assets/logos/opt/mclaren.png" alt="McLaren" /></a>
-      <a class="mk" href="https://rollsroyceofgreenwich.com" rel="noopener" title="Rolls-Royce"><img src="assets/logos/opt/rolls-royce.png" alt="Rolls-Royce" /></a>
-    </span>
-    <span class="rail__grp">
-      <a class="mk" href="https://alfaromeoofgreenwich.com" rel="noopener" title="Alfa Romeo"><img src="assets/logos/opt/alfa-romeo.png" alt="Alfa Romeo" /></a>
-      <a class="mk" href="https://czingergreenwich.com" rel="noopener" title="Czinger"><img src="assets/logos/opt/czinger.png" alt="Czinger" /></a>
-      <a class="mk" href="https://detomaso-automobiliusa.com" rel="noopener" title="De Tomaso"><img src="assets/logos/opt/de-tomaso.png" alt="De Tomaso" /></a>
-      <a class="mk" href="https://hedleystudios.millermotorcars.com" rel="noopener" title="Hedley Studios"><img src="assets/logos/opt/hedley.png" alt="Hedley Studios" /></a>
-      <a class="mk" href="https://touringsuperleggera.eu" rel="noopener" title="Touring Superleggera"><img src="assets/logos/opt/superleggera.png" alt="Touring Superleggera" /></a>
-    </span>
-    <span class="rail__grp">
-      <a class="mk" href="https://millermotorcarsclassics.com" rel="noopener" title="Classics"><img src="assets/logos/opt/classics.png" alt="Classics" /></a>
-      <a class="mk" href="#find" title="Luxury pre-owned"><img src="assets/logos/opt/luxury-pre-owned.png" alt="Luxury pre-owned" /></a>
-      <a class="mk" href="https://store.millermotorcars.com" rel="noopener" title="Miller e-store"><img src="assets/logos/opt/store.png" alt="Miller e-store" /></a>
-      <a class="mk" href="#legacy" title="Meet our team"><img src="assets/logos/opt/meet-our-team.png" alt="Meet our team" /></a>
-    </span>
-    </div>
-  </nav>
 </section>
 
-<!-- == 3 — THE FILTER, one drawn object ================================== -->
-<div class="findwrap">
+<!-- =================================================== 03 PRIMARY ACTIONS -->
+<section class="acts" aria-label="Where to begin">
+  <div class="wrap acts__in">
+    <a class="act" href="#collection">
+      <span class="act__n">New<br />Inventory</span>
+      <span class="act__c"><b>127</b><span class="t-meta">cars, factory-authorised</span></span></a>
+    <a class="act" href="#collection">
+      <span class="act__n">Pre-Owned<br />&amp; Certified</span>
+      <span class="act__c"><b>230</b><span class="t-meta">cars, curated</span></span></a>
+    <a class="act" href="https://millermotorcarsclassics.com" rel="noopener">
+      <span class="act__n">Classics</span>
+      <span class="act__c t-meta">Provenance and collector cars</span></a>
+    <a class="act" href="#sell">
+      <span class="act__n">Sell<br />Your Car</span>
+      <span class="act__c t-meta">Purchase or consignment</span></a>
+    <a class="act" href="#ownership">
+      <span class="act__n">Schedule<br />Service</span>
+      <span class="act__c t-meta">Factory-authorised workshop</span></a>
+  </div>
+</section>
+
+<!-- ====================================================== 04 MARQUE INDEX
+     The signature. Selecting a marque rewrites the composition — crop, focus,
+     pace, tracking, air and scale — while the Miller frame holds. Every row is
+     a real button, and every marque links to its own house. -->
+<section class="index" id="marques" aria-labelledby="marques-h" data-register="ferrari">
   <div class="wrap">
-  <section class="find" id="find" aria-labelledby="find-h">
-    <div class="find__top">
-      <h2 id="find-h">Find your driving passion</h2>
-      <p class="lbl"><span class="num">22</span> makes &middot; <span class="num">86</span> models</p>
-    </div>
-    <div class="tabs" role="tablist" aria-label="Inventory type">
-      <button class="tab" role="tab" aria-selected="true">All</button>
-      <button class="tab" role="tab" aria-selected="false">New</button>
-      <button class="tab" role="tab" aria-selected="false">Pre-owned</button>
-      <button class="tab" role="tab" aria-selected="false">Certified</button>
-      <button class="tab" role="tab" aria-selected="false">Classics</button>
-    </div>
-    <form class="finder" onsubmit="return false">
-      <div class="field">
-        <label for="f-make">Make</label>
-        <select id="f-make"><option value="">All makes</option></select>
+    <p class="t-eyebrow">The marques</p>
+    <h2 class="t-h1" id="marques-h" style="margin-top:var(--s4);max-width:18ch">
+      One house. Many automotive worlds.</h2>
+
+    <div class="index__grid" style="margin-top:var(--s8)">
+      <div class="index__list" id="marque-index" role="tablist" aria-label="Choose a marque">
+
+        <p class="mq__cap t-eyebrow">Deepest in the house</p>
+        <button class="mq" role="tab" aria-selected="true" data-register="ferrari"
+          data-name="Ferrari" data-count="47" data-href="https://ferrariofgreenwich.com"
+          data-img="assets/brands/ferrari.webp" data-alt="A Ferrari outside the Greenwich showroom."
+          data-line="Factory-authorised, and the marque the house is best known for. The crop tightens and the page holds its tension.">
+          <span class="mq__n">Ferrari</span><span class="mq__c">47</span>
+          <span class="mq__mark"><img src="assets/logos/opt/ferrari.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="aston-martin"
+          data-name="Aston Martin" data-count="67" data-href="https://astonmartinofgreenwich.com"
+          data-img="assets/brands/cell-aston-martin.webp" data-alt="An Aston Martin by the water."
+          data-line="The deepest holding in the house. Architectural restraint, grand touring, and the widest choice on the floor.">
+          <span class="mq__n">Aston Martin</span><span class="mq__c">67</span>
+          <span class="mq__mark"><img src="assets/logos/opt/aston-martin.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="bentley"
+          data-name="Bentley" data-count="64" data-href="https://bentleyofgreenwich.com"
+          data-img="assets/brands/cell-bentley.webp" data-alt="A Bentley Continental in the hills."
+          data-line="Coachbuilt weight and long-distance calm. The page opens out and slows down.">
+          <span class="mq__n">Bentley</span><span class="mq__c">64</span>
+          <span class="mq__mark"><img src="assets/logos/opt/bentley.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="maserati"
+          data-name="Maserati" data-count="51" data-href="https://maseratiofgreenwich.com"
+          data-img="assets/brands/cell-maserati.webp" data-alt="A Maserati GranCabrio."
+          data-line="Two showrooms carry it, Greenwich and Westport, and between them the broadest model spread in the house.">
+          <span class="mq__n">Maserati</span><span class="mq__c">51</span>
+          <span class="mq__mark"><img src="assets/logos/opt/maserati.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="mclaren"
+          data-name="McLaren" data-count="35" data-href="https://mclarenofgreenwich.com"
+          data-img="assets/brands/cell-mclaren.webp" data-alt="A McLaren Artura Spider at dusk."
+          data-line="Technical precision. The frame stretches, the transitions shorten, and the specification does the talking.">
+          <span class="mq__n">McLaren</span><span class="mq__c">35</span>
+          <span class="mq__mark"><img src="assets/logos/opt/mclaren.png" alt="" /></span></button>
+
+        <p class="mq__cap t-eyebrow">The rare franchises</p>
+        <button class="mq" role="tab" aria-selected="false" data-register="rolls-royce"
+          data-name="Rolls-Royce" data-count="26" data-href="https://rollsroyceofgreenwich.com"
+          data-img="assets/brands/cell-rolls-royce.webp" data-alt="A Rolls-Royce Spectre."
+          data-line="The slowest register in the house. More air, a longer reveal, and nothing hurried.">
+          <span class="mq__n">Rolls-Royce</span><span class="mq__c">26</span>
+          <span class="mq__mark"><img src="assets/logos/opt/rolls-royce.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="pagani"
+          data-name="Pagani" data-count="3" data-href="https://paganiofgreenwich.com"
+          data-img="assets/brands/cell-pagani.webp" data-alt="A Pagani Huayra in bare carbon."
+          data-line="Three in the house. Presented as an object rather than as stock, because that is what it is.">
+          <span class="mq__n">Pagani</span><span class="mq__c">3</span>
+          <span class="mq__mark"><img src="assets/logos/opt/pagani.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="bugatti"
+          data-name="Bugatti" data-count="1" data-href="https://bugattiofgreenwich.com"
+          data-img="assets/brands/cell-bugatti.webp" data-alt="A Bugatti Tourbillon."
+          data-line="One. The plate becomes square and the page gives it the room an object of this order asks for.">
+          <span class="mq__n">Bugatti</span><span class="mq__c">1</span>
+          <span class="mq__mark"><img src="assets/logos/opt/bugatti.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="house"
+          data-name="Alfa Romeo" data-count="31" data-href="https://alfaromeoofgreenwich.com"
+          data-line="Greenwich and Westport. The everyday end of the house, held to the same standard as the rest of it.">
+          <span class="mq__n">Alfa Romeo</span><span class="mq__c">31</span>
+          <span class="mq__mark"><img src="assets/logos/opt/alfa-romeo.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="house"
+          data-name="Pininfarina" data-count="1" data-href="https://automobili-pininfarina.com"
+          data-line="A carrozzeria that became a marque. One in the house.">
+          <span class="mq__n">Pininfarina</span><span class="mq__c">1</span>
+          <span class="mq__mark"><img src="assets/logos/opt/pininfarina.png" alt="" /></span></button>
+
+        <p class="mq__cap t-eyebrow">Held to order</p>
+        <button class="mq" role="tab" aria-selected="false" data-register="mclaren"
+          data-name="Rimac" data-href="https://rimac-automobili.com"
+          data-line="Represented by appointment. Electric hypercars built in Croatia, sold here to order.">
+          <span class="mq__n">Rimac</span><span class="mq__c">By request</span>
+          <span class="mq__mark"><img src="assets/logos/opt/rimac.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="house"
+          data-name="Czinger" data-href="https://czingergreenwich.com"
+          data-line="Additively manufactured, built in Los Angeles, represented in Greenwich.">
+          <span class="mq__n">Czinger</span><span class="mq__c">By request</span>
+          <span class="mq__mark"><img src="assets/logos/opt/czinger.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="classics"
+          data-name="De Tomaso" data-href="https://detomaso-automobiliusa.com"
+          data-line="A revived name with a documented past. Provenance is part of the specification.">
+          <span class="mq__n">De Tomaso</span><span class="mq__c">By request</span>
+          <span class="mq__mark"><img src="assets/logos/opt/de-tomaso.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="house"
+          data-name="Gordon Murray Automotive" data-href="https://gordonmurrayautomotive.com"
+          data-line="Built in Surrey in very small numbers by the engineer who drew the McLaren F1.">
+          <span class="mq__n">Gordon Murray</span><span class="mq__c">By request</span>
+          <span class="mq__mark"><img src="assets/logos/opt/gordon-murray.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="mclaren"
+          data-name="McMurtry Automotive" data-href="https://mcmurtrygreenwich.com"
+          data-line="A fan car with a hill record, represented here to order.">
+          <span class="mq__n">McMurtry</span><span class="mq__c">By request</span>
+          <span class="mq__mark"><img src="assets/logos/opt/mcmurtry.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="classics"
+          data-name="Touring Superleggera" data-href="https://touringsuperleggera.eu"
+          data-line="Milanese coachbuilding, still practised. Bodies made to order on modern platforms.">
+          <span class="mq__n">Touring Superleggera</span><span class="mq__c">By request</span>
+          <span class="mq__mark"><img src="assets/logos/opt/superleggera.png" alt="" /></span></button>
+
+        <p class="mq__cap t-eyebrow">And the archive</p>
+        <button class="mq" role="tab" aria-selected="false" data-register="classics"
+          data-name="Hedley Studios" data-href="https://hedleystudios.millermotorcars.com"
+          data-line="Scaled, hand-built motorcars. For many collectors, the first Ferrari they ever owned.">
+          <span class="mq__n">Hedley Studios</span><span class="mq__c">By request</span>
+          <span class="mq__mark"><img src="assets/logos/opt/hedley.png" alt="" /></span></button>
+
+        <button class="mq" role="tab" aria-selected="false" data-register="classics"
+          data-name="Miller Motorcars Classics" data-href="https://millermotorcarsclassics.com"
+          data-line="Documentary pacing, archival texture, and cars whose history is the point.">
+          <span class="mq__n">Classics</span><span class="mq__c">Collection</span>
+          <span class="mq__mark"><img src="assets/logos/opt/classics.png" alt="" /></span></button>
       </div>
-      <div class="field">
-        <label for="f-model">Model</label>
-        <select id="f-model"><option value="">All models</option></select>
-      </div>
-      <div class="field">
-        <label for="f-min">Year</label>
-        <div class="years">
-          <input id="f-min" type="number" inputmode="numeric" min="1950" max="2027" placeholder="From" />
-          <label for="f-max" class="vh">Year to</label>
-          <input id="f-max" type="number" inputmode="numeric" min="1950" max="2027" placeholder="To" />
+
+      <div class="index__plate">
+        <figure class="plate" id="plate">
+          <img id="plate-img" src="assets/brands/ferrari.webp" width="1920" height="960"
+            alt="A Ferrari outside the Greenwich showroom." />
+          <p class="plate__none t-caption">Photography for this marque is held on its
+            own showroom site. The link below opens it.</p>
+        </figure>
+        <div class="index__say">
+          <h3 class="t-h2" id="mq-name">Ferrari</h3>
+          <p class="t-body" id="mq-line" style="margin-top:var(--s4)">Factory-authorised,
+            and the marque the house is best known for. The crop tightens and the page
+            holds its tension.</p>
+          <div class="index__foot">
+            <p class="t-meta" id="mq-count"><span class="t-spec">47</span> in the collection</p>
+            <a class="btn btn--sm" id="mq-visit" href="https://ferrariofgreenwich.com" rel="noopener">Visit Ferrari</a>
+            <a class="btn btn--sm" id="mq-browse" href="https://ferrariofgreenwich.com" rel="noopener">Browse inventory</a>
+          </div>
         </div>
       </div>
-      <div class="find__go"><button type="submit">Start search</button></div>
-    </form>
-    <p class="find__count" id="find-count">Matching <b class="num">357</b> cars across
-      <b class="num">22</b> makes.</p>
-  </section>
-  </div>
-</div>
-
-<!-- == ON THE FLOOR ====================================================== -->
-<section class="floor" aria-labelledby="floor-h">
-  <div class="wrap">
-  <div class="sec__head">
-    <h2 id="floor-h">On the floor this week</h2>
-    <a class="btn btn--line" href="#find">Search all <span class="num">357</span></a>
-  </div>
-
-  <article class="row">
-    <div>
-      <p class="row__price num">$461,010</p>
-      <p class="row__name"><a href="https://mclarenofgreenwich.com" rel="noopener">2027 McLaren 750S Spider</a></p>
-      <p class="row__meta">25 mi &middot; Stock MC707 &middot; +$799 conveyance &middot; $461,809 total</p>
     </div>
-    <div class="row__act">
-      <a class="btn btn--fill btn--sm" href="tel:+18668232251">Call</a>
-      <a class="btn btn--line btn--sm" href="mailto:info@millermotorcars.com?subject=2027%20McLaren%20750S%20Spider%20MC707">Enquire</a>
-    </div>
-    <div class="row__img"><img src="assets/car-mclaren-1-tight.webp" width="720" height="405"
-      loading="lazy" alt="2027 McLaren 750S Spider in teal." /></div>
-  </article>
-
-  <article class="row">
-    <div>
-      <p class="row__price num">$433,250</p>
-      <p class="row__name"><a href="https://mclarenofgreenwich.com" rel="noopener">2027 McLaren 750S Spider</a></p>
-      <p class="row__meta">25 mi &middot; Stock 010579 &middot; +$799 conveyance &middot; $434,049 total</p>
-    </div>
-    <div class="row__act">
-      <a class="btn btn--fill btn--sm" href="tel:+18668232251">Call</a>
-      <a class="btn btn--line btn--sm" href="mailto:info@millermotorcars.com?subject=2027%20McLaren%20750S%20Spider%20010579">Enquire</a>
-    </div>
-    <div class="row__img"><img src="assets/car-mclaren-2-tight.webp" width="720" height="405"
-      loading="lazy" alt="2027 McLaren 750S Spider in silver." /></div>
-  </article>
-
-  <article class="row">
-    <div>
-      <p class="row__price num">$576,350</p>
-      <p class="row__name"><a href="https://rollsroyceofgreenwich.com" rel="noopener">2027 Rolls-Royce Black Badge Cullinan</a></p>
-      <p class="row__meta">25 mi &middot; Stock R818 &middot; +$799 conveyance &middot; $577,149 total</p>
-    </div>
-    <div class="row__act">
-      <a class="btn btn--fill btn--sm" href="tel:+18668232251">Call</a>
-      <a class="btn btn--line btn--sm" href="mailto:info@millermotorcars.com?subject=Black%20Badge%20Cullinan%20R818">Enquire</a>
-    </div>
-    <div class="row__img"><img src="assets/car-rr-1-tight.webp" width="720" height="405"
-      loading="lazy" alt="2027 Rolls-Royce Black Badge Cullinan." /></div>
-  </article>
-
-  <article class="row">
-    <div>
-      <p class="row__price num">$588,050</p>
-      <p class="row__name"><a href="https://rollsroyceofgreenwich.com" rel="noopener">2027 Rolls-Royce Black Badge Cullinan</a></p>
-      <p class="row__meta">25 mi &middot; Stock H6-1040097 &middot; +$799 conveyance &middot; $588,849 total</p>
-    </div>
-    <div class="row__act">
-      <a class="btn btn--fill btn--sm" href="tel:+18668232251">Call</a>
-      <a class="btn btn--line btn--sm" href="mailto:info@millermotorcars.com?subject=Black%20Badge%20Cullinan%20H6-1040097">Enquire</a>
-    </div>
-    <div class="row__img"><img src="assets/car-rr-2-tight.webp" width="720" height="405"
-      loading="lazy" alt="2027 Rolls-Royce Black Badge Cullinan in white." /></div>
-  </article>
   </div>
 </section>
 
-<!-- == 4 — INVENTORY INDEX, no nested scroll ============================= -->
-<section class="detail" id="detail" aria-labelledby="det-h">
+<!-- ================================================= 05 CURATED INVENTORY -->
+<section class="coll" id="collection" aria-labelledby="coll-h">
   <div class="wrap">
-  <div class="sec__head">
-    <h2 id="det-h">Inventory in details</h2>
-    <p class="lbl"><span class="num">86</span> model lines &middot; <span class="num">357</span> cars</p>
-  </div>
-  <div class="detail__grid">
-    <div id="makes" role="tablist" aria-label="Choose a make">
-      <p class="makes__cap lbl">Franchises &middot; deepest stock</p>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Aston Martin"><span class="mk-row__n">Aston Martin</span><span class="mk-row__c num">67</span><span class="mk-row__bar"><i style="width:100%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Bentley"><span class="mk-row__n">Bentley</span><span class="mk-row__c num">64</span><span class="mk-row__bar"><i style="width:96%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Maserati"><span class="mk-row__n">Maserati</span><span class="mk-row__c num">51</span><span class="mk-row__bar"><i style="width:76%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="true" data-make="Ferrari"><span class="mk-row__n">Ferrari</span><span class="mk-row__c num">47</span><span class="mk-row__bar"><i style="width:70%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="McLaren"><span class="mk-row__n">McLaren</span><span class="mk-row__c num">35</span><span class="mk-row__bar"><i style="width:52%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Alfa Romeo"><span class="mk-row__n">Alfa Romeo</span><span class="mk-row__c num">31</span><span class="mk-row__bar"><i style="width:46%"></i></span></button>
-      <p class="makes__cap lbl">Franchises &middot; the rare ones</p>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Rolls-Royce"><span class="mk-row__n">Rolls-Royce</span><span class="mk-row__c num">26</span><span class="mk-row__bar"><i style="width:39%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Pagani"><span class="mk-row__n">Pagani</span><span class="mk-row__c num">3</span><span class="mk-row__bar"><i style="width:4%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Bugatti"><span class="mk-row__n">Bugatti</span><span class="mk-row__c num">1</span><span class="mk-row__bar"><i style="width:1.5%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Pininfarina"><span class="mk-row__n">Pininfarina</span><span class="mk-row__c num">1</span><span class="mk-row__bar"><i style="width:1.5%"></i></span></button>
-      <p class="makes__cap lbl">Pre-owned fleet</p>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Porsche"><span class="mk-row__n">Porsche</span><span class="mk-row__c num">7</span><span class="mk-row__bar"><i style="width:10%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Mercedes-Benz"><span class="mk-row__n">Mercedes-Benz</span><span class="mk-row__c num">7</span><span class="mk-row__bar"><i style="width:10%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Chevrolet"><span class="mk-row__n">Chevrolet</span><span class="mk-row__c num">4</span><span class="mk-row__bar"><i style="width:6%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Audi"><span class="mk-row__n">Audi</span><span class="mk-row__c num">2</span><span class="mk-row__bar"><i style="width:3%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="BMW"><span class="mk-row__n">BMW</span><span class="mk-row__c num">2</span><span class="mk-row__bar"><i style="width:3%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Lamborghini"><span class="mk-row__n">Lamborghini</span><span class="mk-row__c num">2</span><span class="mk-row__bar"><i style="width:3%"></i></span></button>
-      <p class="makes__cap lbl">One or two of each</p>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Lotus"><span class="mk-row__n">Lotus</span><span class="mk-row__c num">2</span><span class="mk-row__bar"><i style="width:3%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Cadillac"><span class="mk-row__n">Cadillac</span><span class="mk-row__c num">1</span><span class="mk-row__bar"><i style="width:1.5%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Ford"><span class="mk-row__n">Ford</span><span class="mk-row__c num">1</span><span class="mk-row__bar"><i style="width:1.5%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Jaguar"><span class="mk-row__n">Jaguar</span><span class="mk-row__c num">1</span><span class="mk-row__bar"><i style="width:1.5%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="MINI"><span class="mk-row__n">MINI</span><span class="mk-row__c num">1</span><span class="mk-row__bar"><i style="width:1.5%"></i></span></button>
-      <button class="mk-row" type="button" role="tab" aria-selected="false" data-make="Shelby"><span class="mk-row__n">Shelby</span><span class="mk-row__c num">1</span><span class="mk-row__bar"><i style="width:1.5%"></i></span></button>
-    </div>
-    <div>
-      <div class="models" id="models">
-        <a class="model" href="#find"><span>296 GTS</span><b class="num">8</b></a>
-        <a class="model" href="#find"><span>Purosangue</span><b class="num">4</b></a>
-        <a class="model" href="#find"><span>Roma Spider</span><b class="num">4</b></a>
-        <a class="model" href="#find"><span>SF90 Spider</span><b class="num">4</b></a>
-        <a class="model" href="#find"><span>296 GTB</span><b class="num">3</b></a>
-        <a class="model" href="#find"><span>SF90 Stradale</span><b class="num">3</b></a>
+    <div class="coll__head">
+      <div>
+        <p class="t-eyebrow">In the collection</p>
+        <h2 class="t-h1" id="coll-h" style="margin-top:var(--s4)">Currently on the floor.</h2>
       </div>
-      <p class="models__tail" id="models-tail">Two each of
-        <a href="#find">12Cilindri</a>, <a href="#find">488 Spider</a>,
-        <a href="#find">812 GTS</a>, <a href="#find">812 Superfast</a> and
-        <a href="#find">California T</a>; one each of
-        <a href="#find">365GTB/4 Daytona</a>, <a href="#find">458 Italia</a>,
-        <a href="#find">488 GTB</a>, <a href="#find">488 Pista</a>,
-        <a href="#find">599 GTB Fiorano</a>, <a href="#find">812 Competizione</a>,
-        <a href="#find">F12berlinetta</a>, <a href="#find">F8 Spider</a>,
-        <a href="#find">GTC4Lusso</a>, <a href="#find">Portofino</a> and
-        <a href="#find">Portofino M</a>.</p>
-      <p class="detail__note" id="models-note">22 model lines, 47 cars</p>
+      <a class="btn" href="#marques">View All Inventory</a>
     </div>
-  </div>
+
+    <div class="coll__grid">
+      <article class="car car--lead">
+        <div class="car__f"><img src="assets/car-rr-2-tight.webp" width="720" height="405"
+          loading="lazy" alt="2027 Rolls-Royce Black Badge Cullinan in white." /></div>
+        <div class="car__b">
+          <h3 class="car__n"><a href="https://rollsroyceofgreenwich.com" rel="noopener">2027 Rolls-Royce Black Badge Cullinan</a></h3>
+          <p class="car__p">$588,050</p>
+          <p class="car__s t-spec"><span>New</span><span>25 mi</span><span>Stock H6-1040097</span>
+            <span class="t-meta">+ $799 conveyance &middot; $588,849 total</span></p>
+        </div>
+        <a class="btn btn--sm car__a" href="https://rollsroyceofgreenwich.com" rel="noopener">View Vehicle</a>
+      </article>
+
+      <div class="coll__side">
+        <article class="car car--wide">
+          <div class="car__f"><img src="assets/car-mclaren-1-tight.webp" width="720" height="405"
+            loading="lazy" alt="2027 McLaren 750S Spider in teal." /></div>
+          <div class="car__b">
+            <h3 class="car__n"><a href="https://mclarenofgreenwich.com" rel="noopener">2027 McLaren 750S Spider</a></h3>
+            <p class="car__p">$461,010</p>
+            <p class="car__s t-spec"><span>New</span><span>25 mi</span><span>Stock MC707</span></p>
+          </div>
+          <a class="btn btn--sm car__a" href="https://mclarenofgreenwich.com" rel="noopener">View Vehicle</a>
+        </article>
+
+        <article class="car car--wide">
+          <div class="car__f"><img src="assets/car-rr-1-tight.webp" width="720" height="405"
+            loading="lazy" alt="2027 Rolls-Royce Black Badge Cullinan." /></div>
+          <div class="car__b">
+            <h3 class="car__n"><a href="https://rollsroyceofgreenwich.com" rel="noopener">2027 Rolls-Royce Black Badge Cullinan</a></h3>
+            <p class="car__p">$576,350</p>
+            <p class="car__s t-spec"><span>New</span><span>25 mi</span><span>Stock R818</span></p>
+          </div>
+          <a class="btn btn--sm car__a" href="https://rollsroyceofgreenwich.com" rel="noopener">View Vehicle</a>
+        </article>
+
+        <article class="car car--wide">
+          <div class="car__f"><img src="assets/car-mclaren-2-tight.webp" width="720" height="405"
+            loading="lazy" alt="2027 McLaren 750S Spider in silver." /></div>
+          <div class="car__b">
+            <h3 class="car__n"><a href="https://mclarenofgreenwich.com" rel="noopener">2027 McLaren 750S Spider</a></h3>
+            <p class="car__p">$433,250</p>
+            <p class="car__s t-spec"><span>New</span><span>25 mi</span><span>Stock 010579</span></p>
+          </div>
+          <a class="btn btn--sm car__a" href="https://mclarenofgreenwich.com" rel="noopener">View Vehicle</a>
+        </article>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- == SELL ============================================================== -->
-<section class="split" id="sell" aria-labelledby="sell-h">
-  <div class="wrap split__in">
-  <div>
-    <h2 id="sell-h">Sell your car with confidence</h2>
-    <p class="measure" style="margin-top:var(--s5)">
-      At Miller Motorcars we understand that selling a luxury or exotic vehicle
-      requires a refined approach. As curators of the world's most prestigious
-      automobiles, we offer a seamless, discreet and highly professional
-      consignment service tailored to meet the expectations of our
-      distinguished clientele.
-    </p>
-    <div class="steps">
-      <div class="step"><b class="num">01</b><div><strong>Expert evaluation</strong>
-        <span>Our specialists assess your vehicle's condition, history and market
-          value to ensure a competitive offer.</span></div></div>
-      <div class="step"><b class="num">02</b><div><strong>Receive a competitive offer</strong>
-        <span>Based on our assessment, we provide a strong market-driven offer
-          that reflects your vehicle's true value.</span></div></div>
-      <div class="step"><b class="num">03</b><div><strong>Seamless transaction</strong>
-        <span>From negotiations to paperwork, we handle every detail, ensuring a
-          smooth and effortless sale.</span></div></div>
+<!-- =================================================== 06 MODERN/CLASSIC -->
+<section class="pair" aria-labelledby="pair-h">
+  <div class="wrap">
+    <p class="t-eyebrow">Modern and classic</p>
+    <h2 class="t-h1" id="pair-h" style="margin-top:var(--s4);max-width:16ch">
+      The collection never stands still.</h2>
+    <div class="pair__grid" style="margin-top:var(--s8)">
+      <div class="pair__a">
+        <figure><img src="assets/brands/cell-bugatti.webp" width="640" height="320"
+          loading="lazy" alt="A Bugatti Tourbillon on a Greenwich street." /></figure>
+        <div class="pair__say">
+          <p class="pair__yr">2026</p>
+          <h3 class="t-h3" style="margin-top:var(--s3)">Bugatti Tourbillon</h3>
+          <p class="t-body" style="margin-top:var(--s3);max-width:48ch">Naturally
+            aspirated, hybrid, and built in numbers that will never be repeated.
+            One is in the house.</p>
+        </div>
+      </div>
+      <div class="pair__b dark">
+        <figure>
+          <div>
+            <p class="pair__yr">1976</p>
+            <h3 class="t-h3" style="margin-top:var(--s3)">Where the archive begins</h3>
+            <p class="t-body" style="margin-top:var(--s3)">Miller Motorcars Classics
+              holds the cars whose history is the specification — provenance,
+              ownership, and the paperwork that proves both.</p>
+            <p class="t-caption" style="margin-top:var(--s4)">Archival photography is
+              held on the Classics site; none is reproduced here.</p>
+            <a class="btn btn--sm" style="margin-top:var(--s5)"
+              href="https://millermotorcarsclassics.com" rel="noopener">Explore Miller Motorcars Classics</a>
+          </div>
+        </figure>
+      </div>
     </div>
-    <div style="display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s6)">
-      <a class="btn btn--fill" href="tel:+18668232251">Speak to an expert <span class="num">866-823-2251</span></a>
-      <a class="btn btn--line" href="mailto:info@millermotorcars.com?subject=Sell%20my%20car">Start selling</a>
-    </div>
-  </div>
-  <div class="sell__img"><img src="assets/sell.webp" width="548" height="411"
-    loading="lazy" alt="Two supercars in the Miller Motorcars delivery bay." /></div>
   </div>
 </section>
 
-<!-- == 5 — LEGACY, composed ============================================== -->
-<section class="legacy" id="legacy" aria-labelledby="leg-h">
-  <div class="wrap legacy__grid">
-    <p class="legacy__fig num">50<span>years on West Putnam</span></p>
+<!-- ========================================================= 07 OWNERSHIP -->
+<section class="own dark" id="ownership" aria-labelledby="own-h">
+  <div class="wrap own__grid">
     <div>
-      <h2 id="leg-h">Iconic brands, unmatched experiences, and a commitment to
-        excellence since <span class="num">1976</span></h2>
-      <p class="measure" style="margin-top:var(--s5)">
-        Our dedicated team is committed to ensuring your journey with us is
-        nothing short of exceptional. Whether you're purchasing a specialty
-        motorcar or entrusting us with servicing your prized possession, we're
-        here to provide unparalleled support and expertise.
-      </p>
+      <p class="t-eyebrow">Ownership</p>
+      <h2 class="t-h1" id="own-h" style="margin-top:var(--s4)">The relationship
+        begins at delivery.</h2>
+      <p class="t-lead" style="margin-top:var(--s5)">Most of what Miller does for a
+        car happens after it is sold. The marques are serviced under factory
+        authorisation in one building on West Putnam.</p>
+      <a class="btn btn--sig" style="margin-top:var(--s6)" href="#greenwich">Schedule Service</a>
+    </div>
+    <div>
+      <div class="own__plate"><img src="assets/sell.webp" width="548" height="411"
+        loading="lazy" alt="The Miller Motorcars delivery bay." /></div>
+      <dl class="own__list" style="margin-top:var(--s7)">
+        <dt class="t-h3">Factory-authorised service</dt>
+        <dd class="t-body">Marque-trained technicians, factory tooling and warranty
+          work, carried out in-house rather than sent away.</dd>
+        <dt class="t-h3">Detailing and paint protection</dt>
+        <dd class="t-body">Correction, film and ceramic work to the standard the cars
+          are photographed at.</dd>
+        <dt class="t-h3">Body shop</dt>
+        <dd class="t-body">Structural and cosmetic repair for aluminium and carbon
+          bodies that most shops will not accept.</dd>
+        <dt class="t-h3">Pick-up and delivery</dt>
+        <dd class="t-body">Enclosed collection and return across Fairfield and
+          Westchester counties.</dd>
+        <dt class="t-h3">Secure storage</dt>
+        <dd class="t-body">Climate-controlled space for collections that are not
+          driven through the winter.</dd>
+        <dt class="t-h3">Parts and merchandise</dt>
+        <dd class="t-body">Genuine parts, and the Miller e-store for everything that
+          is not a part.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== 08 SELL / CONSIGN -->
+<section class="sell" id="sell" aria-labelledby="sell-h">
+  <div class="wrap sell__grid">
+    <div>
+      <p class="t-eyebrow">Sell or consign</p>
+      <h2 class="t-h1" id="sell-h" style="margin-top:var(--s4);max-width:16ch">
+        A considered exit for an exceptional motorcar.</h2>
+      <p class="t-lead" style="margin-top:var(--s5)">Selling a significant car is not
+        a transaction that benefits from an audience. One specialist handles it from
+        valuation to title.</p>
       <div style="display:flex;flex-wrap:wrap;gap:var(--s3);margin-top:var(--s6)">
-        <a class="btn btn--fill" href="tel:+18668232251">Phone <span class="num">866-823-2251</span></a>
-        <a class="btn btn--line" href="mailto:info@millermotorcars.com">Send a message</a>
+        <a class="btn btn--sig" href="mailto:info@millermotorcars.com?subject=Sell%20or%20consign">Speak With a Specialist</a>
+        <a class="btn" href="tel:+18668232251">Call <span class="t-spec">866-823-2251</span></a>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <p class="step__i">01</p>
+        <div><p class="step__t">Expert evaluation</p>
+          <p class="step__d t-body">Condition, history and market position, assessed
+            by the specialist who knows the marque rather than by a form.</p></div>
+      </div>
+      <div class="step">
+        <p class="step__i">02</p>
+        <div><p class="step__t">Market strategy, or a competitive offer</p>
+          <p class="step__d t-body">Consignment where the market rewards patience, an
+            outright figure where it does not. You are told which, and why.</p></div>
+      </div>
+      <div class="step">
+        <p class="step__i">03</p>
+        <div><p class="step__t">Managed transaction</p>
+          <p class="step__d t-body">Negotiation, paperwork, transport and title,
+            handled end to end and discreetly.</p></div>
       </div>
     </div>
   </div>
-  <div class="legacy__band"><img src="assets/brands/ferrari.webp" width="1920" height="960"
-    loading="lazy" alt="A Ferrari outside the Greenwich showroom." /></div>
 </section>
 
-<!-- == SHOWROOMS, deliberately unequal =================================== -->
-<section id="shops" aria-labelledby="shops-h">
-  <h2 id="shops-h" class="vh">Two showrooms</h2>
+<!-- ======================================================= 09 FIFTY YEARS -->
+<section class="fifty" id="fifty" aria-labelledby="fifty-h">
   <div class="wrap">
-  <div class="shops">
-    <div class="shop">
-      <p class="lbl">Showroom</p>
-      <h3 style="margin-top:var(--s3)">Greenwich</h3>
-      <address>342 West Putnam Avenue<br />Greenwich, CT 06830</address>
-      <p class="shop__marques">
-        <a href="https://ferrariofgreenwich.com" rel="noopener">Ferrari</a>,
-        <a href="https://astonmartinofgreenwich.com" rel="noopener">Aston Martin</a>,
-        <a href="https://bugattiofgreenwich.com" rel="noopener">Bugatti</a>,
-        <a href="https://rollsroyceofgreenwich.com" rel="noopener">Rolls-Royce</a>,
-        <a href="https://mclarenofgreenwich.com" rel="noopener">McLaren</a>,
-        <a href="https://paganiofgreenwich.com" rel="noopener">Pagani</a>,
-        <a href="https://bentleyofgreenwich.com" rel="noopener">Bentley</a>,
-        <a href="https://maseratiofgreenwich.com" rel="noopener">Maserati</a>,
-        <a href="https://alfaromeoofgreenwich.com" rel="noopener">Alfa Romeo</a>,
-        <a href="https://czingergreenwich.com" rel="noopener">Czinger</a> and
-        <a href="https://mcmurtrygreenwich.com" rel="noopener">McMurtry</a>.</p>
-      <div class="shop__acts">
-        <a class="btn btn--fill" href="https://maps.google.com/?q=342+West+Putnam+Ave+Greenwich+CT+06830" rel="noopener">Directions</a>
-        <a class="btn btn--line" href="tel:+18668232251">Call <span class="num">866-823-2251</span></a>
+    <div class="fifty__top">
+      <p class="fifty__fig">1976<span>&ndash; 2026 &middot; West Putnam Avenue</span></p>
+      <div>
+        <h2 class="t-h1" id="fifty-h" style="max-width:20ch">Fifty years of holding
+          the franchise, not chasing it.</h2>
+        <p class="t-body" style="margin-top:var(--s5);max-width:52ch">Authority in this
+          trade is not claimed, it is accumulated — one factory relationship at a
+          time, and then kept for decades.</p>
       </div>
     </div>
-    <div class="shop shop--minor">
-      <p class="lbl">Second showroom</p>
-      <h3 style="margin-top:var(--s3)">Westport</h3>
-      <address>Westport, Connecticut</address>
-      <p class="shop__marques">
-        <a href="https://maseratiofwestport.com" rel="noopener">Maserati</a> and
-        <a href="https://alfaromeoofwestport.com" rel="noopener">Alfa Romeo</a>,
-        each with its own showroom site.</p>
-      <div class="shop__acts">
-        <a class="btn btn--line" href="https://maseratiofwestport.com" rel="noopener">Maserati of Westport</a>
-        <a class="btn btn--line" href="tel:+18668232251">Call</a>
+
+    <p class="marks__cap t-eyebrow">Franchises held for decades</p>
+    <div class="marks">
+      <a href="https://ferrariofgreenwich.com" rel="noopener" title="Ferrari"><img src="assets/logos/opt/ferrari.png" alt="Ferrari" /></a>
+      <a href="https://astonmartinofgreenwich.com" rel="noopener" title="Aston Martin"><img src="assets/logos/opt/aston-martin.png" alt="Aston Martin" /></a>
+      <a href="https://rollsroyceofgreenwich.com" rel="noopener" title="Rolls-Royce"><img src="assets/logos/opt/rolls-royce.png" alt="Rolls-Royce" /></a>
+      <a href="https://bentleyofgreenwich.com" rel="noopener" title="Bentley"><img src="assets/logos/opt/bentley.png" alt="Bentley" /></a>
+      <a href="https://mclarenofgreenwich.com" rel="noopener" title="McLaren"><img src="assets/logos/opt/mclaren.png" alt="McLaren" /></a>
+      <a href="https://maseratiofgreenwich.com" rel="noopener" title="Maserati"><img src="assets/logos/opt/maserati.png" alt="Maserati" /></a>
+    </div>
+    <p class="marks__cap t-eyebrow">And the makers added since</p>
+    <div class="marks">
+      <a href="https://alfaromeoofgreenwich.com" rel="noopener" title="Alfa Romeo"><img src="assets/logos/opt/alfa-romeo.png" alt="Alfa Romeo" /></a>
+      <a href="https://bugattiofgreenwich.com" rel="noopener" title="Bugatti"><img src="assets/logos/opt/bugatti.png" alt="Bugatti" /></a>
+      <a href="https://paganiofgreenwich.com" rel="noopener" title="Pagani"><img src="assets/logos/opt/pagani.png" alt="Pagani" /></a>
+      <a href="https://automobili-pininfarina.com" rel="noopener" title="Pininfarina"><img src="assets/logos/opt/pininfarina.png" alt="Pininfarina" /></a>
+      <a href="https://rimac-automobili.com" rel="noopener" title="Rimac"><img src="assets/logos/opt/rimac.png" alt="Rimac" /></a>
+      <a href="https://detomaso-automobiliusa.com" rel="noopener" title="De Tomaso"><img src="assets/logos/opt/de-tomaso.png" alt="De Tomaso" /></a>
+    </div>
+
+    <div class="evid">
+      <div class="ev">
+        <p class="ev__y">1976</p>
+        <p class="ev__t">One building on West Putnam Avenue</p>
+        <p class="t-body">Greenwich was a town with money and no serious dealer for the
+          cars that money bought. Miller opened to serve it, and never moved.</p>
       </div>
-      <p class="shop__note">Miller does not publish a Westport street address or
-        opening hours on its homepage, so neither is stated here.</p>
+      <div class="ev">
+        <p class="ev__y">Since</p>
+        <p class="ev__t">Factory relationships, held</p>
+        <p class="t-body">Ferrari, Aston Martin, Bentley, Rolls-Royce, McLaren, Maserati
+          and Alfa Romeo — franchises granted, then kept, which is the harder half.</p>
+      </div>
+      <div class="ev">
+        <p class="ev__y">Now</p>
+        <p class="ev__t">Bugatti, Pagani, Rimac, McMurtry, Gordon Murray, Czinger</p>
+        <p class="t-body">The makers who build in tens rather than thousands. Very few
+          houses hold more than one of them; Miller holds six.</p>
+      </div>
+      <div class="ev">
+        <p class="ev__y">2026</p>
+        <p class="ev__t">Miller Motorcars Legends</p>
+        <p class="t-body">The collector programme that gathers owners, cars and the
+          people who look after them — the reason a fifty-year-old house still knows
+          where its cars are.</p>
+      </div>
     </div>
   </div>
+</section>
+
+<!-- ================================================== 10 JOURNAL / EVENTS -->
+<section class="journal" aria-labelledby="jr-h">
+  <div class="wrap">
+    <div class="coll__head">
+      <div>
+        <p class="t-eyebrow">The journal</p>
+        <h2 class="t-h1" id="jr-h" style="margin-top:var(--s4)">From the house.</h2>
+      </div>
+      <a class="btn" href="#greenwich">All entries</a>
+    </div>
+    <div class="journal__grid">
+      <a class="jl" href="https://paganiofgreenwich.com" rel="noopener">
+        <figure><img src="assets/brands/cell-pagani.webp" width="640" height="320"
+          loading="lazy" alt="A Pagani Huayra in the Greenwich showroom." /></figure>
+        <p class="t-meta" style="margin-top:var(--s4)">Significant delivery</p>
+        <h3 class="jl__t">A Huayra leaves West Putnam</h3>
+        <p class="t-body" style="margin-top:var(--s3);max-width:46ch">Three Pagani are
+          in the house at any time. This one had been spoken for since before it was
+          built.</p>
+      </a>
+      <div>
+        <a class="jrow" href="#fifty">
+          <p class="ev__y" style="font-size:1.0625rem">Legends</p>
+          <div><p class="jrow__t">Miller Motorcars Legends returns for the anniversary</p>
+            <p class="t-meta" style="margin-top:var(--s2)">Collector culture</p></div></a>
+        <a class="jrow" href="https://millermotorcarsclassics.com" rel="noopener">
+          <p class="ev__y" style="font-size:1.0625rem">Classics</p>
+          <div><p class="jrow__t">What provenance is actually worth</p>
+            <p class="t-meta" style="margin-top:var(--s2)">Collector stories</p></div></a>
+        <a class="jrow" href="https://bugattiofgreenwich.com" rel="noopener">
+          <p class="ev__y" style="font-size:1.0625rem">Bugatti</p>
+          <div><p class="jrow__t">Tourbillon: what changes when the engine is not turbocharged</p>
+            <p class="t-meta" style="margin-top:var(--s2)">Notable vehicles</p></div></a>
+        <a class="jrow" href="#ownership">
+          <p class="ev__y" style="font-size:1.0625rem">Workshop</p>
+          <div><p class="jrow__t">Winter storage opens for the 2026 season</p>
+            <p class="t-meta" style="margin-top:var(--s2)">Events</p></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================= 11 GREENWICH -->
+<section class="place" id="greenwich" aria-labelledby="gw-h">
+  <div class="wrap place__grid">
+    <div>
+      <p class="t-eyebrow">Greenwich, Connecticut</p>
+      <h2 class="t-h1" id="gw-h" style="margin-top:var(--s4);max-width:15ch">
+        342 West Putnam Avenue.</h2>
+      <p class="t-lead" style="margin-top:var(--s5)">Half a century at one address,
+        thirty-five minutes from Manhattan, and a second showroom in Westport.</p>
+      <div class="place__acts">
+        <a class="btn btn--sig" href="mailto:info@millermotorcars.com">Send a Message</a>
+        <a class="btn" href="https://maps.google.com/?q=342+West+Putnam+Ave+Greenwich+CT+06830" rel="noopener">Directions</a>
+      </div>
+    </div>
+    <dl class="place__facts">
+      <dt>Sales</dt><dd><a href="tel:+18668232251">866-823-2251</a></dd>
+      <dt>Service and parts</dt><dd><a href="tel:+18668252561">866-825-2561</a></dd>
+      <dt>Address</dt><dd>342 West Putnam Avenue, Greenwich, CT 06830</dd>
+      <dt>Second showroom</dt>
+      <dd><a href="https://maseratiofwestport.com" rel="noopener">Maserati of Westport</a>
+        and <a href="https://alfaromeoofwestport.com" rel="noopener">Alfa Romeo of Westport</a></dd>
+      <dt>Hours</dt><dd class="t-caption">Miller does not publish showroom hours on its
+        homepage, so none are stated here. Each marque site carries its own.</dd>
+    </dl>
   </div>
 </section>
 
@@ -715,180 +547,75 @@ footer a:hover{color:var(--accent)}
 
 <footer>
   <div class="wrap">
-  <div class="fgrid">
-    <div>
-      <a class="brand" href="#top"><img src="assets/logos/miller-footer.svg" width="339" height="22"
-        alt="Miller Motorcars" style="width:11rem" /></a>
-      <p style="color:var(--ink58);font-size:var(--t-xs);margin-top:var(--s4)">
-        342 West Putnam Avenue, Greenwich, CT 06830<br />
-        Sales <span class="num">866-823-2251</span> &middot;
-        Service <span class="num">866-825-2561</span></p>
-      <div class="social">
-        <a href="https://www.facebook.com/MillerMotorcars" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13 22v-9h3l1-4h-4V7c0-1.1.3-1.8 1.9-1.8H17V1.7A26 26 0 0 0 14.2 1.5C11.4 1.5 9.5 3.2 9.5 6.4V9H6.5v4h3v9z"/></svg></a>
-        <a href="https://www.youtube.com/user/millermotorcars" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.8 12 4.8 12 4.8s-7 0-8.9.6A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.6 8.9.6 8.9.6s7 0 8.9-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.5 12 31 31 0 0 0 23 7.5zM9.8 15.3V8.7l6 3.3z"/></svg></a>
-        <a href="https://www.instagram.com/millermotorcars" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.9c-.1 3.2-1.6 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.9-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9C2.4 3.9 3.9 2.4 7.1 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 5.1A4.7 4.7 0 1 0 16.7 12 4.7 4.7 0 0 0 12 7.3zm0 7.7A3 3 0 1 1 15 12a3 3 0 0 1-3 3zm4.9-8.9a1.1 1.1 0 1 0 1.1 1.1 1.1 1.1 0 0 0-1.1-1.1z"/></svg></a>
+    <div class="fgrid">
+      <div>
+        <img src="assets/logos/miller-footer.svg" width="339" height="22"
+          alt="Miller Motorcars" style="width:11rem" />
+        <p class="t-caption" style="margin-top:var(--s4)">342 West Putnam Avenue,
+          Greenwich, CT 06830<br />Sales <span class="t-spec">866-823-2251</span>
+          &middot; Service <span class="t-spec">866-825-2561</span></p>
       </div>
+      <nav aria-label="Marques"><p class="fh">Marques</p>
+        <a href="https://ferrariofgreenwich.com" rel="noopener">Ferrari</a>
+        <a href="https://astonmartinofgreenwich.com" rel="noopener">Aston Martin</a>
+        <a href="https://bugattiofgreenwich.com" rel="noopener">Bugatti</a>
+        <a href="https://rollsroyceofgreenwich.com" rel="noopener">Rolls-Royce</a>
+        <a href="https://bentleyofgreenwich.com" rel="noopener">Bentley</a>
+        <a href="https://paganiofgreenwich.com" rel="noopener">Pagani</a></nav>
+      <nav aria-label="More marques"><p class="fh">More</p>
+        <a href="https://mclarenofgreenwich.com" rel="noopener">McLaren</a>
+        <a href="https://maseratiofgreenwich.com" rel="noopener">Maserati</a>
+        <a href="https://alfaromeoofgreenwich.com" rel="noopener">Alfa Romeo</a>
+        <a href="https://automobili-pininfarina.com" rel="noopener">Pininfarina</a>
+        <a href="https://rimac-automobili.com" rel="noopener">Rimac</a>
+        <a href="https://detomaso-automobiliusa.com" rel="noopener">De Tomaso</a></nav>
+      <nav aria-label="Coachbuild"><p class="fh">Coachbuild</p>
+        <a href="https://czingergreenwich.com" rel="noopener">Czinger</a>
+        <a href="https://gordonmurrayautomotive.com" rel="noopener">Gordon Murray</a>
+        <a href="https://mcmurtrygreenwich.com" rel="noopener">McMurtry</a>
+        <a href="https://touringsuperleggera.eu" rel="noopener">Touring Superleggera</a>
+        <a href="https://hedleystudios.millermotorcars.com" rel="noopener">Hedley Studios</a></nav>
+      <nav aria-label="The house"><p class="fh">The house</p>
+        <a href="https://millermotorcarsclassics.com" rel="noopener">Classics</a>
+        <a href="https://store.millermotorcars.com" rel="noopener">Miller e-store</a>
+        <a href="#ownership">Ownership</a>
+        <a href="#sell">Sell your car</a>
+        <a href="#greenwich">Westport</a></nav>
     </div>
-    <nav aria-label="Greenwich marques"><p class="fh">Greenwich</p>
-      <a href="https://ferrariofgreenwich.com" rel="noopener">Ferrari</a>
-      <a href="https://astonmartinofgreenwich.com" rel="noopener">Aston Martin</a>
-      <a href="https://bugattiofgreenwich.com" rel="noopener">Bugatti</a>
-      <a href="https://rollsroyceofgreenwich.com" rel="noopener">Rolls-Royce</a>
-      <a href="https://mclarenofgreenwich.com" rel="noopener">McLaren</a>
-      <a href="https://paganiofgreenwich.com" rel="noopener">Pagani</a></nav>
-    <nav aria-label="More marques"><p class="fh">More marques</p>
-      <a href="https://bentleyofgreenwich.com" rel="noopener">Bentley</a>
-      <a href="https://maseratiofgreenwich.com" rel="noopener">Maserati</a>
-      <a href="https://alfaromeoofgreenwich.com" rel="noopener">Alfa Romeo</a>
-      <a href="https://czingergreenwich.com" rel="noopener">Czinger</a>
-      <a href="https://detomaso-automobiliusa.com" rel="noopener">De Tomaso</a>
-      <a href="https://automobili-pininfarina.com" rel="noopener">Pininfarina</a></nav>
-    <nav aria-label="Coachbuild"><p class="fh">Coachbuild</p>
-      <a href="https://touringsuperleggera.eu" rel="noopener">Touring Superleggera</a>
-      <a href="https://hedleystudios.millermotorcars.com" rel="noopener">Hedley Studios</a>
-      <a href="https://gordonmurrayautomotive.com" rel="noopener">Gordon Murray</a>
-      <a href="https://mcmurtrygreenwich.com" rel="noopener">McMurtry</a>
-      <a href="https://rimac-automobili.com" rel="noopener">Rimac</a></nav>
-    <nav aria-label="Westport and services"><p class="fh">Westport &amp; more</p>
-      <a href="https://maseratiofwestport.com" rel="noopener">Maserati of Westport</a>
-      <a href="https://alfaromeoofwestport.com" rel="noopener">Alfa Romeo of Westport</a>
-      <a href="https://millermotorcarsclassics.com" rel="noopener">Classics</a>
-      <a href="https://store.millermotorcars.com" rel="noopener">Miller e-store</a>
-      <a href="#shops">Service, parts &amp; storage</a></nav>
-  </div>
 
-  <details class="legal">
-    <summary>Pricing, accuracy and Connecticut check notices</summary>
-    <p>* Images, prices and options shown, including vehicle colour, trim,
-      options, pricing and other specifications, are subject to availability,
-      incentive offerings, current pricing and credit worthiness. The advertised
-      price does not include sales tax, vehicle registration fees, other fees
-      required by law, finance charges and any documentation charges.</p>
-    <p>We make every effort to ensure the accuracy of the information on this
-      site, however errors do occur. Please verify all information with a sales
-      associate by calling or emailing us.</p>
-    <p><b>Insufficient funds.</b> If a person writes a check without sufficient
-      funds in an associated account to cover it, the check will bounce, or be
-      returned for insufficient funds. Each state has laws regulating how
-      merchants may respond to bounced checks. In Connecticut, the merchant may
-      file a civil suit and press criminal charges if the check writer does not
-      reimburse them for a bounced check after the merchant has sent several
-      notices regarding the matter.</p>
-    <p><b>Posted notice requirement.</b> Merchants and other business owners who
-      accept checks must post a notice where customers are likely to see it,
-      warning them of the potential consequences of writing a bad check.</p>
-    <p><b>Civil and criminal penalties.</b> Civil courts may require the check
-      writer to reimburse the merchant for the value of the check plus a service
-      charge, and criminal penalties may apply depending on the amount.</p>
-    <p><b>Required written notices.</b> If a check bounces, the merchant must
-      send the check writer a letter by certified mail at the check writer's last
-      known address or place of business, and allow the statutory period for
-      reimbursement before further legal action.</p>
-  </details>
+    <details class="legalbox">
+      <summary>Pricing, accuracy and Connecticut check notices</summary>
+      <p class="t-legal">Images, prices and options shown, including vehicle colour,
+        trim, options, pricing and other specifications, are subject to availability,
+        incentive offerings, current pricing and credit worthiness. The advertised
+        price does not include sales tax, vehicle registration fees, other fees
+        required by law, finance charges or documentation charges.</p>
+      <p class="t-legal">We make every effort to ensure the accuracy of the information
+        on this site, however errors do occur. Please verify all information with a
+        sales associate by calling or emailing us.</p>
+      <p class="t-legal">If a person writes a check without sufficient funds in an
+        associated account to cover it, the check will bounce, or be returned for
+        insufficient funds. Each state has laws regulating how merchants may respond
+        to bounced checks. In Connecticut, the merchant may file a civil suit and
+        press criminal charges if the check writer does not reimburse them after the
+        merchant has sent several notices. Merchants who accept checks must post a
+        notice where customers are likely to see it, warning them of the potential
+        consequences of writing a bad check. Civil courts may require the check writer
+        to reimburse the merchant for the value of the check plus a service charge. If
+        a check bounces, the merchant must send the check writer a letter by certified
+        mail at the check writer's last known address or place of business, and allow
+        the statutory period for reimbursement before further legal action.</p>
+    </details>
 
-  <p style="margin-top:var(--s6);font-size:var(--t-2xs);color:var(--ink58)">
-    &copy; <span class="num">2026</span> Miller Motorcars &middot;
-    <a href="#legacy">Privacy policy</a> &middot;
-    <a href="#legacy">ADA compliance</a> &middot;
-    <a href="#legacy">Sitemap</a>
-    &nbsp;&mdash;&nbsp; Redesign study, not affiliated with Miller Motorcars.
-  </p>
+    <p class="t-legal" style="margin-top:var(--s6)">&copy;
+      <span class="t-spec">2026</span> Miller Motorcars &middot;
+      <a href="#greenwich">Privacy policy</a> &middot;
+      <a href="#greenwich">ADA compliance</a> &middot;
+      <a href="#greenwich">Sitemap</a>
+      &nbsp;&mdash;&nbsp; Redesign study, not affiliated with Miller Motorcars.</p>
   </div>
 </footer>
 
-<script>
-(function(){
-  /* Miller's real inventory. Makes and models both sum to 357. */
-  var MAKES=[["Alfa Romeo",31],["Aston Martin",67],["Audi",2],["Bentley",64],
-    ["BMW",2],["Bugatti",1],["Cadillac",1],["Chevrolet",4],["Ferrari",47],
-    ["Ford",1],["Jaguar",1],["Lamborghini",2],["Lotus",2],["Maserati",51],
-    ["McLaren",35],["Mercedes-Benz",7],["MINI",1],["Pagani",3],["Pininfarina",1],
-    ["Porsche",7],["Rolls-Royce",26],["Shelby",1]];
-  var MODELS={
-   "Ferrari":[["296 GTB",3],["296 GTS",8],["365GTB/4 Daytona",1],["458 Italia",1],
-     ["488 GTB",1],["488 Pista",1],["488 Spider",2],["599 GTB Fiorano",1],
-     ["812 Competizione",1],["812 GTS",2],["812 Superfast",2],["12Cilindri",2],
-     ["California T",2],["F12berlinetta",1],["F8 Spider",1],["GTC4Lusso",1],
-     ["Portofino",1],["Portofino M",1],["Purosangue",4],["Roma Spider",4],
-     ["SF90 Spider",4],["SF90 Stradale",3]],
-   "Aston Martin":[["DBX",29],["Vantage",19],["DB12",8],["Vanquish",7],["DB11",2],["DBS",2]],
-   "Bentley":[["Continental",40],["Bentayga",14],["Bentayga EWB",5],["Flying Spur",4],
-     ["Continental GTC",1]],
-   "Maserati":[["Grecale",20],["GranCabrio",10],["GranTurismo",7],["Levante",7],
-     ["Ghibli",3],["MC20 Cielo",2],["MC20",1],["Quattroporte",1]],
-   "McLaren":[["Artura",18],["750S Spider",5],["Artura Spider",4],["GT",4],["GTS",2],
-     ["600LT",1],["765LT Spider",1],["P1",1]],
-   "Rolls-Royce":[["Black Badge Cullinan",9],["Ghost",6],["Cullinan",5],["Spectre",2],
-     ["Black Badge Ghost",1],["Black Badge Spectre",1],["Phantom",1],
-     ["Phantom II Continental",1]],
-   "Alfa Romeo":[["Tonale",13],["Giulia",7],["Stelvio",7],["Tonale Hybrid",4]],
-   "Porsche":[["911",6],["Cayenne",1]],
-   "Mercedes-Benz":[["AMG GT",3],["280SL",1],["E-Class",1],["S-Class",1],["SLS AMG",1]],
-   "Chevrolet":[["Corvette",3],["Nova",1]],
-   "Pagani":[["Huayra",2],["Huayra Coupe",1]],
-   "Lamborghini":[["Centenario",1],["Urus",1]],
-   "Lotus":[["Emira",1],["Evora",1]],
-   "Audi":[["R8",1],["RS 6 Avant",1]],
-   "BMW":[["M4",1],["M8",1]],
-   "Bugatti":[["Bugatti Baby II",1]],"Pininfarina":[["Battista",1]],
-   "Cadillac":[["Escalade-V ESV",1]],"Ford":[["GT",1]],"Jaguar":[["E-Type",1]],
-   "MINI":[["Countryman",1]],"Shelby":[["Cobra",1]]};
-
-  var makesEl=document.getElementById('makes'),
-      modelsEl=document.getElementById('models'),
-      tailEl=document.getElementById('models-tail'),
-      noteEl=document.getElementById('models-note'),
-      selMake=document.getElementById('f-make'),
-      selModel=document.getElementById('f-model'),
-      countEl=document.getElementById('find-count');
-
-  MAKES.forEach(function(m){
-    var o=document.createElement('option'); o.value=m[0];
-    o.textContent=m[0]+' · '+m[1]; selMake.appendChild(o);
-  });
-
-  function names(list){
-    var a=list.map(function(r){return '<a href="#find">'+r[0]+'</a>';});
-    return a.length<2 ? a[0] : a.slice(0,-1).join(', ')+' and '+a[a.length-1];
-  }
-  function draw(make){
-    var rows=(MODELS[make]||[]).slice().sort(function(a,b){return b[1]-a[1];});
-    var head=rows.slice(0,6), tail=rows.slice(6);
-    modelsEl.innerHTML=head.map(function(r){
-      return '<a class="model" href="#find"><span>'+r[0]+'</span><b class="num">'+r[1]+'</b></a>';
-    }).join('');
-    if(tail.length){
-      var byN={}; tail.forEach(function(r){ (byN[r[1]]=byN[r[1]]||[]).push(r); });
-      tailEl.innerHTML=Object.keys(byN).sort(function(a,b){return b-a;}).map(function(n){
-        return (n==='1'?'One each of ':n+' each of ')+names(byN[n]);
-      }).join('; ')+'.';
-      tailEl.hidden=false;
-    } else tailEl.hidden=true;
-    var total=rows.reduce(function(a,r){return a+r[1];},0);
-    var declared=(MAKES.filter(function(m){return m[0]===make;})[0]||[0,0])[1];
-    noteEl.textContent=rows.length+' model lines, '+total+' cars';
-    [].slice.call(makesEl.querySelectorAll('.mk-row')).forEach(function(b){
-      b.setAttribute('aria-selected', b.dataset.make===make?'true':'false');});
-    selModel.innerHTML='<option value="">All '+make+' models · '+rows.length+'</option>'+
-      rows.map(function(r){return '<option>'+r[0]+' · '+r[1]+'</option>';}).join('');
-    countEl.innerHTML='Matching <b class="num">'+declared+'</b> '+make+
-      ' cars across <b class="num">'+rows.length+'</b> model lines.';
-  }
-  makesEl.addEventListener('click',function(e){
-    var b=e.target.closest('.mk-row'); if(b){ draw(b.dataset.make); selMake.value=b.dataset.make; }
-  });
-  selMake.addEventListener('change',function(){
-    if(selMake.value) draw(selMake.value);
-    else{ selModel.innerHTML='<option value="">All models</option>';
-      countEl.innerHTML='Matching <b class="num">357</b> cars across <b class="num">22</b> makes.'; }
-  });
-  selMake.value='Ferrari';
-
-  var tabs=[].slice.call(document.querySelectorAll('.tab'));
-  tabs.forEach(function(t){ t.addEventListener('click',function(){
-    tabs.forEach(function(o){o.setAttribute('aria-selected','false');});
-    t.setAttribute('aria-selected','true'); }); });
-})();
-</script>
+<script src="assets/home.js" defer></script>
 </body>
 </html>
