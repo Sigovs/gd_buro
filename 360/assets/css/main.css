@@ -485,8 +485,8 @@ img{display:block;max-width:100%;height:auto}
    ====================================================================== */
 .ct{background:var(--ink);color:var(--on-ink);position:relative}
 .ct__ph{width:100%;aspect-ratio:2.15/1;max-height:36rem;position:relative;overflow:hidden}
-.ct__ph img{width:100%;height:100%;object-fit:cover;object-position:50% 54%;
-  transform:scale(1.16) translate3d(0,var(--par,0px),0);will-change:transform}
+.ct__ph img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;
+  transform:scale(1.08) translate3d(0,var(--par,0px),0);will-change:transform}
 .ct__in{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s5) var(--s7);
   padding-block:var(--s9) var(--s10)}
 .ct__in>.t-eyebrow{grid-column:1 / -1}
@@ -511,9 +511,17 @@ img{display:block;max-width:100%;height:auto}
 .ct__side .lnk{margin-top:var(--s6)}
 
 /* the form */
-.ct__form{grid-column:6 / span 7;border-top:2px solid var(--on-ink);padding-top:var(--s5)}
+/* The form had been opened up twice and had gone slack: 48px between rows, a
+   permanent 16px reserved under every field for an error that is usually not
+   there, and a 8rem note box. It becomes a panel with its own ground — flat,
+   square, no shadow — and the fields become wells sunk into it, so the
+   relationship reads without any of that space. */
+.ct__form{grid-column:6 / span 7;align-self:start;
+  background:#1e1f1e;border:1px solid rgba(244,241,238,.14);
+  padding:var(--s6) var(--s6) var(--s7)}
 .ct__form>header{display:flex;justify-content:space-between;align-items:baseline;
-  gap:var(--s5);margin-bottom:var(--s8)}
+  gap:var(--s5);margin-bottom:var(--s6);padding-bottom:var(--s4);
+  border-bottom:1px solid rgba(244,241,238,.14)}
 .ct__form>header b{font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;
   font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase}
 .ct__form>header span{font-family:'Plex Mono',ui-monospace,monospace;font-size:.6875rem;
@@ -526,17 +534,17 @@ img{display:block;max-width:100%;height:auto}
    takes the full width of the form. A hairline-underline field would have
    been the exclusive-body-shop version of this. */
 /* the finish of the page is the form; it gets the ramp, not the gutter */
-.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s7) var(--s6)}
-.f{display:flex;flex-direction:column;gap:var(--s4)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5) var(--s5)}
+.f{display:flex;flex-direction:column;gap:var(--s3)}
 .f--wide{grid-column:1 / -1}
 .f label{font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;
   font-size:.6875rem;letter-spacing:.18em;text-transform:uppercase;color:var(--on-ink-2)}
 .f label em{font-style:normal;color:var(--signal-lt)}
 .f input,.f select,.f textarea{
-  background-color:rgba(244,241,238,.07);
-  border:1px solid rgba(244,241,238,.42);      /* 3.77:1 on ink */
+  background-color:rgba(0,0,0,.34);
+  border:1px solid rgba(244,241,238,.34);
   color:var(--on-ink);font-family:'Inter Tight',sans-serif;font-size:1.0625rem;
-  padding:var(--s4);width:100%;min-height:3.25rem;
+  padding:var(--s3) var(--s4);width:100%;min-height:2.875rem;
   transition:border-color .18s var(--e),background-color .18s var(--e),
              background-size .22s cubic-bezier(.65,0,.35,1)}
 
@@ -547,7 +555,7 @@ img{display:block;max-width:100%;height:auto}
   background-repeat:no-repeat;background-position:left bottom;
   background-size:0% 2px}
 .f input:focus,.f textarea:focus{background-size:100% 2px}
-.f textarea{resize:vertical;min-height:8rem;line-height:1.5}
+.f textarea{resize:vertical;min-height:5.5rem;line-height:1.5}
 .f select{cursor:pointer;appearance:none;
   padding-right:var(--s8);
   background-image:linear-gradient(var(--signal-lt),var(--signal-lt)),
@@ -558,9 +566,9 @@ img{display:block;max-width:100%;height:auto}
 .f select:focus{background-size:100% 2px, 7px 7px, 7px 7px}
 .f select option{background:var(--ink);color:var(--on-ink)}
 .f input::placeholder,.f textarea::placeholder{color:var(--on-ink-3);opacity:1}
-.f :is(input,select,textarea):hover{border-color:rgba(244,241,238,.62)}
+.f :is(input,select,textarea):hover{border-color:rgba(244,241,238,.55)}
 .f :is(input,select,textarea):focus{outline:none;
-  border-color:rgba(244,241,238,.62);background-color:rgba(244,241,238,.11)}
+  border-color:rgba(244,241,238,.55);background-color:rgba(0,0,0,.5)}
 .f :is(input,select,textarea):focus-visible{outline:2px solid var(--on-ink);outline-offset:2px}
 .f[data-bad] :is(input,select,textarea){border-color:#ff8a7a;
   background-color:rgba(255,138,122,.10)}
@@ -572,18 +580,19 @@ img{display:block;max-width:100%;height:auto}
   linear-gradient(135deg,#ff8a7a 50%,transparent 50%);
   background-size:100% 2px, 7px 7px, 7px 7px}
 .f__err{font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;font-size:.6875rem;
-  letter-spacing:.12em;text-transform:uppercase;color:#ff8a7a;min-height:1em}
+  letter-spacing:.12em;text-transform:uppercase;color:#ff8a7a}
+.f__err:empty{display:none}
 
 /* a checkbox somebody can actually hit, and a whole row that toggles it */
 .consent{grid-column:1 / -1;display:flex;gap:var(--s4);align-items:center;
-  margin-top:var(--s2);padding:var(--s5);
-  border:1px solid rgba(244,241,238,.42)}
+  margin-top:var(--s1);padding:var(--s4);
+  background:rgba(0,0,0,.28);border:1px solid rgba(244,241,238,.20)}
 .consent input{width:1.5rem;height:1.5rem;flex:0 0 auto;
   accent-color:var(--signal-lt);cursor:pointer}
 .consent label{font-size:.9375rem;line-height:1.45;color:var(--on-ink);cursor:pointer}
 
 .ct__form .btn{grid-column:1 / -1;justify-content:center;width:100%;
-  margin-top:var(--s3);padding:var(--s5) var(--s6);font-size:.8125rem}
+  margin-top:var(--s3);padding:var(--s4) var(--s6);font-size:.8125rem}
 
 .sent{grid-column:1 / -1;margin-top:var(--s5);padding:var(--s5);
   border:1px solid var(--signal-lt);color:var(--on-ink);font-size:.9375rem;line-height:1.55}
@@ -675,7 +684,7 @@ img{display:block;max-width:100%;height:auto}
   .ct__ph{aspect-ratio:16/10}
   .ct__in{grid-template-columns:1fr;padding-block:var(--s8)}
   .ct__in>h2,.ct__side,.ct__form{grid-column:1}
-  .ct__form{margin-top:var(--s8)}
+  .ct__form{margin-top:var(--s7);padding:var(--s5) var(--s5) var(--s6)}
   .ft__in{grid-template-columns:1fr 1fr}
   .ft__id{grid-column:1 / -1}
   .ft__nav{grid-column:1}
@@ -1013,5 +1022,5 @@ img{display:block;max-width:100%;height:auto}
   .f input:focus,.f textarea:focus{background-size:100% 2px !important}
   .js-motion .hero__ph img{transform:none !important;transition:none !important}
   .shop__ph img{transform:scale(1.18) !important;transition:none !important}
-  .ct__ph img{transform:scale(1.16) !important;transition:none !important}
+  .ct__ph img{transform:scale(1.08) !important;transition:none !important}
 }
