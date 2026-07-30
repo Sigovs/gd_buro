@@ -124,6 +124,20 @@ img{display:block;max-width:100%;height:auto}
 .on-ink .t-eyebrow{color:var(--on-ink-3)}
 .on-ink .t-eyebrow::before{background:var(--signal-lt)}
 
+/* ---- the struck label ---------------------------------------------------
+   Ink laid behind the words themselves rather than behind their box, cloned
+   per line so a two-line label comes out as two stamped bars. Used only where
+   the words are a FACT being asserted — the four things the shop is set up for
+   and the four states a job passes through. Not on prose, not on the ledger,
+   and not on anything that is already the largest thing on its screen.
+   The negative margin puts the ink's left edge back on the column edge, so the
+   page keeps one left edge and the stamp does not push out of alignment. */
+.t-strike{display:inline;background:var(--ink);color:var(--on-ink);
+  padding:.14em .3em .2em;margin-left:-.3em;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+.on-ink .t-strike{background:var(--on-ink);color:var(--ink)}
+:where(h1,h2,h3,p):has(> .t-strike){line-height:1.42}
+
 .t-display{font-weight:800;font-size:clamp(2.6rem,7.6vw,6.6rem);line-height:.9;
   letter-spacing:-.035em;text-transform:uppercase}
 .t-h2{font-weight:800;font-size:clamp(1.9rem,4.4vw,3.4rem);line-height:.94;
@@ -136,32 +150,32 @@ img{display:block;max-width:100%;height:auto}
 .on-ink .t-lead,.on-ink .t-body{color:var(--on-ink-2)}
 
 /* ---- actions ------------------------------------------------------------
-   Two shapes only. A filled ink block is the primary action; a ruled label is
-   everything else. No third kind, no radius, no shadow, and no underlined
-   sentence pretending to be a button (the rmsothebys banned pattern). */
-.btn{display:inline-flex;align-items:center;gap:var(--s3);
-  background:var(--ink);color:var(--on-ink);text-decoration:none;border:0;
-  padding:var(--s4) var(--s5);cursor:pointer;
+   One shape, two weights: every action is a pill, filled for the primary and
+   stroked for everything below it. The stroke is solved rather than dialled —
+   at .48 of the ink it measures 3.19 / 3.12 / 3.04 : 1 across the three papers
+   and so clears the 3:1 graphic threshold on every ground it is drawn on; the
+   reversed stroke at .42 of the paper measures 3.77:1 on ink.
+   Still no shadow, and still no underlined sentence pretending to be a button
+   (the rmsothebys banned pattern). */
+.btn,.lnk{display:inline-flex;align-items:center;gap:var(--s3);
+  border-radius:999px;text-decoration:none;cursor:pointer;
   font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;font-size:.6875rem;
-  letter-spacing:.18em;text-transform:uppercase;
-  transition:background .22s var(--e)}
-.btn:hover{background:var(--signal)}
-.btn i{font-style:normal;transition:transform .22s var(--e)}
-.btn:hover i{transform:translateX(4px)}
-.on-ink .btn{background:var(--on-ink);color:var(--ink)}
-.on-ink .btn:hover{background:var(--signal-lt)}
+  letter-spacing:.18em;text-transform:uppercase;line-height:1;
+  transition:background .22s var(--e),color .22s var(--e),border-color .22s var(--e)}
+.btn i,.lnk i{font-style:normal;transition:transform .22s var(--e)}
+.btn:hover i,.lnk:hover i{transform:translateX(4px)}
 
-.lnk{display:inline-flex;align-items:center;gap:var(--s3);
-  color:var(--ink);text-decoration:none;padding-block:var(--s3);
-  border-bottom:1px solid var(--rule);
-  font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;font-size:.6875rem;
-  letter-spacing:.18em;text-transform:uppercase;
-  transition:border-color .22s var(--e),color .22s var(--e)}
-.lnk:hover{border-color:var(--signal);color:var(--signal)}
-.lnk i{font-style:normal;margin-left:auto;transition:transform .22s var(--e)}
-.lnk:hover i{transform:translateX(4px)}
-.on-ink .lnk{color:var(--on-ink);border-color:var(--rule-ink)}
-.on-ink .lnk:hover{border-color:var(--signal-lt);color:var(--signal-lt)}
+.btn{background:var(--ink);color:var(--on-ink);border:1px solid var(--ink);
+  padding:var(--s4) var(--s6)}
+.btn:hover{background:var(--signal);border-color:var(--signal)}
+.on-ink .btn{background:var(--on-ink);color:var(--ink);border-color:var(--on-ink)}
+.on-ink .btn:hover{background:var(--signal-lt);border-color:var(--signal-lt)}
+
+.lnk{background:transparent;color:var(--ink);
+  border:1px solid rgba(20,20,19,.48);padding:var(--s4) var(--s6)}
+.lnk:hover{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.on-ink .lnk{color:var(--on-ink);border-color:rgba(244,241,238,.42)}
+.on-ink .lnk:hover{background:var(--on-ink);color:var(--ink);border-color:var(--on-ink)}
 
 /* the parts categories: facts, so they are mono and they sit on a rule */
 .chips{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s4)}
@@ -211,46 +225,54 @@ img{display:block;max-width:100%;height:auto}
    nothing of the next section shows under it. min-height rather than height —
    on a short or landscape viewport the block is allowed to grow rather than
    crush the headline. */
-.hero{position:relative;border-bottom:1px solid var(--rule);overflow:hidden;
+/* no rule under it: the tonal change from photograph to paper is the boundary */
+.hero{position:relative;overflow:hidden;background:var(--ink);color:var(--on-ink);
   min-height:calc(100svh - var(--mh) - 1px)}
 .hero__in{position:relative;display:grid;grid-template-columns:repeat(12,1fr);
   gap:0 var(--s5);align-items:end;align-content:end;
   min-height:calc(100svh - var(--mh) - 1px);
   padding-block:var(--s8) clamp(var(--s7),7svh,var(--s9))}
 
-/* the numeral is the mark, the headline's ground, and the only ornament */
-/* It bleeds off the top edge and its last glyph runs under the photograph,
-   which cuts it. The mark and the picture are meant to be in each other's
-   way — that is the whole borrowing from vault/beings-co. */
-.hero__num{position:absolute;left:4.5%;top:-5%;z-index:0;
-  font-weight:800;font-size:min(37vw,30.5rem);line-height:.74;letter-spacing:-.06em;
-  color:var(--paper-3);pointer-events:none;user-select:none;white-space:nowrap}
-
-.hero__ph{position:absolute;z-index:1;right:calc(var(--bleed) * -1);top:0;bottom:0;
-  width:min(53%,58rem)}
-.hero__ph img{width:100%;height:100%;object-fit:cover}
+/* The photograph is the whole ground of the hero, so the hero is the one dark
+   block above a light page and the type reverses onto it. */
+.hero__ph{position:absolute;inset:0;z-index:0}
+.hero__ph img{width:100%;height:100%;object-fit:cover;object-position:58% 50%}
+/* The scrim is solved, not dialled: with it removed, the brightest pixel under
+   the headline measures rgb(214,205,190) and under the lead rgb(96,90,80). The
+   alphas below are the smallest that carry #f4f1ee to 3:1 and 4.5:1 over those
+   two, so the picture is darkened exactly as much as the type needs and no
+   more. */
 .hero__ph::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(100deg,var(--paper) 0%,rgba(244,241,238,.72) 8%,
-    rgba(244,241,238,0) 26%)}
+  background:
+    linear-gradient(101deg,
+      rgba(20,20,19,.90) 0%, rgba(20,20,19,.86) 30%,
+      rgba(20,20,19,.55) 58%, rgba(20,20,19,.34) 100%),
+    linear-gradient(to top, rgba(20,20,19,.55) 0%, rgba(20,20,19,0) 46%)}
+
+/* the mark stays a construction: it bleeds off the top edge and the headline
+   is set straight through it (vault/beings-co) */
+.hero__num{position:absolute;left:4.5%;top:-5%;z-index:1;
+  font-weight:800;font-size:min(37vw,30.5rem);line-height:.74;letter-spacing:-.06em;
+  color:rgba(244,241,238,.085);pointer-events:none;user-select:none;white-space:nowrap}
 
 .hero__say{position:relative;z-index:2;grid-column:1 / span 7}
 .hero__say h1{margin:var(--s5) 0 var(--s5);max-width:14ch}
 .hero__say .t-lead{max-width:38ch}
 .hero__act{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s5);margin-top:var(--s7)}
 
-/* The phone sits on the photograph, so it cannot be ink on an unknown ground.
-   It is given its own ink plate — flat, square, the same language as .btn —
-   and reversed type, which measures 16.38:1 wherever the plate lands. */
+/* On a dark hero an ink plate would vanish into it, so the plate inverts: it
+   becomes the one lit object in the frame, which is right — the phone is what
+   this shop actually converts on. 16.38:1 wherever it lands. */
 .hero__tel{position:relative;z-index:2;grid-column:8 / span 5;justify-self:end;
-  align-self:end;text-decoration:none;background:var(--ink);color:var(--on-ink);
+  align-self:end;text-decoration:none;background:var(--paper);color:var(--ink);
   padding:var(--s5) var(--s7) var(--s5) var(--s6);min-width:17rem;
   transition:background .22s var(--e)}
 .hero__tel span{display:block;font-family:'Plex Mono',ui-monospace,monospace;
-  font-size:.625rem;letter-spacing:.2em;text-transform:uppercase;color:var(--on-ink-3);
+  font-size:.625rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);
   margin-bottom:var(--s3)}
 .hero__tel b{font-weight:800;font-size:clamp(1.5rem,2.5vw,2.15rem);letter-spacing:-.03em;
   font-variant-numeric:tabular-nums;line-height:1;display:block}
-.hero__tel:hover{background:var(--signal)}
+.hero__tel:hover{background:var(--signal-lt)}
 
 /* =========================================================================
    THE FOUR FACTS — one rule, four entries, no boxes
@@ -285,7 +307,7 @@ img{display:block;max-width:100%;height:auto}
 .row__txt{grid-column:2 / span 5}
 .row__txt h3{margin-bottom:var(--s4)}
 .row__txt .t-body{max-width:44ch}
-.row__txt .lnk{margin-top:var(--s5)}
+.row__txt .lnk{margin-top:var(--s6)}
 .row__ph{position:relative}
 .row__ph img{width:100%;aspect-ratio:3/2;object-fit:cover}
 
@@ -302,10 +324,16 @@ img{display:block;max-width:100%;height:auto}
    ====================================================================== */
 .shop{position:relative;background:var(--ink);color:var(--on-ink);overflow:hidden}
 .shop__ph{position:absolute;inset:0}
-.shop__ph img{width:100%;height:100%;object-fit:cover;opacity:.5}
+/* The photograph is a photograph, not a texture: it runs at full strength and
+   the legibility is done by a solved scrim instead of by fading the picture
+   out. It is over-scaled by 18% so the parallax has somewhere to travel
+   without ever exposing an edge. */
+.shop__ph img{width:100%;height:100%;object-fit:cover;object-position:50% 46%;
+  transform:scale(1.18) translate3d(0,var(--par,0px),0);
+  will-change:transform}
 .shop__ph::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(92deg,rgba(20,20,19,.94) 0%,rgba(20,20,19,.86) 38%,
-    rgba(20,20,19,.34) 74%,rgba(20,20,19,.22) 100%)}
+  background:linear-gradient(93deg,rgba(20,20,19,.93) 0%,rgba(20,20,19,.88) 34%,
+    rgba(20,20,19,.62) 62%,rgba(20,20,19,.42) 100%)}
 .shop__in{position:relative;z-index:1;display:grid;grid-template-columns:repeat(12,1fr);
   gap:var(--s5);padding-block:var(--s10)}
 .shop__say{grid-column:1 / span 6}
@@ -333,7 +361,7 @@ img{display:block;max-width:100%;height:auto}
 .care .t-mono{color:var(--signal);margin-bottom:var(--s4)}
 .care h3{margin-bottom:var(--s4)}
 .care .t-body{font-size:.875rem;flex:1}
-.care .lnk{margin-top:var(--s6);align-self:stretch}
+.care .lnk{margin-top:var(--s6);align-self:flex-start}
 
 /* =========================================================================
    PROCESS — a ladder with one rule running through it
@@ -384,8 +412,9 @@ img{display:block;max-width:100%;height:auto}
    CONTACT — the working tool, on the ink ground
    ====================================================================== */
 .ct{background:var(--ink);color:var(--on-ink);position:relative}
-.ct__ph{width:100%;height:clamp(12rem,26vw,22rem);position:relative}
-.ct__ph img{width:100%;height:100%;object-fit:cover;opacity:.62}
+.ct__ph{width:100%;height:clamp(12rem,26vw,22rem);position:relative;overflow:hidden}
+.ct__ph img{width:100%;height:100%;object-fit:cover;object-position:50% 58%;
+  transform:scale(1.16) translate3d(0,var(--par,0px),0);will-change:transform}
 .ct__in{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s5) var(--s7);
   padding-block:var(--s9) var(--s10)}
 .ct__in>.t-eyebrow{grid-column:1 / -1}
@@ -418,33 +447,54 @@ img{display:block;max-width:100%;height:auto}
 .ct__form>header span{font-family:'Plex Mono',ui-monospace,monospace;font-size:.625rem;
   letter-spacing:.14em;text-transform:uppercase;color:var(--signal-lt)}
 
-.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5) var(--s6)}
+/* This is a form for people who are calling about a noise on the way to work,
+   often on a phone, often with one hand. It is built solid rather than
+   elegant: every field is a filled box with a real border and a 3.25rem
+   target, the labels are at 10.19:1 instead of 6.82:1, and the send button
+   takes the full width of the form. A hairline-underline field would have
+   been the exclusive-body-shop version of this. */
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5) var(--s5)}
 .f{display:flex;flex-direction:column;gap:var(--s3)}
 .f--wide{grid-column:1 / -1}
-.f label{font-family:'Plex Mono',ui-monospace,monospace;font-size:.625rem;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--on-ink-3)}
+.f label{font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;
+  font-size:.6875rem;letter-spacing:.18em;text-transform:uppercase;color:var(--on-ink-2)}
 .f label em{font-style:normal;color:var(--signal-lt)}
 .f input,.f select,.f textarea{
-  background:transparent;border:0;border-bottom:1px solid var(--rule-ink);
-  color:var(--on-ink);font-family:'Inter Tight',sans-serif;font-size:1rem;
-  padding:var(--s3) 0;width:100%;
-  transition:border-color .2s var(--e)}
-.f textarea{resize:vertical;min-height:5.5rem;line-height:1.5}
-.f select{cursor:pointer}
+  background:rgba(244,241,238,.07);
+  border:1px solid rgba(244,241,238,.42);      /* 3.77:1 on ink */
+  color:var(--on-ink);font-family:'Inter Tight',sans-serif;font-size:1.0625rem;
+  padding:var(--s4);width:100%;min-height:3.25rem;
+  transition:border-color .18s var(--e),background .18s var(--e)}
+.f textarea{resize:vertical;min-height:8rem;line-height:1.5}
+.f select{cursor:pointer;appearance:none;
+  padding-right:var(--s8);
+  background-image:linear-gradient(45deg,transparent 50%,var(--on-ink) 50%),
+    linear-gradient(135deg,var(--on-ink) 50%,transparent 50%);
+  background-position:right 1.55rem center, right 1.2rem center;
+  background-size:7px 7px, 7px 7px;background-repeat:no-repeat}
 .f select option{background:var(--ink);color:var(--on-ink)}
 .f input::placeholder,.f textarea::placeholder{color:var(--on-ink-3);opacity:1}
-.f :is(input,select,textarea):focus{outline:none;border-color:var(--signal-lt)}
-.f :is(input,select,textarea):focus-visible{outline:2px solid var(--on-ink);outline-offset:3px}
-.f[data-bad] :is(input,select,textarea){border-color:#ff8a7a}
-.f__err{font-family:'Plex Mono',ui-monospace,monospace;font-size:.625rem;
+.f :is(input,select,textarea):hover{border-color:rgba(244,241,238,.62)}
+.f :is(input,select,textarea):focus{outline:none;border-color:var(--signal-lt);
+  background:rgba(244,241,238,.11)}
+.f :is(input,select,textarea):focus-visible{outline:2px solid var(--on-ink);outline-offset:2px}
+.f[data-bad] :is(input,select,textarea){border-color:#ff8a7a;background:rgba(255,138,122,.10)}
+/* the select keeps its own arrow while it is being corrected */
+.f[data-bad] select{background-image:linear-gradient(45deg,transparent 50%,#ff8a7a 50%),
+  linear-gradient(135deg,#ff8a7a 50%,transparent 50%)}
+.f__err{font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;font-size:.6875rem;
   letter-spacing:.12em;text-transform:uppercase;color:#ff8a7a;min-height:1em}
 
-.consent{grid-column:1 / -1;display:flex;gap:var(--s4);align-items:flex-start;
-  margin-top:var(--s4)}
-.consent input{width:1.15rem;height:1.15rem;flex:0 0 auto;margin-top:.15rem;
-  accent-color:var(--signal-lt)}
-.consent label{font-size:.8125rem;line-height:1.5;color:var(--on-ink-2)}
-.ct__form .btn{grid-column:1 / -1;justify-self:start;margin-top:var(--s5)}
+/* a checkbox somebody can actually hit, and a whole row that toggles it */
+.consent{grid-column:1 / -1;display:flex;gap:var(--s4);align-items:center;
+  margin-top:var(--s2);padding:var(--s4);
+  border:1px solid rgba(244,241,238,.42)}
+.consent input{width:1.5rem;height:1.5rem;flex:0 0 auto;
+  accent-color:var(--signal-lt);cursor:pointer}
+.consent label{font-size:.9375rem;line-height:1.45;color:var(--on-ink);cursor:pointer}
+
+.ct__form .btn{grid-column:1 / -1;justify-content:center;width:100%;
+  margin-top:var(--s4);padding:var(--s5) var(--s6);font-size:.8125rem}
 
 .sent{grid-column:1 / -1;margin-top:var(--s5);padding:var(--s5);
   border:1px solid var(--signal-lt);color:var(--on-ink);font-size:.9375rem;line-height:1.55}
@@ -490,18 +540,19 @@ img{display:block;max-width:100%;height:auto}
      and .hero__in takes what is left of it. */
   .hero{display:flex;flex-direction:column;
     min-height:calc(100svh - var(--mh) - 1px)}
-  .hero__ph{flex:0 0 auto}
   .hero__in{flex:1 1 auto;min-height:0;grid-template-columns:1fr;
-    align-content:end;padding-block:0 var(--s7)}
+    align-content:end;padding-block:var(--s8) var(--s7)}
   /* Every vertical in the narrow hero is tied to the screen rather than to the
      width, because the block has to fit one of them. Measured at 430x900 the
      untied version stood 1109px tall against 815px of room. */
-  .hero__ph{position:relative;right:auto;width:auto;height:clamp(8rem,26svh,20rem);
-    margin-inline:calc(var(--bleed) * -1);order:-1;margin-bottom:var(--s5)}
+  /* it stays the ground here too — only its share of the screen changes */
+  .hero__ph img{object-position:60% 45%}
+  .hero__ph::after{background:
+    linear-gradient(to top, rgba(20,20,19,.93) 0%, rgba(20,20,19,.72) 46%,
+      rgba(20,20,19,.42) 100%)}
   .hero__say h1{font-size:clamp(1.9rem,6.8vw,3.2rem);margin-block:var(--s4)}
   .hero__say .t-lead{font-size:.9375rem}
   .hero__act{margin-top:var(--s5);gap:var(--s4)}
-  .hero__ph::after{background:linear-gradient(to top,var(--paper) 0%,rgba(244,241,238,0) 40%)}
   .hero__num{font-size:min(46vw,20rem);top:auto;bottom:-2%;left:auto;
     right:calc(var(--pad) * -.2)}
   .hero__say,.hero__tel{grid-column:1}
@@ -584,7 +635,6 @@ img{display:block;max-width:100%;height:auto}
 @media (max-width:1080px) and (max-height:820px){
   .hero__say h1{font-size:clamp(1.95rem,6.6vw,2.9rem);margin-block:var(--s4)}
   .hero__say .t-lead{font-size:.9375rem}
-  .hero__ph{margin-bottom:var(--s5)}
   .hero__act{margin-top:var(--s5);gap:var(--s4)}
   .hero__tel{margin-top:var(--s5);padding-block:var(--s4)}
   .hero__in{padding-bottom:var(--s6)}

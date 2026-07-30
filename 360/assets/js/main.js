@@ -72,7 +72,64 @@
     });
   });
 
-  /* ---- 4. the request ---------------------------------------------------- */
+  /* ---- 4. parallax on the two photographic bands -------------------------
+     The picture moves against the page, nothing else does. Rules it keeps:
+       · one property, transform, written to a custom property so the CSS keeps
+         ownership of the scale and the JS only supplies the offset;
+       · the travel is a fraction of the band's own height, so it is the same
+         gesture on a phone and on a wide screen;
+       · the image is over-scaled in CSS by more than the travel, so an edge can
+         never appear;
+       · it runs only while the band is on screen, one rAF per frame, and it is
+         not installed at all under prefers-reduced-motion — the static page is
+         the complete page.                                                    */
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)');
+  var bands = $$('[data-par]');
+  if (bands.length && !reduce.matches && 'IntersectionObserver' in window) {
+    var live = [], queued = false;
+
+    var draw = function () {
+      queued = false;
+      var vh = window.innerHeight;
+      for (var i = 0; i < live.length; i++) {
+        var el = live[i], host = el.parentNode;
+        var r = host.getBoundingClientRect();
+        /* -1 when the band is just below the fold, +1 when it has just left */
+        var t = (vh - r.top) / (vh + r.height) * 2 - 1;
+        if (t < -1) t = -1; else if (t > 1) t = 1;
+        var travel = r.height * (parseFloat(el.getAttribute('data-par')) || 0.06);
+        el.style.setProperty('--par', (-t * travel).toFixed(1) + 'px');
+      }
+    };
+    var tick = function () { if (!queued) { queued = true; requestAnimationFrame(draw); } };
+
+    var pio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var el = en.target;
+        var at = live.indexOf(el);
+        if (en.isIntersecting && at < 0) live.push(el);
+        else if (!en.isIntersecting && at >= 0) live.splice(at, 1);
+      });
+      if (live.length) tick();
+    }, { rootMargin: '10% 0px' });
+
+    bands.forEach(function (el) { pio.observe(el); });
+    window.addEventListener('scroll', tick, { passive: true });
+    window.addEventListener('resize', tick, { passive: true });
+    tick();
+
+    /* if the reader turns reduced motion on mid-session, put the pictures back */
+    var stop = function (e) {
+      if (!e.matches) return;
+      window.removeEventListener('scroll', tick);
+      pio.disconnect(); live.length = 0;
+      bands.forEach(function (el) { el.style.removeProperty('--par'); });
+    };
+    (reduce.addEventListener ? reduce.addEventListener.bind(reduce, 'change')
+      : reduce.addListener.bind(reduce))(stop);
+  }
+
+  /* ---- 5. the request ---------------------------------------------------- */
   var form = $('#req'), sent = $('#sent');
   if (form) {
     var fieldOf = function (el) { return el.closest('.f'); };
