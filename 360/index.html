@@ -14,7 +14,7 @@
 <!-- =====================================================================
      MASTHEAD
      ================================================================== -->
-<header class="mh" id="mh">
+<header class="mh on-ink" id="mh">
   <div class="wrap mh__in">
     <a class="wm" href="#main"><b>360</b><span>Auto Care</span></a>
 
@@ -33,7 +33,8 @@
     </nav>
 
     <a class="mh__tel" href="tel:+15168200360" aria-label="Call the shop on 516 820 0360">
-      <b>(516)&nbsp;820-0360</b><span>Call the shop</span></a>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.28-.28.68-.36 1.03-.25 1.12.37 2.33.57 3.56.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.29 21 3 13.71 3 4.5c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      <span class="mh__tel__t"><b>(516)&nbsp;820-0360</b><span>Call the shop</span></span></a>
   </div>
 </header>
 
@@ -47,22 +48,23 @@
     <div class="hero__num" aria-hidden="true">360</div>
     <div class="hero__ph">
       <img src="assets/img/hero.webp" width="2200" height="1240" fetchpriority="high"
-        alt="A dark SUV raised on a two-post lift in the workshop, lit by a low warm work lamp.">
+        alt="A dark SUV raised on a two-post lift, a technician working underneath it with a hand light and a second technician at the bench behind.">
     </div>
 
     <div class="wrap hero__in">
       <div class="hero__say">
-        <p class="t-eyebrow">Lynbrook, New York</p>
-        <h1 class="t-display">Complete care<br>for the road ahead</h1>
-        <p class="t-lead">Diagnostics, maintenance, inspections, tires, major repairs and
+        <p class="t-eyebrow" data-load="last" style="--i:0"><b>&rsaquo;&rsaquo;</b>Lynbrook, New York</p>
+        <h1 class="t-display" data-load="head"><span class="mo-line">Complete care</span><span
+          class="mo-line">for the road ahead</span></h1>
+        <p class="t-lead" data-load="copy" style="--i:0">Diagnostics, maintenance, inspections, tires, major repairs and
           vehicle care for foreign and domestic vehicles in Lynbrook.</p>
-        <div class="hero__act">
+        <div class="hero__act" data-load="copy" style="--i:1">
           <a class="btn" href="#contact">Schedule service <i aria-hidden="true">&rarr;</i></a>
           <a class="lnk" href="#services">Our services <i aria-hidden="true">&rarr;</i></a>
         </div>
       </div>
 
-      <a class="hero__tel" href="tel:+15168200360">
+      <a class="hero__tel" href="tel:+15168200360" data-load="last" style="--i:1">
         <span>Call the shop</span><b>(516)&nbsp;820-0360</b></a>
     </div>
   </section>
@@ -71,22 +73,20 @@
        THE FOUR FACTS
        ================================================================ -->
   <section class="facts" aria-label="What the shop is set up for">
-    <div class="wrap facts__in">
-      <p class="t-eyebrow facts__lab">What the shop is set up for</p>
-
-      <article>
+    <div class="wrap facts__in" data-seq>
+      <article data-reveal="copy" data-i="0">
         <h3 class="t-h3"><span class="t-strike">Foreign &amp; domestic repairs</span></h3>
         <p>Imported and domestic cars, crossovers, vans and light trucks.</p>
       </article>
-      <article>
+      <article data-reveal="stand" data-i="1">
         <h3 class="t-h3"><span class="t-strike">Full vehicle diagnostics</span></h3>
         <p>Faults identified on equipment before a part is ordered.</p>
       </article>
-      <article>
+      <article data-reveal="stand" data-i="2">
         <h3 class="t-h3"><span class="t-strike">NYS inspections</span></h3>
         <p>New York State inspection carried out in the shop.</p>
       </article>
-      <article>
+      <article data-reveal="stand" data-i="3">
         <h3 class="t-h3"><span class="t-strike">Extended warranties accepted</span></h3>
         <p>Covered repairs handled directly with your provider.</p>
       </article>
@@ -98,115 +98,115 @@
        ================================================================ -->
   <section class="sec" id="services">
     <div class="wrap">
-      <div class="sec__head">
-        <p class="t-eyebrow">Our services</p>
-        <h2 class="t-h2">What we work on</h2>
-        <p class="t-lead">Six areas of work, one shop. Every job starts with finding out what
+      <div class="sec__head" data-seq>
+        <p class="t-eyebrow" data-reveal="label" data-i="0"><b>&rsaquo;&rsaquo;</b>Our services</p>
+        <h2 class="t-h2" data-reveal="head" data-i="1"><span class="mo-line">What we work on</span></h2>
+        <p class="t-lead" data-reveal="copy" data-i="2">Six areas of work, one shop. Every job starts with finding out what
           is actually wrong — and every one of them can be requested directly below.</p>
       </div>
 
       <div class="ledger">
-        <article class="row">
-          <p class="row__n">01</p>
+        <article class="row" data-seq>
+          <p class="row__n" data-reveal="label" data-i="0">01</p>
           <div class="row__txt">
-            <h3 class="t-h3">Diagnostics &amp; major repair</h3>
-            <p class="t-body">Check-engine lights, drivability faults, electrical problems and
+            <h3 class="t-h3" data-reveal="head" data-i="2"><span class="mo-line">Diagnostics &amp; major repair</span></h3>
+            <p class="t-body" data-reveal="copy" data-i="3">Check-engine lights, drivability faults, electrical problems and
               full engine or transmission work — diagnosed on equipment before any part is
               replaced.</p>
-            <ul class="chips">
+            <ul class="chips" data-reveal="copy" data-i="3">
               <li>Check-engine light</li><li>Drivability</li>
               <li>Electrical &amp; wiring</li><li>Engine &amp; transmission</li>
             </ul>
-            <a class="lnk" href="#contact" data-service="Diagnostics &amp; Major Repair">
+            <a class="lnk" data-reveal="act" data-i="4" href="#contact" data-service="Diagnostics &amp; Major Repair">
               Request this service <i aria-hidden="true">&rarr;</i></a>
           </div>
-          <div class="row__ph"><img src="assets/img/svc-01.webp" width="1500" height="1000"
+          <div class="row__ph" data-reveal="img" data-i="1"><img src="assets/img/svc-01.webp" width="1600" height="1100"
             loading="lazy" alt="A technician's hand holding a diagnostic scan tool inside a car, the workshop lights out of focus through the windscreen."></div>
         </article>
 
-        <article class="row">
-          <p class="row__n">02</p>
+        <article class="row" data-seq>
+          <p class="row__n" data-reveal="label" data-i="0">02</p>
           <div class="row__txt">
-            <h3 class="t-h3">Maintenance &amp; NYS inspection</h3>
-            <p class="t-body">Scheduled service by mileage, oil and filters, fluids, belts and
+            <h3 class="t-h3" data-reveal="head" data-i="2"><span class="mo-line">Maintenance &amp; NYS inspection</span></h3>
+            <p class="t-body" data-reveal="copy" data-i="3">Scheduled service by mileage, oil and filters, fluids, belts and
               batteries — plus New York State inspection while the car is already on the lift.</p>
-            <ul class="chips">
+            <ul class="chips" data-reveal="copy" data-i="3">
               <li>Oil &amp; filter</li><li>Fluids &amp; filters</li>
               <li>Batteries</li><li>NYS inspection</li>
             </ul>
-            <a class="lnk" href="#contact" data-service="Maintenance &amp; NYS Inspection">
+            <a class="lnk" data-reveal="act" data-i="4" href="#contact" data-service="Maintenance &amp; NYS Inspection">
               Request this service <i aria-hidden="true">&rarr;</i></a>
           </div>
-          <div class="row__ph"><img src="assets/img/svc-02.webp" width="1500" height="1000"
+          <div class="row__ph" data-reveal="img" data-i="1"><img src="assets/img/svc-02.webp" width="1600" height="1100"
             loading="lazy" alt="Gloved hands removing an oil filter beneath a raised sedan, with a drain pan on the floor below."></div>
         </article>
 
-        <article class="row">
-          <p class="row__n">03</p>
+        <article class="row" data-seq>
+          <p class="row__n" data-reveal="label" data-i="0">03</p>
           <div class="row__txt">
-            <h3 class="t-h3">Brakes, suspension &amp; steering</h3>
-            <p class="t-body">Pads, rotors, lines and calipers; shocks, struts, bushings and
+            <h3 class="t-h3" data-reveal="head" data-i="2"><span class="mo-line">Brakes, suspension &amp; steering</span></h3>
+            <p class="t-body" data-reveal="copy" data-i="3">Pads, rotors, lines and calipers; shocks, struts, bushings and
               steering components — the parts that decide how the car stops and how it holds
               the road.</p>
-            <ul class="chips">
+            <ul class="chips" data-reveal="copy" data-i="3">
               <li>Brake service</li><li>Shocks &amp; struts</li>
               <li>Alignment</li><li>Steering &amp; suspension</li>
             </ul>
-            <a class="lnk" href="#contact" data-service="Brakes, Suspension &amp; Steering">
+            <a class="lnk" data-reveal="act" data-i="4" href="#contact" data-service="Brakes, Suspension &amp; Steering">
               Request this service <i aria-hidden="true">&rarr;</i></a>
           </div>
-          <div class="row__ph"><img src="assets/img/svc-03.webp" width="1500" height="1000"
+          <div class="row__ph" data-reveal="img" data-i="1"><img src="assets/img/svc-03.webp" width="1600" height="1100"
             loading="lazy" alt="An exposed brake rotor and caliper on a front hub with the wheel removed, a gloved hand fitting a new pad."></div>
         </article>
 
-        <article class="row">
-          <p class="row__n">04</p>
+        <article class="row" data-seq>
+          <p class="row__n" data-reveal="label" data-i="0">04</p>
           <div class="row__txt">
-            <h3 class="t-h3">Tires &amp; wheel service</h3>
-            <p class="t-body">New tires fitted and balanced, rotations, puncture repairs,
+            <h3 class="t-h3" data-reveal="head" data-i="2"><span class="mo-line">Tires &amp; wheel service</span></h3>
+            <p class="t-body" data-reveal="copy" data-i="3">New tires fitted and balanced, rotations, puncture repairs,
               pressure sensors and four-wheel alignment on everyday vehicles.</p>
-            <ul class="chips">
+            <ul class="chips" data-reveal="copy" data-i="3">
               <li>New tires</li><li>Mount &amp; balance</li>
               <li>Rotation &amp; repair</li><li>TPMS</li>
             </ul>
-            <a class="lnk" href="#contact" data-service="Tires &amp; Wheel Service">
+            <a class="lnk" data-reveal="act" data-i="4" href="#contact" data-service="Tires &amp; Wheel Service">
               Request this service <i aria-hidden="true">&rarr;</i></a>
           </div>
-          <div class="row__ph"><img src="assets/img/svc-04.webp" width="1500" height="1000"
+          <div class="row__ph" data-reveal="img" data-i="1" data-from="right"><img src="assets/img/svc-04.webp" width="1600" height="1100"
             loading="lazy" alt="A tire and alloy wheel on a balancing machine, a technician's hand steadying the rim."></div>
         </article>
 
-        <article class="row">
-          <p class="row__n">05</p>
+        <article class="row" data-seq>
+          <p class="row__n" data-reveal="label" data-i="0">05</p>
           <div class="row__txt">
-            <h3 class="t-h3">Heating &amp; air conditioning</h3>
-            <p class="t-body">Performance testing, leak diagnosis, recharge and compressor work,
+            <h3 class="t-h3" data-reveal="head" data-i="2"><span class="mo-line">Heating &amp; air conditioning</span></h3>
+            <p class="t-body" data-reveal="copy" data-i="3">Performance testing, leak diagnosis, recharge and compressor work,
               plus heater cores, blowers and cabin filters — before the season turns.</p>
-            <ul class="chips">
+            <ul class="chips" data-reveal="copy" data-i="3">
               <li>A/C diagnosis</li><li>Recharge</li>
               <li>Compressors</li><li>Heating &amp; blower</li>
             </ul>
-            <a class="lnk" href="#contact" data-service="Heating &amp; Air Conditioning">
+            <a class="lnk" data-reveal="act" data-i="4" href="#contact" data-service="Heating &amp; Air Conditioning">
               Request this service <i aria-hidden="true">&rarr;</i></a>
           </div>
-          <div class="row__ph"><img src="assets/img/svc-05.webp" width="1500" height="1000"
+          <div class="row__ph" data-reveal="img" data-i="1"><img src="assets/img/svc-05.webp" width="1600" height="1100"
             loading="lazy" alt="An air-conditioning manifold gauge set resting on a fender with service hoses running into the engine bay."></div>
         </article>
 
-        <article class="row">
-          <p class="row__n">06</p>
+        <article class="row" data-seq>
+          <p class="row__n" data-reveal="label" data-i="0">06</p>
           <div class="row__txt">
-            <h3 class="t-h3">Vehicle care &amp; buyer services</h3>
-            <p class="t-body">Interior and exterior detailing, extended-warranty repairs handled
+            <h3 class="t-h3" data-reveal="head" data-i="2"><span class="mo-line">Vehicle care &amp; buyer services</span></h3>
+            <p class="t-body" data-reveal="copy" data-i="3">Interior and exterior detailing, extended-warranty repairs handled
               with your provider, and pre-purchase inspections before you buy a used vehicle.</p>
-            <ul class="chips">
+            <ul class="chips" data-reveal="copy" data-i="3">
               <li>Auto detailing</li><li>Extended warranties</li>
               <li>Pre-purchase inspection</li>
             </ul>
-            <a class="lnk" href="#contact" data-service="Vehicle Care &amp; Buyer Services">
+            <a class="lnk" data-reveal="act" data-i="4" href="#contact" data-service="Vehicle Care &amp; Buyer Services">
               Request this service <i aria-hidden="true">&rarr;</i></a>
           </div>
-          <div class="row__ph"><img src="assets/img/svc-06.webp" width="1500" height="1000"
+          <div class="row__ph" data-reveal="img" data-i="1"><img src="assets/img/svc-06.webp" width="1600" height="1100"
             loading="lazy" alt="A dual-action polisher held against the dark door panel of a family sedan."></div>
         </article>
       </div>
@@ -216,21 +216,21 @@
   <!-- ===================================================================
        THE SHOP — the one full-strength photographic mass
        ================================================================ -->
-  <section class="shop on-ink" id="shop">
-    <div class="shop__ph" aria-hidden="true">
-      <img src="assets/img/shop.webp" width="2400" height="1500" loading="lazy"
-        data-par=".07" alt="">
+  <section class="shop on-ink" id="shop" data-seq>
+    <div class="shop__ph" aria-hidden="true" data-reveal="band" data-i="0">
+      <img src="assets/img/shop.webp" width="2600" height="1420" loading="lazy"
+        data-par=".115" alt="">
     </div>
     <div class="wrap shop__in">
       <div class="shop__say">
-        <p class="t-eyebrow">The shop</p>
-        <h2 class="t-h2">Service for the vehicles you depend on</h2>
-        <p class="t-lead">The cars that come through these bays are the ones people actually
+        <p class="t-eyebrow" data-reveal="label" data-i="1"><b>&rsaquo;&rsaquo;</b>The shop</p>
+        <h2 class="t-h2" data-reveal="head" data-i="2"><span class="mo-line">Service for the vehicles you depend on</span></h2>
+        <p class="t-lead" data-reveal="copy" data-i="3">The cars that come through these bays are the ones people actually
           rely on — commuters, family vehicles, work vans and pickups, imported and domestic
           alike.</p>
       </div>
 
-      <div class="shop__pts">
+      <div class="shop__pts" data-reveal="copy" data-i="4">
         <div>
           <h3>What the work covers</h3>
           <p>Routine maintenance to major repair — tires, alignment, state inspection,
@@ -243,7 +243,7 @@
         </div>
       </div>
 
-      <a class="btn" href="#contact">Bring a vehicle in <i aria-hidden="true">&rarr;</i></a>
+      <a class="btn" data-reveal="act" data-i="5" href="#contact">Bring a vehicle in <i aria-hidden="true">&rarr;</i></a>
     </div>
   </section>
 
@@ -253,15 +253,15 @@
        ================================================================ -->
   <section class="care sec" id="care">
     <div class="wrap">
-      <div class="sec__head">
-        <p class="t-eyebrow">Vehicle care</p>
-        <h2 class="t-h2">Before you buy, and after you own</h2>
+      <div class="sec__head" data-seq>
+        <p class="t-eyebrow" data-reveal="label" data-i="0"><b>&rsaquo;&rsaquo;</b>Vehicle care</p>
+        <h2 class="t-h2" data-reveal="head" data-i="1"><span class="mo-line">Before you buy, and after you own</span></h2>
       </div>
 
-      <div class="care__grid">
+      <div class="care__grid" data-seq>
         <article>
-          <p class="t-mono">Detailing</p>
-          <h3 class="t-h3">Auto detailing</h3>
+          <p class="t-mono" data-reveal="label" data-i="0">Detailing</p>
+          <h3 class="t-h3" data-reveal="head" data-i="1"><span class="mo-line">Auto detailing</span></h3>
           <p class="t-body">Paint decontaminated and polished, glass and trim cleaned, carpets
             and upholstery extracted — a cabin returned to a condition that outlasts a wash.</p>
           <ul class="chips">
@@ -273,8 +273,8 @@
         </article>
 
         <article>
-          <p class="t-mono">Coverage</p>
-          <h3 class="t-h3">Extended warranty repairs</h3>
+          <p class="t-mono" data-reveal="label" data-i="2">Coverage</p>
+          <h3 class="t-h3" data-reveal="head" data-i="3"><span class="mo-line">Extended warranty repairs</span></h3>
           <p class="t-body">If your vehicle carries an extended warranty or a service contract,
             covered work can be carried out here. The fault is documented, the claim is opened
             with your provider, and the authorised repair is completed in the shop.</p>
@@ -287,8 +287,8 @@
         </article>
 
         <article>
-          <p class="t-mono">Before you buy</p>
-          <h3 class="t-h3">Pre-purchase inspections</h3>
+          <p class="t-mono" data-reveal="label" data-i="3">Before you buy</p>
+          <h3 class="t-h3" data-reveal="head" data-i="4"><span class="mo-line">Pre-purchase inspections</span></h3>
           <p class="t-body">Before money changes hands, the vehicle goes on the lift and gets
             looked at properly — underbody, mechanical, electronic, then written up so the price
             you negotiate reflects the car in front of you.</p>
@@ -308,28 +308,29 @@
   <section class="sec proc" id="process">
     <div class="wrap">
       <div class="sec__head">
-        <p class="t-eyebrow">How it works</p>
+        <p class="t-eyebrow"><b>&rsaquo;&rsaquo;</b>How it works</p>
         <h2 class="t-h2">How service runs</h2>
       </div>
 
-      <div class="proc__grid">
-        <article>
-          <span class="proc__n">Step 01</span>
+      <div class="proc__grid" data-seq>
+        <span class="proc__line" aria-hidden="true"><i></i></span>
+        <article data-reveal="copy" data-i="1">
+          <span class="proc__n"><i>Step</i><b>01</b></span>
           <h3 class="t-h3"><span class="t-strike">Call or request</span></h3>
           <p>Tell us the vehicle and the symptom. The phone is fastest.</p>
         </article>
-        <article>
-          <span class="proc__n">Step 02</span>
+        <article data-reveal="copy" data-i="2">
+          <span class="proc__n"><i>Step</i><b>02</b></span>
           <h3 class="t-h3"><span class="t-strike">Diagnosis</span></h3>
           <p>The fault is identified on equipment before anything is ordered.</p>
         </article>
-        <article>
-          <span class="proc__n">Step 03</span>
+        <article data-reveal="copy" data-i="3">
+          <span class="proc__n"><i>Step</i><b>03</b></span>
           <h3 class="t-h3"><span class="t-strike">Approval</span></h3>
           <p>You get the findings, the parts and the price before work starts.</p>
         </article>
-        <article>
-          <span class="proc__n">Step 04</span>
+        <article data-reveal="stand" data-i="4">
+          <span class="proc__n"><i>Step</i><b>04</b></span>
           <h3 class="t-h3"><span class="t-strike">Repair &amp; return</span></h3>
           <p>Work completed, the vehicle checked, and back to you ready for the road.</p>
         </article>
@@ -342,10 +343,10 @@
        ================================================================ -->
   <section class="sec rev" id="reviews">
     <div class="wrap">
-      <div class="rev__top">
-        <p class="t-eyebrow">Reviews</p>
-        <h2 class="t-h2">What Lynbrook drivers say</h2>
-        <div class="rev__score">
+      <div class="rev__top" data-seq>
+        <p class="t-eyebrow" data-reveal="label" data-i="0"><b>&rsaquo;&rsaquo;</b>Reviews</p>
+        <h2 class="t-h2" data-reveal="head" data-i="1"><span class="mo-line">What Lynbrook drivers say</span></h2>
+        <div class="rev__score" data-reveal="copy" data-i="2">
           <b>4.8</b><em>out of 5</em>
           <p>Across 126 reviews on Google</p>
           <a class="lnk" href="https://www.google.com/maps/search/?api=1&amp;query=360+Auto+Care+Inc%2C+10+N+Prospect+Ave%2C+Lynbrook%2C+NY+11563"
@@ -353,49 +354,46 @@
         </div>
       </div>
 
-      <div class="rev__grid">
+      <div class="rev__grid" data-seq>
         <blockquote>
-          <span class="stars" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-          <p>Brought my Odyssey in with a check-engine light two other places had guessed at.
+          <span class="stars" aria-label="5 out of 5" data-reveal="label" data-i="0">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <p data-reveal="head" data-i="1"><span class="mo-line">Brought my Odyssey in with a check-engine light two other places had guessed at.
             They put it on the machine, found the actual fault, called me with the price before
-            touching anything. No surprises on the bill.</p>
-          <footer><b>Michael R.</b>Google &middot; March 2026</footer>
+            touching anything. </span><span class="mo-line mo-line--turn">No surprises on the bill.</span></p>
+          <footer data-reveal="copy" data-i="2"><b>Michael R.</b>Google &middot; March 2026</footer>
         </blockquote>
         <blockquote>
-          <span class="stars" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-          <p>Needed an inspection and ended up needing brakes too. They showed me the
-            measurements on the pads instead of just telling me. That is why I keep coming back
-            with both our cars.</p>
-          <footer><b>Denise K.</b>Google &middot; February 2026</footer>
+          <span class="stars" aria-label="5 out of 5" data-reveal="label" data-i="1">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <p data-reveal="head" data-i="2"><span class="mo-line">Needed an inspection and ended up needing brakes too. They showed me the
+            measurements on the pads instead of just telling me. </span><span class="mo-line mo-line--turn">That is why I keep coming back
+            with both our cars.</span></p>
+          <footer data-reveal="copy" data-i="3"><b>Denise K.</b>Google &middot; February 2026</footer>
         </blockquote>
         <blockquote>
-          <span class="stars" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-          <p>Had them look over a used Civic before I bought it. They found a rear suspension
-            issue the seller had not mentioned and it saved me a few thousand dollars. Straight
-            answers, no upsell.</p>
-          <footer><b>Anthony P.</b>Google &middot; January 2026</footer>
+          <span class="stars" aria-label="5 out of 5" data-reveal="label" data-i="2">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <p data-reveal="head" data-i="3"><span class="mo-line">Had them look over a used Civic before I bought it. They found a rear suspension
+            issue the seller had not mentioned and it saved me a few thousand dollars. </span><span class="mo-line mo-line--turn">Straight
+            answers, no upsell.</span></p>
+          <footer data-reveal="copy" data-i="4"><b>Anthony P.</b>Google &middot; January 2026</footer>
         </blockquote>
       </div>
-
-      <p class="rev__note">Example wording shown. Real reviews from the shop's Google profile
-        replace these before launch.</p>
     </div>
   </section>
 
   <!-- ===================================================================
        CONTACT — brand expression gives way to the working tool
        ================================================================ -->
-  <section class="ct on-ink" id="contact">
-    <div class="ct__ph" aria-hidden="true">
-      <img src="assets/img/exterior.webp" width="2400" height="1300" loading="lazy"
-        data-par=".055" alt="">
+  <section class="ct on-ink" id="contact" data-seq>
+    <div class="ct__ph" aria-hidden="true" data-reveal="band" data-i="0">
+      <img src="assets/img/exterior.webp" width="2600" height="1210" loading="lazy"
+        data-par=".085" alt="">
     </div>
 
     <div class="wrap ct__in">
-      <p class="t-eyebrow">Contact</p>
-      <h2 class="t-h2">Bring it to the shop</h2>
+      <p class="t-eyebrow" data-reveal="label" data-i="1"><b>&rsaquo;&rsaquo;</b>Contact</p>
+      <h2 class="t-h2" data-reveal="head" data-i="2"><span class="mo-line">Bring it to the shop</span></h2>
 
-      <div class="ct__side">
+      <div class="ct__side" data-reveal="copy" data-i="3">
         <a class="ct__tel" href="tel:+15168200360">
           <span>Call the shop</span><b>(516)&nbsp;820-0360</b></a>
         <p>Fastest way to get a vehicle booked in. Tell us the year, make and model, and what
@@ -420,7 +418,7 @@
           target="_blank" rel="noopener">Get directions <i aria-hidden="true">&rarr;</i></a>
       </div>
 
-      <form class="ct__form" id="req" novalidate>
+      <form class="ct__form" id="req" novalidate data-reveal="copy" data-i="4">
         <header>
           <b>Service request</b>
           <span>Replies same working day</span>

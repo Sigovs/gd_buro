@@ -119,10 +119,12 @@ img{display:block;max-width:100%;height:auto}
    3.76:1 there, --ink-2 measures 5.63:1 */
 .t-eyebrow{font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;
   font-size:.6875rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-2)}
-.t-eyebrow::before{content:"";display:inline-block;width:1.5rem;height:1px;
-  background:var(--signal);vertical-align:.28em;margin-right:var(--s3)}
-.on-ink .t-eyebrow{color:var(--on-ink-3)}
-.on-ink .t-eyebrow::before{background:var(--signal-lt)}
+.t-eyebrow b{font-weight:500;color:var(--signal);margin-right:var(--s3);
+  font-size:1.45em;line-height:0;letter-spacing:-.1em;vertical-align:-.06em}
+/* over photography --on-ink-3 fell to 4.07:1 once the hero type widened;
+   --on-ink-2 measures 10.21:1 on ink and holds over the picture */
+.on-ink .t-eyebrow{color:var(--on-ink-2)}
+.on-ink .t-eyebrow b{color:var(--signal-lt)}
 
 /* ---- the struck label ---------------------------------------------------
    Ink laid behind the words themselves rather than behind their box, cloned
@@ -138,7 +140,7 @@ img{display:block;max-width:100%;height:auto}
 .on-ink .t-strike{background:var(--on-ink);color:var(--ink)}
 :where(h1,h2,h3,p):has(> .t-strike){line-height:1.42}
 
-.t-display{font-weight:800;font-size:clamp(2.6rem,7.6vw,6.6rem);line-height:.9;
+.t-display{font-weight:800;font-size:clamp(2.5rem,6.9vw,6rem);line-height:.92;
   letter-spacing:-.035em;text-transform:uppercase}
 .t-h2{font-weight:800;font-size:clamp(1.9rem,4.4vw,3.4rem);line-height:.94;
   letter-spacing:-.03em;text-transform:uppercase}
@@ -159,62 +161,73 @@ img{display:block;max-width:100%;height:auto}
    (the rmsothebys banned pattern). */
 .btn,.lnk{display:inline-flex;align-items:center;gap:var(--s3);
   border-radius:999px;text-decoration:none;cursor:pointer;
-  font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;font-size:.6875rem;
-  letter-spacing:.18em;text-transform:uppercase;line-height:1;
+  font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;font-size:.75rem;
+  letter-spacing:.16em;text-transform:uppercase;line-height:1;
   transition:background .22s var(--e),color .22s var(--e),border-color .22s var(--e)}
 .btn i,.lnk i{font-style:normal;transition:transform .22s var(--e)}
 .btn:hover i,.lnk:hover i{transform:translateX(4px)}
 
-.btn{background:var(--ink);color:var(--on-ink);border:1px solid var(--ink);
-  padding:var(--s4) var(--s6)}
+.btn{background:var(--ink);color:var(--on-ink);border:2px solid var(--ink);
+  padding:calc(var(--s4) - 1px) var(--s6)}
 .btn:hover{background:var(--signal);border-color:var(--signal)}
 .on-ink .btn{background:var(--on-ink);color:var(--ink);border-color:var(--on-ink)}
 .on-ink .btn:hover{background:var(--signal-lt);border-color:var(--signal-lt)}
 
 .lnk{background:transparent;color:var(--ink);
-  border:1px solid rgba(20,20,19,.48);padding:var(--s4) var(--s6)}
+  border:2px solid var(--ink);padding:calc(var(--s4) - 1px) var(--s6)}
 .lnk:hover{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
-.on-ink .lnk{color:var(--on-ink);border-color:rgba(244,241,238,.42)}
+.on-ink .lnk{color:var(--on-ink);border-color:var(--on-ink)}
 .on-ink .lnk:hover{background:var(--on-ink);color:var(--ink);border-color:var(--on-ink)}
 
 /* the parts categories: facts, so they are mono and they sit on a rule */
-.chips{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);margin-top:var(--s4)}
+.chips{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s5)}
 .chips li{list-style:none;font-family:'Plex Mono',ui-monospace,monospace;
-  font-size:.625rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
-  padding-top:var(--s2);border-top:1px solid var(--rule-hair);flex:0 1 auto}
-.on-ink .chips li{color:var(--on-ink-3);border-color:var(--rule-ink)}
+  font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);
+  background:rgba(20,20,19,.055);border:1px solid var(--rule-hair);
+  padding:.42em .72em .38em;flex:0 1 auto}
+.on-ink .chips li{color:var(--on-ink-2);background:rgba(244,241,238,.08);
+  border-color:var(--rule-ink)}
 
 /* =========================================================================
    MASTHEAD
    ====================================================================== */
-.mh{position:sticky;top:0;z-index:40;background:var(--paper);
-  border-bottom:1px solid var(--rule)}
+/* The masthead is the one constant on a page that changes tone four times, so
+   it is solid ink and the page moves underneath it. Over the hero it reads as
+   part of the photograph; over the light sections it is the hardest edge on
+   the screen. No hairline: the tonal change is the boundary. */
+.mh{position:sticky;top:0;z-index:40;background:var(--ink);color:var(--on-ink)}
 .mh__in{display:flex;align-items:center;gap:var(--s6);min-height:var(--mh)}
 
-.wm{display:flex;align-items:baseline;gap:var(--s3);text-decoration:none;color:var(--ink);
-  flex:0 0 auto}
-.wm b{font-weight:800;font-size:1.75rem;letter-spacing:-.05em;line-height:1}
-.wm span{font-family:'Plex Mono',ui-monospace,monospace;font-size:.625rem;
-  letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3)}
+.wm{display:flex;align-items:baseline;gap:var(--s3);text-decoration:none;
+  color:inherit;flex:0 0 auto}
+.wm b{font-weight:800;font-size:2rem;letter-spacing:-.05em;line-height:1}
+.wm span{font-family:'Plex Mono',ui-monospace,monospace;font-size:.6875rem;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--on-ink-3)}
 
 .mh nav{margin-left:auto}
 .mh nav ul{display:flex;gap:var(--s5);list-style:none}
-.mh nav a{color:var(--ink-3);text-decoration:none;
-  font-family:'Plex Mono',ui-monospace,monospace;font-size:.6875rem;letter-spacing:.18em;
+.mh nav a{color:var(--on-ink-2);text-decoration:none;font-weight:600;
+  font-family:'Plex Mono',ui-monospace,monospace;font-size:.75rem;letter-spacing:.16em;
   text-transform:uppercase;padding-block:var(--s2);
-  border-bottom:1px solid transparent;transition:color .2s var(--e),border-color .2s var(--e)}
-.mh nav a:hover,.mh nav a[aria-current=true]{color:var(--ink);border-color:var(--signal)}
+  transition:color .2s var(--e)}
+.mh nav a:hover,.mh nav a[aria-current=true]{color:var(--on-ink)}
 
-.mh__tel{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);
-  padding-left:var(--s6);border-left:1px solid var(--rule)}
-.mh__tel b{font-weight:600;font-size:1.0625rem;letter-spacing:-.01em;
+.mh__tel{display:flex;align-items:center;gap:var(--s4);text-decoration:none;
+  color:var(--on-ink);padding-left:var(--s6);border-left:1px solid var(--rule-ink)}
+/* the one chromatic thing in the bar, and it marks the one action the bar
+   actually carries. Solid fill, no stroke, no external request. */
+.mh__tel svg{width:1.375rem;height:1.375rem;flex:0 0 auto;fill:var(--signal-lt);
+  transition:fill .2s var(--e),transform .2s var(--mo-mech)}
+.mh__tel:hover svg{fill:var(--on-ink);transform:rotate(-8deg)}
+.mh__tel__t{display:flex;flex-direction:column}
+.mh__tel b{font-weight:700;font-size:1.125rem;letter-spacing:-.015em;
   font-variant-numeric:tabular-nums}
-.mh__tel span{font-family:'Plex Mono',ui-monospace,monospace;font-size:.5625rem;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
-.mh__tel:hover b{color:var(--signal)}
+.mh__tel__t span{font-family:'Plex Mono',ui-monospace,monospace;font-size:.6875rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--on-ink-3)}
+.mh__tel:hover b{color:var(--signal-lt)}
 
 .burger{display:none;background:none;border:0;cursor:pointer;padding:var(--s3);
-  margin-left:auto;color:var(--ink)}
+  margin-left:auto;color:var(--on-ink)}
 .burger span{display:block;width:22px;height:2px;background:currentColor}
 .burger span+span{margin-top:5px}
 
@@ -227,10 +240,10 @@ img{display:block;max-width:100%;height:auto}
    crush the headline. */
 /* no rule under it: the tonal change from photograph to paper is the boundary */
 .hero{position:relative;overflow:hidden;background:var(--ink);color:var(--on-ink);
-  min-height:calc(100svh - var(--mh) - 1px)}
+  min-height:calc(100svh - var(--mh))}
 .hero__in{position:relative;display:grid;grid-template-columns:repeat(12,1fr);
   gap:0 var(--s5);align-items:end;align-content:end;
-  min-height:calc(100svh - var(--mh) - 1px);
+  min-height:calc(100svh - var(--mh));
   padding-block:var(--s8) clamp(var(--s7),7svh,var(--s9))}
 
 /* The photograph is the whole ground of the hero, so the hero is the one dark
@@ -245,8 +258,8 @@ img{display:block;max-width:100%;height:auto}
 .hero__ph::after{content:"";position:absolute;inset:0;
   background:
     linear-gradient(101deg,
-      rgba(20,20,19,.90) 0%, rgba(20,20,19,.86) 30%,
-      rgba(20,20,19,.55) 58%, rgba(20,20,19,.34) 100%),
+      rgba(20,20,19,.91) 0%, rgba(20,20,19,.88) 42%,
+      rgba(20,20,19,.60) 68%, rgba(20,20,19,.34) 100%),
     linear-gradient(to top, rgba(20,20,19,.55) 0%, rgba(20,20,19,0) 46%)}
 
 /* the mark stays a construction: it bleeds off the top edge and the headline
@@ -255,7 +268,10 @@ img{display:block;max-width:100%;height:auto}
   font-weight:800;font-size:min(37vw,30.5rem);line-height:.74;letter-spacing:-.06em;
   color:rgba(244,241,238,.085);pointer-events:none;user-select:none;white-space:nowrap}
 
-.hero__say{position:relative;z-index:2;grid-column:1 / span 7}
+/* 7 of 12 columns held the headline inside the darkest part of the frame and
+   forced the breaks; 8 gives it 14% more measure, and the display size comes
+   down 9% so the two lines set with room rather than to the edge. */
+.hero__say{position:relative;z-index:2;grid-column:1 / span 8}
 .hero__say h1{margin:var(--s5) 0 var(--s5);max-width:14ch}
 .hero__say .t-lead{max-width:38ch}
 .hero__act{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s5);margin-top:var(--s7)}
@@ -263,12 +279,12 @@ img{display:block;max-width:100%;height:auto}
 /* On a dark hero an ink plate would vanish into it, so the plate inverts: it
    becomes the one lit object in the frame, which is right — the phone is what
    this shop actually converts on. 16.38:1 wherever it lands. */
-.hero__tel{position:relative;z-index:2;grid-column:8 / span 5;justify-self:end;
+.hero__tel{position:relative;z-index:2;grid-column:9 / span 4;justify-self:end;
   align-self:end;text-decoration:none;background:var(--paper);color:var(--ink);
   padding:var(--s5) var(--s7) var(--s5) var(--s6);min-width:17rem;
   transition:background .22s var(--e)}
 .hero__tel span{display:block;font-family:'Plex Mono',ui-monospace,monospace;
-  font-size:.625rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);
+  font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);
   margin-bottom:var(--s3)}
 .hero__tel b{font-weight:800;font-size:clamp(1.5rem,2.5vw,2.15rem);letter-spacing:-.03em;
   font-variant-numeric:tabular-nums;line-height:1;display:block}
@@ -279,13 +295,12 @@ img{display:block;max-width:100%;height:auto}
    ====================================================================== */
 .facts{border-bottom:1px solid var(--rule);background:var(--paper-2)}
 .facts__in{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-.facts__lab{grid-column:1 / -1;padding-block:var(--s5) var(--s4)}
-.facts article{padding:var(--s5) var(--s5) var(--s7) 0;border-left:1px solid var(--rule-hair);
+.facts article{padding:var(--s7) var(--s5) var(--s7) 0;border-left:1px solid var(--rule-hair);
   padding-left:var(--s5)}
 .facts article:first-of-type{border-left:0;padding-left:0}
-.facts h3{margin-bottom:var(--s3)}
+.facts h3{margin-bottom:var(--s4);min-height:2.84em}
 /* these sit on --paper-2, where --ink-3 falls to 4.25:1 */
-.facts p{font-size:.875rem;line-height:1.55;color:var(--ink-2);max-width:26ch}
+.facts p{font-size:.9375rem;line-height:1.6;color:var(--ink-2);max-width:26ch}
 
 /* =========================================================================
    SERVICES — the ledger. Six rows, and the photograph moves on a three-beat
@@ -299,13 +314,16 @@ img{display:block;max-width:100%;height:auto}
 .sec__head .t-lead{grid-column:8 / span 5;padding-bottom:var(--s2)}
 
 .ledger{border-top:1px solid var(--rule)}
+/* after a hero that owns the whole screen, a 21px title on a 3:2 tile read as
+   a footnote. The entries get the ramp and the names get their own size. */
 .row{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s5);
-  border-bottom:1px solid var(--rule);padding-block:var(--s7);align-items:start}
+  border-bottom:1px solid var(--rule);padding-block:var(--s8);align-items:start}
 .row__n{grid-column:1 / span 1;font-family:'Plex Mono',ui-monospace,monospace;
-  font-weight:500;font-size:.8125rem;letter-spacing:.1em;color:var(--signal);
-  padding-top:.3rem;font-variant-numeric:tabular-nums}
+  font-weight:500;font-size:.9375rem;letter-spacing:.1em;color:var(--signal);
+  padding-top:.42rem;font-variant-numeric:tabular-nums}
 .row__txt{grid-column:2 / span 5}
-.row__txt h3{margin-bottom:var(--s4)}
+.row__txt h3{margin-bottom:var(--s4);font-size:clamp(1.3rem,2.15vw,1.9rem);
+  letter-spacing:-.022em;line-height:1.06}
 .row__txt .t-body{max-width:44ch}
 .row__txt .lnk{margin-top:var(--s6)}
 .row__ph{position:relative}
@@ -313,11 +331,25 @@ img{display:block;max-width:100%;height:auto}
 
 /* beat 1 — the photograph takes the full right half */
 .row:nth-child(3n+1) .row__ph{grid-column:8 / span 5}
+.row:nth-child(3n+1) .row__ph img{aspect-ratio:4/3}
 /* beat 2 — it draws in, and the air on its right becomes the active shape */
 .row:nth-child(3n+2) .row__ph{grid-column:8 / span 4}
 /* beat 3 — it commits and leaves the page (academic-composition C9) */
 .row:nth-child(3n) .row__ph{grid-column:8 / -1;margin-right:calc(var(--bleed) * -1)}
 .row:nth-child(3n) .row__ph img{aspect-ratio:2/1}
+
+/* THE DEPARTURE (academic-composition C7). Exactly one, and it lands after
+   the third entry, where a six-row list starts to feel like a list. The
+   photograph crosses to the other side and leaves the page there, the index
+   is set at display scale instead of caption scale, and the text takes the
+   narrow right column. Nothing else in the ledger is touched, so this reads
+   as a break in the rhythm rather than as a second rhythm. */
+.row:nth-child(4) .row__ph{grid-column:1 / span 6;grid-row:1;
+  margin-left:calc(var(--bleed) * -1);margin-right:0}
+.row:nth-child(4) .row__ph img{aspect-ratio:16/10}
+.row:nth-child(4) .row__n{grid-column:8 / span 1;grid-row:1;
+  font-size:clamp(1.6rem,2.8vw,2.5rem);line-height:.9;padding-top:0;letter-spacing:-.02em}
+.row:nth-child(4) .row__txt{grid-column:9 / span 4;grid-row:1}
 
 /* =========================================================================
    THE SHOP — the one full-strength photographic mass in the middle
@@ -328,7 +360,7 @@ img{display:block;max-width:100%;height:auto}
    the legibility is done by a solved scrim instead of by fading the picture
    out. It is over-scaled by 18% so the parallax has somewhere to travel
    without ever exposing an edge. */
-.shop__ph img{width:100%;height:100%;object-fit:cover;object-position:50% 46%;
+.shop__ph img{width:100%;height:100%;object-fit:cover;object-position:50% 52%;
   transform:scale(1.18) translate3d(0,var(--par,0px),0);
   will-change:transform}
 .shop__ph::after{content:"";position:absolute;inset:0;
@@ -344,7 +376,7 @@ img{display:block;max-width:100%;height:auto}
 .shop__pts h3{margin-bottom:var(--s3);font-size:.8125rem;letter-spacing:.16em;
   font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;text-transform:uppercase;
   color:var(--signal-lt)}
-.shop__pts p{font-size:.875rem;line-height:1.6;color:var(--on-ink-2)}
+.shop__pts p{font-size:.9375rem;line-height:1.62;color:var(--on-ink-2)}
 .shop__in .btn{grid-column:1 / span 6;justify-self:start;margin-top:var(--s7)}
 
 /* =========================================================================
@@ -352,12 +384,22 @@ img{display:block;max-width:100%;height:auto}
    mistaken for another run of the services ledger
    ====================================================================== */
 .care{background:var(--paper-3);border-block:1px solid var(--rule)}
-.care__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+/* Three equal columns made three equal claims, which is not what the content
+   says: the pre-purchase inspection is the one that changes a decision, the
+   other two are services you book. The lead takes 1.6 of the width, the
+   display size and a 2px rule; the supports keep the hairline and stay at
+   body scale. Hierarchy by scale and rule weight, not by a card. */
+.care__grid{display:grid;grid-template-columns:1.62fr 1fr 1fr;gap:0;
   border-top:1px solid var(--rule)}
 .care article{padding:var(--s7) var(--s6) var(--s8) 0;
   border-left:1px solid var(--rule-hair);padding-left:var(--s6);
   display:flex;flex-direction:column}
-.care article:first-child{border-left:0;padding-left:0}
+.care article:first-child{border-left:0;padding-left:0;padding-right:var(--s8);
+  border-top:2px solid var(--ink);margin-top:-1px;padding-top:var(--s7)}
+.care article:first-child h3{font-size:clamp(1.45rem,2.6vw,2.15rem);
+  letter-spacing:-.024em;line-height:1.05}
+.care article:first-child .t-body{font-size:1.0625rem;line-height:1.55;max-width:34ch}
+.care article:first-child .t-mono{color:var(--ink)}
 .care .t-mono{color:var(--signal);margin-bottom:var(--s4)}
 .care h3{margin-bottom:var(--s4)}
 .care .t-body{font-size:.875rem;flex:1}
@@ -367,14 +409,38 @@ img{display:block;max-width:100%;height:auto}
    PROCESS — a ladder with one rule running through it
    ====================================================================== */
 .proc__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s6);
-  border-top:2px solid var(--ink);padding-top:var(--s6)}
-.proc article{position:relative;padding-top:var(--s5)}
-.proc article::before{content:"";position:absolute;left:0;top:-1.5rem;
-  width:9px;height:9px;background:var(--signal)}
-.proc__n{font-family:'Plex Mono',ui-monospace,monospace;font-size:.6875rem;
-  letter-spacing:.2em;color:var(--ink-3);display:block;margin-bottom:var(--s3)}
+  position:relative;padding-top:0;perspective:1100px}
+
+/* the rail, and the fill that travels along it */
+.proc__line{position:absolute;left:0;right:0;top:0;height:2px;background:var(--rule)}
+.proc__line i{position:absolute;inset:0;background:var(--ink)}
+.js-motion .proc__line i{transform:scaleX(0);transform-origin:left center}
+.js-motion .proc__grid.is-in .proc__line i{transform:none;
+  transition:transform 1500ms var(--mo-mech) 60ms}
+
+/* the drop from the rail to each station, timed to the fill passing it */
+.proc article{position:relative;padding-top:0;margin-top:var(--s8);
+  transform-origin:50% 0}
+.proc article::before{content:"";position:absolute;left:0;top:calc(var(--s8) * -1);
+  width:2px;height:var(--s8);background:var(--ink)}
+.js-motion .proc article::before{transform:scaleY(0);transform-origin:center top}
+.js-motion .proc__grid.is-in article::before{transform:none;
+  transition:transform 320ms var(--mo-mech) calc(200ms + var(--i,0) * 330ms)}
+
+/* the station: the word stays metadata, the number becomes the object */
+.proc__n{display:flex;align-items:baseline;gap:.7rem;margin-bottom:var(--s4)}
+.proc__n i{font-style:normal;font-family:'Plex Mono',ui-monospace,monospace;
+  font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+.proc__n b{font-weight:800;font-size:clamp(2.2rem,4vw,3.4rem);line-height:.8;
+  letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+
+/* and it hinges down out of the rail rather than fading up into place */
+.js-motion [data-reveal="stand"]{opacity:0;transform:rotateX(76deg)}
+.js-motion [data-seq].is-in [data-reveal="stand"]{opacity:1;transform:none;
+  transition:opacity 460ms var(--mo-ease) calc(280ms + var(--i,0) * 330ms),
+             transform 720ms var(--mo-ease) calc(280ms + var(--i,0) * 330ms)}
 .proc h3{margin-bottom:var(--s3)}
-.proc p{font-size:.875rem;line-height:1.6;color:var(--ink-2);max-width:28ch}
+.proc p{font-size:.9375rem;line-height:1.62;color:var(--ink-2);max-width:28ch}
 
 /* =========================================================================
    REVIEWS
@@ -386,34 +452,40 @@ img{display:block;max-width:100%;height:auto}
 .rev__top h2{grid-column:1 / span 6}
 .rev__score{grid-column:9 / span 4;justify-self:end;text-align:right;
   border-top:2px solid var(--ink);padding-top:var(--s4);min-width:14rem}
-.rev__score b{display:block;font-weight:800;font-size:clamp(2.6rem,5vw,4rem);
+.rev__score b{display:block;font-weight:800;font-size:clamp(3.2rem,6.2vw,5.4rem);
   line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .rev__score em{font-style:normal;font-family:'Plex Mono',ui-monospace,monospace;
-  font-size:.625rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+  font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
 .rev__score p{margin:var(--s3) 0 var(--s4);font-size:.8125rem;color:var(--ink-2)}
 
 .rev__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;
   border-top:1px solid var(--rule)}
-.rev__grid blockquote{padding:var(--s6) var(--s6) var(--s7) 0;
+.rev__grid blockquote{padding:var(--s7) var(--s6) var(--s8) 0;
   border-left:1px solid var(--rule-hair);padding-left:var(--s6);margin:0}
 .rev__grid blockquote:first-child{border-left:0;padding-left:0}
-.stars{display:block;color:var(--signal);letter-spacing:.22em;font-size:.75rem;
-  margin-bottom:var(--s4)}
-.rev__grid p{font-size:1rem;line-height:1.55;margin-bottom:var(--s5)}
-.rev__grid footer{font-family:'Plex Mono',ui-monospace,monospace;font-size:.625rem;
+.stars{display:block;color:var(--signal);letter-spacing:.26em;font-size:.9375rem;
+  margin-bottom:var(--s5)}
+/* They were the quietest thing on the page, straight after the loudest. The
+   quotation is what a reader came for, so it is set at heading scale and
+   medium weight; the attribution stays small on purpose, so the size gap
+   does the work instead of a device. */
+/* the second group is the line the reviewer actually came to say, so it is
+   given its own air and arrives one step after the account that earns it */
+.rev__grid .mo-line--turn{margin-top:.5em}
+.rev__grid p{font-size:clamp(1.0625rem,1.42vw,1.35rem);line-height:1.38;
+  font-weight:500;letter-spacing:-.013em;color:var(--ink);margin-bottom:var(--s6)}
+.rev__grid footer{font-family:'Plex Mono',ui-monospace,monospace;font-size:.6875rem;
   letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
 .rev__grid footer b{display:block;font-family:'Inter Tight',sans-serif;font-weight:600;
   font-size:.9375rem;letter-spacing:0;text-transform:none;color:var(--ink);
   margin-bottom:var(--s1)}
-.rev__note{margin-top:var(--s6);font-family:'Plex Mono',ui-monospace,monospace;
-  font-size:.625rem;letter-spacing:.1em;color:var(--ink-2);max-width:52ch;line-height:1.6}
 
 /* =========================================================================
    CONTACT — the working tool, on the ink ground
    ====================================================================== */
 .ct{background:var(--ink);color:var(--on-ink);position:relative}
-.ct__ph{width:100%;height:clamp(12rem,26vw,22rem);position:relative;overflow:hidden}
-.ct__ph img{width:100%;height:100%;object-fit:cover;object-position:50% 58%;
+.ct__ph{width:100%;aspect-ratio:2.15/1;max-height:36rem;position:relative;overflow:hidden}
+.ct__ph img{width:100%;height:100%;object-fit:cover;object-position:50% 54%;
   transform:scale(1.16) translate3d(0,var(--par,0px),0);will-change:transform}
 .ct__in{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s5) var(--s7);
   padding-block:var(--s9) var(--s10)}
@@ -424,16 +496,16 @@ img{display:block;max-width:100%;height:auto}
 .ct__tel{display:block;text-decoration:none;color:var(--on-ink);
   border-top:2px solid var(--on-ink);padding-top:var(--s4);margin-bottom:var(--s6)}
 .ct__tel span{display:block;font-family:'Plex Mono',ui-monospace,monospace;
-  font-size:.625rem;letter-spacing:.2em;text-transform:uppercase;color:var(--on-ink-3);
+  font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--on-ink-3);
   margin-bottom:var(--s3)}
 .ct__tel b{font-weight:800;font-size:clamp(1.75rem,3vw,2.6rem);letter-spacing:-.035em;
   font-variant-numeric:tabular-nums;line-height:1;display:block}
 .ct__tel:hover b{color:var(--signal-lt)}
-.ct__side>p{font-size:.875rem;line-height:1.6;color:var(--on-ink-2);margin-bottom:var(--s7);
+.ct__side>p{font-size:.9375rem;line-height:1.62;color:var(--on-ink-2);margin-bottom:var(--s7);
   max-width:34ch}
 .ct__facts dl{display:grid;grid-template-columns:7rem 1fr;gap:var(--s4) var(--s5);
   padding-block:var(--s5);border-top:1px solid var(--rule-ink)}
-.ct__facts dt{font-family:'Plex Mono',ui-monospace,monospace;font-size:.625rem;
+.ct__facts dt{font-family:'Plex Mono',ui-monospace,monospace;font-size:.6875rem;
   letter-spacing:.2em;text-transform:uppercase;color:var(--on-ink-3);padding-top:.15rem}
 .ct__facts dd{font-size:.9375rem;line-height:1.5;color:var(--on-ink)}
 .ct__side .lnk{margin-top:var(--s6)}
@@ -441,10 +513,10 @@ img{display:block;max-width:100%;height:auto}
 /* the form */
 .ct__form{grid-column:6 / span 7;border-top:2px solid var(--on-ink);padding-top:var(--s5)}
 .ct__form>header{display:flex;justify-content:space-between;align-items:baseline;
-  gap:var(--s5);margin-bottom:var(--s7)}
+  gap:var(--s5);margin-bottom:var(--s8)}
 .ct__form>header b{font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;
   font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase}
-.ct__form>header span{font-family:'Plex Mono',ui-monospace,monospace;font-size:.625rem;
+.ct__form>header span{font-family:'Plex Mono',ui-monospace,monospace;font-size:.6875rem;
   letter-spacing:.14em;text-transform:uppercase;color:var(--signal-lt)}
 
 /* This is a form for people who are calling about a noise on the way to work,
@@ -453,48 +525,65 @@ img{display:block;max-width:100%;height:auto}
    target, the labels are at 10.19:1 instead of 6.82:1, and the send button
    takes the full width of the form. A hairline-underline field would have
    been the exclusive-body-shop version of this. */
-.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5) var(--s5)}
-.f{display:flex;flex-direction:column;gap:var(--s3)}
+/* the finish of the page is the form; it gets the ramp, not the gutter */
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s7) var(--s6)}
+.f{display:flex;flex-direction:column;gap:var(--s4)}
 .f--wide{grid-column:1 / -1}
 .f label{font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;
   font-size:.6875rem;letter-spacing:.18em;text-transform:uppercase;color:var(--on-ink-2)}
 .f label em{font-style:normal;color:var(--signal-lt)}
 .f input,.f select,.f textarea{
-  background:rgba(244,241,238,.07);
+  background-color:rgba(244,241,238,.07);
   border:1px solid rgba(244,241,238,.42);      /* 3.77:1 on ink */
   color:var(--on-ink);font-family:'Inter Tight',sans-serif;font-size:1.0625rem;
   padding:var(--s4);width:100%;min-height:3.25rem;
-  transition:border-color .18s var(--e),background .18s var(--e)}
+  transition:border-color .18s var(--e),background-color .18s var(--e),
+             background-size .22s cubic-bezier(.65,0,.35,1)}
+
+/* the drawn focus rule: 7.18:1 on ink, and it is the only place on the page
+   where the signal appears without being asked for by a pointer */
+.f input,.f textarea{
+  background-image:linear-gradient(var(--signal-lt),var(--signal-lt));
+  background-repeat:no-repeat;background-position:left bottom;
+  background-size:0% 2px}
+.f input:focus,.f textarea:focus{background-size:100% 2px}
 .f textarea{resize:vertical;min-height:8rem;line-height:1.5}
 .f select{cursor:pointer;appearance:none;
   padding-right:var(--s8);
-  background-image:linear-gradient(45deg,transparent 50%,var(--on-ink) 50%),
+  background-image:linear-gradient(var(--signal-lt),var(--signal-lt)),
+    linear-gradient(45deg,transparent 50%,var(--on-ink) 50%),
     linear-gradient(135deg,var(--on-ink) 50%,transparent 50%);
-  background-position:right 1.55rem center, right 1.2rem center;
-  background-size:7px 7px, 7px 7px;background-repeat:no-repeat}
+  background-position:left bottom, right 1.55rem center, right 1.2rem center;
+  background-size:0% 2px, 7px 7px, 7px 7px;background-repeat:no-repeat}
+.f select:focus{background-size:100% 2px, 7px 7px, 7px 7px}
 .f select option{background:var(--ink);color:var(--on-ink)}
 .f input::placeholder,.f textarea::placeholder{color:var(--on-ink-3);opacity:1}
 .f :is(input,select,textarea):hover{border-color:rgba(244,241,238,.62)}
-.f :is(input,select,textarea):focus{outline:none;border-color:var(--signal-lt);
-  background:rgba(244,241,238,.11)}
+.f :is(input,select,textarea):focus{outline:none;
+  border-color:rgba(244,241,238,.62);background-color:rgba(244,241,238,.11)}
 .f :is(input,select,textarea):focus-visible{outline:2px solid var(--on-ink);outline-offset:2px}
-.f[data-bad] :is(input,select,textarea){border-color:#ff8a7a;background:rgba(255,138,122,.10)}
+.f[data-bad] :is(input,select,textarea){border-color:#ff8a7a;
+  background-color:rgba(255,138,122,.10)}
+.f[data-bad] :is(input,textarea){background-image:linear-gradient(#ff8a7a,#ff8a7a);
+  background-size:100% 2px}
 /* the select keeps its own arrow while it is being corrected */
-.f[data-bad] select{background-image:linear-gradient(45deg,transparent 50%,#ff8a7a 50%),
-  linear-gradient(135deg,#ff8a7a 50%,transparent 50%)}
+.f[data-bad] select{background-image:linear-gradient(#ff8a7a,#ff8a7a),
+  linear-gradient(45deg,transparent 50%,#ff8a7a 50%),
+  linear-gradient(135deg,#ff8a7a 50%,transparent 50%);
+  background-size:100% 2px, 7px 7px, 7px 7px}
 .f__err{font-family:'Plex Mono',ui-monospace,monospace;font-weight:500;font-size:.6875rem;
   letter-spacing:.12em;text-transform:uppercase;color:#ff8a7a;min-height:1em}
 
 /* a checkbox somebody can actually hit, and a whole row that toggles it */
 .consent{grid-column:1 / -1;display:flex;gap:var(--s4);align-items:center;
-  margin-top:var(--s2);padding:var(--s4);
+  margin-top:var(--s2);padding:var(--s5);
   border:1px solid rgba(244,241,238,.42)}
 .consent input{width:1.5rem;height:1.5rem;flex:0 0 auto;
   accent-color:var(--signal-lt);cursor:pointer}
 .consent label{font-size:.9375rem;line-height:1.45;color:var(--on-ink);cursor:pointer}
 
 .ct__form .btn{grid-column:1 / -1;justify-content:center;width:100%;
-  margin-top:var(--s4);padding:var(--s5) var(--s6);font-size:.8125rem}
+  margin-top:var(--s3);padding:var(--s5) var(--s6);font-size:.8125rem}
 
 .sent{grid-column:1 / -1;margin-top:var(--s5);padding:var(--s5);
   border:1px solid var(--signal-lt);color:var(--on-ink);font-size:.9375rem;line-height:1.55}
@@ -511,22 +600,22 @@ img{display:block;max-width:100%;height:auto}
 .ft__id{grid-column:1 / span 4}
 .ft__id .wm{color:var(--on-ink);margin-bottom:var(--s4)}
 .ft__id .wm span{color:var(--on-ink-3)}
-.ft__id p{font-size:.8125rem;line-height:1.6;color:var(--on-ink-3);max-width:34ch}
+.ft__id p{font-size:.875rem;line-height:1.62;color:var(--on-ink-3);max-width:34ch}
 .ft__nav{grid-column:6 / span 3}
 .ft__nav ul{list-style:none;display:grid;gap:var(--s3)}
 .ft__nav a{color:var(--on-ink-2);text-decoration:none;
-  font-family:'Plex Mono',ui-monospace,monospace;font-size:.625rem;letter-spacing:.18em;
+  font-family:'Plex Mono',ui-monospace,monospace;font-size:.6875rem;letter-spacing:.18em;
   text-transform:uppercase}
 .ft__nav a:hover{color:var(--signal-lt)}
 .ft__meta{grid-column:10 / span 3}
-.ft__meta dt{font-family:'Plex Mono',ui-monospace,monospace;font-size:.5625rem;
+.ft__meta dt{font-family:'Plex Mono',ui-monospace,monospace;font-size:.6875rem;
   letter-spacing:.2em;text-transform:uppercase;color:var(--on-ink-3);margin-bottom:var(--s2)}
 .ft__meta dd{margin-bottom:var(--s5);font-size:.9375rem}
 .ft__meta a{color:var(--on-ink);text-decoration:none;font-variant-numeric:tabular-nums}
 .ft__meta a:hover{color:var(--signal-lt)}
 .ft__end{grid-column:1 / -1;display:flex;justify-content:space-between;
   gap:var(--s5);flex-wrap:wrap;padding-top:var(--s5);border-top:1px solid var(--rule-ink);
-  font-family:'Plex Mono',ui-monospace,monospace;font-size:.5625rem;letter-spacing:.16em;
+  font-family:'Plex Mono',ui-monospace,monospace;font-size:.6875rem;letter-spacing:.16em;
   text-transform:uppercase;color:var(--on-ink-3)}
 
 /* =========================================================================
@@ -539,7 +628,7 @@ img{display:block;max-width:100%;height:auto}
      and made the hero 1074px against 815px of room. .hero becomes the column
      and .hero__in takes what is left of it. */
   .hero{display:flex;flex-direction:column;
-    min-height:calc(100svh - var(--mh) - 1px)}
+    min-height:calc(100svh - var(--mh))}
   .hero__in{flex:1 1 auto;min-height:0;grid-template-columns:1fr;
     align-content:end;padding-block:var(--s8) var(--s7)}
   /* Every vertical in the narrow hero is tied to the screen rather than to the
@@ -548,8 +637,8 @@ img{display:block;max-width:100%;height:auto}
   /* it stays the ground here too — only its share of the screen changes */
   .hero__ph img{object-position:60% 45%}
   .hero__ph::after{background:
-    linear-gradient(to top, rgba(20,20,19,.93) 0%, rgba(20,20,19,.72) 46%,
-      rgba(20,20,19,.42) 100%)}
+    linear-gradient(to top, rgba(20,20,19,.95) 0%, rgba(20,20,19,.86) 46%,
+      rgba(20,20,19,.55) 100%)}
   .hero__say h1{font-size:clamp(1.9rem,6.8vw,3.2rem);margin-block:var(--s4)}
   .hero__say .t-lead{font-size:.9375rem}
   .hero__act{margin-top:var(--s5);gap:var(--s4)}
@@ -564,6 +653,12 @@ img{display:block;max-width:100%;height:auto}
   .rev__top h2,.rev__score{grid-column:1 / -1}
   .rev__score{justify-self:start;text-align:left;margin-top:var(--s5)}
 
+  .row:nth-child(4) .row__n,
+  .row:nth-child(4) .row__txt,
+  .row:nth-child(4) .row__ph{grid-column:1;grid-row:auto}
+  .row:nth-child(4) .row__n{font-size:.9375rem;padding-top:0;letter-spacing:.1em}
+  .row:nth-child(4) .row__ph img{aspect-ratio:16/9}
+
   /* the ledger keeps its number and its rule, and the photograph leads */
   .row{grid-template-columns:1fr;gap:var(--s5);padding-block:var(--s6)}
   .row__n{grid-column:1;padding-top:0}
@@ -577,6 +672,7 @@ img{display:block;max-width:100%;height:auto}
   .shop__say,.shop__pts,.shop__in .btn{grid-column:1}
   .shop__ph::after{background:linear-gradient(to right,rgba(20,20,19,.93),rgba(20,20,19,.78))}
 
+  .ct__ph{aspect-ratio:16/10}
   .ct__in{grid-template-columns:1fr;padding-block:var(--s8)}
   .ct__in>h2,.ct__side,.ct__form{grid-column:1}
   .ct__form{margin-top:var(--s8)}
@@ -586,21 +682,52 @@ img{display:block;max-width:100%;height:auto}
   .ft__meta{grid-column:2}
 }
 
-@media (max-width:820px){
+@media (max-width:1000px){
   .mh nav,.mh__tel{display:none}
   .burger{display:block}
   .mh[data-open] nav{display:block;position:absolute;left:0;right:0;top:100%;
-    background:var(--paper);border-bottom:1px solid var(--rule);padding:var(--s5) var(--pad)}
+    background:var(--ink);border-bottom:1px solid var(--rule-ink);padding:var(--s5) var(--pad)}
   .mh[data-open] nav ul{flex-direction:column;gap:var(--s4)}
+  /* These items come out of display:none, and a transition cannot start from
+     a box that was not being laid out — measured: every item was already at
+     opacity 1 sixty milliseconds in. A keyframe runs the moment the element
+     is displayed, so the sequence is written as one. */
+  .js-motion .mh[data-open] nav li,
+  .js-motion .mh[data-open] .mh__tel{
+    animation:mo-item 200ms var(--mo-mech) both;
+    animation-delay:calc(var(--i,0) * 40ms)}
+  .js-motion .mh[data-open] nav li:nth-child(1){--i:0}
+  .js-motion .mh[data-open] nav li:nth-child(2){--i:1}
+  .js-motion .mh[data-open] nav li:nth-child(3){--i:2}
+  .js-motion .mh[data-open] nav li:nth-child(4){--i:3}
+  .js-motion .mh[data-open] nav li:nth-child(5){--i:4}
+  .js-motion .mh[data-open] nav li:nth-child(6){--i:5}
+  .js-motion .mh[data-open] .mh__tel{--i:6}
   .mh[data-open] .mh__tel{display:flex;position:absolute;left:var(--pad);top:calc(100% + 13rem);
     border-left:0;padding-left:0}
+}
 
+@media (max-width:820px){
   .facts__in{grid-template-columns:1fr 1fr}
   .facts article{padding-right:var(--s4)}
   .facts article:nth-child(2){border-left:0;padding-left:0}
   .care__grid,.rev__grid,.proc__grid{grid-template-columns:1fr}
-  .care article,.rev__grid blockquote{border-left:0;padding-left:0;
+  /* one column, so the rail runs DOWN the four stations and the drop to each
+     one turns through ninety degrees with it */
+  .proc__grid{gap:var(--s8);padding-top:0;padding-left:var(--s6);perspective:800px}
+  .proc__line{left:0;top:.6rem;bottom:0;right:auto;width:2px;height:auto}
+  .js-motion .proc__line i{transform:scaleY(0);transform-origin:center top}
+  .js-motion .proc__grid.is-in .proc__line i{transform:none}
+  .proc article{margin-top:0;transform-origin:0 50%}
+  .proc article::before{left:calc(var(--s6) * -1);top:1.35rem;
+    width:var(--s6);height:2px}
+  .js-motion .proc article::before{transform:scaleX(0);transform-origin:left center}
+  .js-motion .proc__grid.is-in article::before{transform:none}
+  .js-motion [data-reveal="stand"]{transform:rotateY(-52deg)}
+  .care__grid{grid-template-columns:1fr}
+  .care article,.rev__grid blockquote{border-left:0;padding-left:0;padding-right:0;
     border-top:1px solid var(--rule-hair);padding-top:var(--s6)}
+  .care article:first-child{padding-right:0;border-top:2px solid var(--ink)}
   .care article:first-child,.rev__grid blockquote:first-child{border-top:0;padding-top:0}
   .proc__grid{gap:var(--s7)}
   .fgrid{grid-template-columns:1fr}
@@ -648,4 +775,243 @@ img{display:block;max-width:100%;height:auto}
   .mh,.burger,.ct__ph,.hero__ph{display:none}
   body{background:#fff;color:#000}
   .shop,.ct,.ft{background:#fff;color:#000}
+}
+
+/* ===========================================================================
+   MOTION
+   ---------------------------------------------------------------------------
+   One system, not a set of per-section animations. Everything below exists to
+   do one of four jobs, and anything that did none of them was cut:
+
+     EXPLAIN HIERARCHY   a section resolves label -> heading -> copy -> evidence
+                         -> action, in that order, every time. The order is the
+                         argument; the delay is what makes it legible.
+     UNCOVER IMAGERY     photographs are revealed by a hard-edged mask travelling
+                         across them, never by fading. A crop is a decision, so
+                         the reveal shows the crop being made.
+     CONNECT STRUCTURE   rules draw into place along the axis they organise, so
+                         a boundary appears to be constructed rather than to
+                         switch on.
+     REINFORCE PRECISION two easings only. Type and photography get the settling
+                         curve; rules, indices and utility get the mechanical
+                         one that starts and stops flat.
+
+   Nothing scales up, nothing bounces, nothing travels more than 20px, and no
+   element animates letter by letter.
+
+   The hidden state is applied only under html.js-motion, which the script adds
+   itself. Without JavaScript, or with prefers-reduced-motion, the page is
+   simply finished — no content depends on an animation to become visible.
+   ======================================================================== */
+
+:root{
+  --mo-fast:220ms;         /* utility: hover, focus, nav */
+  --mo-med:660ms;          /* type and rules entering */
+  --mo-slow:1180ms;        /* photography being uncovered */
+  --mo-stagger:115ms;      /* one step of a composed sequence */
+  --mo-ease:cubic-bezier(.22,1,.36,1);      /* settling — type, imagery */
+  --mo-mech:cubic-bezier(.65,0,.35,1);      /* mechanical — rules, labels */
+  --mo-rise:40px;          /* vertical travel, copy — the brief's ceiling */
+  --mo-slide:34px;         /* horizontal travel, labels and indices */
+  --mo-scale:1.10;         /* internal image scale at the start of a reveal */
+}
+
+/* every revealed element resolves its own place in its group's sequence */
+.js-motion [data-reveal]{--d:calc(var(--i,0) * var(--mo-stagger))}
+
+/* ---- rule draw ----------------------------------------------------------
+   A boundary is built along the axis it organises: horizontals from the left
+   edge the page already aligns to. */
+.js-motion [data-reveal="rule"]{transform:scaleX(0);transform-origin:left center;
+  transition:transform var(--mo-med) var(--mo-mech) var(--d)}
+.js-motion [data-seq].is-in [data-reveal="rule"]{transform:none}
+
+/* a group the viewport has already passed resolves with no transition at all:
+   the reader never saw it move, so it must not move now */
+.js-motion [data-seq].is-instant,
+.js-motion [data-seq].is-instant *{transition:none !important}
+
+/* ---- label / index ------------------------------------------------------
+   Markers arrive from the margin they belong to, so they read as being placed
+   against the column rather than as text appearing. */
+.js-motion [data-reveal="label"]{opacity:0;transform:translateX(calc(var(--mo-slide) * -1));
+  transition:opacity var(--mo-med) var(--mo-mech) var(--d),
+             transform var(--mo-med) var(--mo-mech) var(--d)}
+.js-motion [data-seq].is-in [data-reveal="label"]{opacity:1;transform:none}
+
+/* ---- masked heading -----------------------------------------------------
+   Uncovered from behind its own baseline, by line group. The inset ends
+   negative on three sides so descenders and the struck label's ink are never
+   clipped — a mask that trims a 'y' is a bug, not a style. */
+.js-motion [data-reveal="head"] .mo-line{display:block;
+  clip-path:inset(-.14em -.7em 108% -.7em);transform:translateY(.62em);
+  transition:clip-path var(--mo-med) var(--mo-ease) var(--d),
+             transform var(--mo-med) var(--mo-ease) var(--d)}
+.js-motion [data-seq].is-in [data-reveal="head"] .mo-line{
+  clip-path:inset(-.14em -.7em -.34em -.7em);transform:none}
+.js-motion [data-reveal="head"] .mo-line + .mo-line{
+  transition-delay:calc(var(--d) + var(--mo-stagger) * 1.25)}
+
+/* ---- supporting copy ----------------------------------------------------- */
+.js-motion [data-reveal="copy"]{opacity:0;transform:translateY(var(--mo-rise));
+  transition:opacity var(--mo-med) var(--mo-ease) var(--d),
+             transform var(--mo-med) var(--mo-ease) var(--d)}
+.js-motion [data-seq].is-in [data-reveal="copy"]{opacity:1;transform:none}
+
+/* ---- action -------------------------------------------------------------
+   Always last and always the shortest travel: an action must never be the
+   thing that moves most on a screen it does not own. */
+.js-motion [data-reveal="act"]{opacity:0;transform:translateY(22px);
+  transition:opacity var(--mo-med) var(--mo-ease) var(--d),
+             transform var(--mo-med) var(--mo-ease) var(--d)}
+.js-motion [data-seq].is-in [data-reveal="act"]{opacity:1;transform:none}
+
+/* ---- image mask ---------------------------------------------------------
+   The container is clipped and the photograph inside settles out of a small
+   over-scale, so the frame is uncovered while the picture comes to rest. The
+   direction is set per instance from the composition — the entry whose image
+   bleeds off the left edge is uncovered leftward — and never alternated for
+   variety. */
+.js-motion [data-reveal="img"]{clip-path:inset(0 100% 0 0)}
+.js-motion [data-reveal="img"] img{transform:scale(var(--mo-scale));
+  transition:transform var(--mo-slow) var(--mo-ease) var(--d)}
+.js-motion [data-seq].is-in [data-reveal="img"]{clip-path:inset(0 0 0 0);
+  transition:clip-path var(--mo-slow) var(--mo-ease) var(--d)}
+.js-motion [data-seq].is-in [data-reveal="img"] img{transform:none}
+.js-motion [data-reveal="img"][data-from="right"]{clip-path:inset(0 0 0 100%)}
+
+/* a band whose photograph already carries a scroll transform: clip only, so
+   the reveal and the parallax never fight over the same property */
+.js-motion [data-reveal="band"]{clip-path:inset(100% 0 0 0)}
+.js-motion [data-seq].is-in [data-reveal="band"]{clip-path:inset(0 0 0 0);
+  transition:clip-path var(--mo-slow) var(--mo-ease) var(--d)}
+
+/* ---- the ledger rule becomes drawable -----------------------------------
+   The border moves to a pseudo-element so the boundary can be constructed
+   left to right along the axis the ledger reads on. Same 1px, same colour,
+   same position: no layout change. */
+.row{border-bottom:0;position:relative}
+.row::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;
+  background:var(--rule);transform-origin:left center}
+.js-motion .row::after{transform:scaleX(0);
+  transition:transform var(--mo-med) var(--mo-mech) calc(var(--mo-stagger) * 4)}
+.js-motion .row.is-in::after{transform:none}
+
+/* =========================================================================
+   THE OPENING
+   The page is complete on arrival; the sequence only orders what the eye
+   should take first. Nav, then the mark being uncovered, then the headline in
+   two line groups, then the claim and its action, then the small print and
+   the phone plate. 1.34s end to end.
+   ====================================================================== */
+.js-motion .mh__in > *{opacity:0;transform:translateY(-16px);
+  transition:opacity 420ms var(--mo-mech) var(--d,0ms),
+             transform 420ms var(--mo-mech) var(--d,0ms)}
+.js-motion .mh.is-load .mh__in > *{opacity:1;transform:none}
+
+/* the mark is a physical graphic being uncovered, not type arriving */
+.js-motion .hero__num{clip-path:inset(0 100% 0 0);
+  transition:clip-path 1250ms var(--mo-mech) 110ms}
+.js-motion .hero.is-load .hero__num{clip-path:inset(0 0 0 0)}
+
+/* the photograph settles rather than zooms */
+.js-motion .hero__ph img{transform:scale(1.085);
+  transition:transform 1500ms var(--mo-ease) 0ms}
+.js-motion .hero.is-load .hero__ph img{transform:none}
+
+.js-motion .hero [data-load]{--d:calc(var(--i,0) * 130ms)}
+.js-motion .hero [data-load="head"] .mo-line{display:block;
+  clip-path:inset(-.14em -.7em 108% -.7em);transform:translateY(.7em);
+  transition:clip-path 760ms var(--mo-ease) calc(250ms + var(--d)),
+             transform 760ms var(--mo-ease) calc(250ms + var(--d))}
+.js-motion .hero.is-load [data-load="head"] .mo-line{
+  clip-path:inset(-.14em -.7em -.34em -.7em);transform:none}
+.js-motion .hero [data-load="copy"]{opacity:0;transform:translateY(30px);
+  transition:opacity 620ms var(--mo-ease) calc(560ms + var(--d)),
+             transform 620ms var(--mo-ease) calc(560ms + var(--d))}
+.js-motion .hero.is-load [data-load="copy"]{opacity:1;transform:none}
+.js-motion .hero [data-load="last"]{opacity:0;transform:translateY(20px);
+  transition:opacity 520ms var(--mo-mech) calc(820ms + var(--d)),
+             transform 520ms var(--mo-mech) calc(820ms + var(--d))}
+.js-motion .hero.is-load [data-load="last"]{opacity:1;transform:none}
+
+/* =========================================================================
+   INTERACTION
+   Small, immediate and mechanical. Every hover answers with one thing.
+   ====================================================================== */
+@media (hover:hover) and (pointer:fine){
+  /* a ledger entry answers as one object: the crop tightens, the name steps
+     off the column edge, the index moves with it, the rule takes the signal */
+  .row__ph{overflow:hidden}
+  .row__ph img{transition:transform var(--mo-slow) var(--mo-ease),
+                          filter var(--mo-slow) var(--mo-ease)}
+  .row:hover .row__ph img{transform:scale(1.065);filter:contrast(1.09) brightness(1.05)}
+  .row__txt h3{transition:transform var(--mo-fast) var(--mo-mech)}
+  .row:hover .row__txt h3{transform:translateX(12px)}
+  .row__n{transition:transform var(--mo-fast) var(--mo-mech)}
+  .row:hover .row__n{transform:translateX(8px)}
+  .js-motion .row::after{transition:transform var(--mo-med) var(--mo-mech) calc(var(--mo-stagger) * 4),
+                                    background var(--mo-fast) var(--mo-mech)}
+  .row:hover::after{background:var(--signal)}
+
+  /* the masthead underline is drawn, not switched on */
+  .mh nav a{position:relative}
+  .mh nav a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;
+    background:var(--signal-lt);transform:scaleX(0);transform-origin:left center;
+    transition:transform var(--mo-fast) var(--mo-mech)}
+  .mh nav a:hover::after,.mh nav a[aria-current=true]::after{transform:none}
+
+  /* the primary action fills from the edge the page reads from */
+  .btn{position:relative;overflow:hidden;isolation:isolate}
+  .btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--signal);
+    transform:scaleX(0);transform-origin:left center;
+    transition:transform var(--mo-fast) var(--mo-mech)}
+  .on-ink .btn::before{background:var(--signal-lt)}
+  .btn:hover{background:var(--ink);border-color:var(--ink);color:var(--on-ink)}
+  .on-ink .btn:hover{background:var(--on-ink);border-color:var(--on-ink);color:var(--ink)}
+  .btn:hover::before{transform:none}
+}
+
+@keyframes mo-item{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
+
+/* =========================================================================
+   RESPONSIVE MOTION
+   Not the desktop sequence scaled down: roughly 40% less travel, a tighter
+   stagger and shorter durations, because on a narrow screen a reader is
+   moving faster and the same delays read as lag.
+   ====================================================================== */
+@media (max-width:900px){
+  :root{--mo-rise:24px; --mo-slide:20px; --mo-stagger:74ms;
+    --mo-med:520ms; --mo-slow:840ms; --mo-scale:1.07}
+  .js-motion .hero [data-load]{--d:calc(var(--i,0) * 86ms)}
+  .js-motion .hero__ph img{transition-duration:1150ms;transform:scale(1.06)}
+}
+
+/* =========================================================================
+   REDUCED MOTION
+   Not a shorter animation — no animation, and no hidden state to recover
+   from. Every reveal, the opening sequence and the two scroll-linked bands
+   are switched off at the source; the script never installs its observers.
+   ====================================================================== */
+@media (prefers-reduced-motion:reduce){
+  .js-motion [data-reveal],
+  .js-motion [data-reveal="head"] .mo-line,
+  .js-motion [data-reveal="img"] img,
+  .js-motion .mh__in > *,
+  .js-motion .hero [data-load],
+  .js-motion .hero [data-load="head"] .mo-line,
+  .js-motion .hero__num{
+    opacity:1 !important;transform:none !important;clip-path:none !important;
+    transition:none !important}
+  .js-motion .row::after{transform:none !important;transition:none !important}
+  .js-motion .proc__line i,.js-motion .proc article::before,
+  .js-motion [data-reveal="stand"]{transform:none !important;opacity:1 !important;
+    transition:none !important}
+  .js-motion .mh nav li,.js-motion .mh .mh__tel{opacity:1 !important;transform:none !important;
+    transition:none !important;animation:none !important}
+  .f input,.f textarea,.f select{transition:none !important}
+  .f input:focus,.f textarea:focus{background-size:100% 2px !important}
+  .js-motion .hero__ph img{transform:none !important;transition:none !important}
+  .shop__ph img{transform:scale(1.18) !important;transition:none !important}
+  .ct__ph img{transform:scale(1.16) !important;transition:none !important}
 }
