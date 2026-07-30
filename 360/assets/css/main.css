@@ -282,7 +282,7 @@ img{display:block;max-width:100%;height:auto}
    stations because that is the section about a job passing through stages,
    and because the section had a column of nothing on its right. Ink instead
    of paper, and a longer hold, so it is at rest most of the time. */
-.shop__dwg{position:absolute;z-index:1;right:3%;top:9%;
+.shop__dwg{position:absolute;z-index:1;right:5%;top:24%;
   width:min(31%,27rem);aspect-ratio:600/620;pointer-events:none;
   fill:none;stroke:rgba(244,241,238,.40);stroke-linecap:round;overflow:visible}
 .shop__dwg .d-h{stroke-width:1.4}
