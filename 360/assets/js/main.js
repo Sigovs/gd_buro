@@ -32,6 +32,19 @@
       (function (e) { if (e.matches) setOpen(false); });
   }
 
+  /* ---- 1b. the masthead is only solid once the page has moved ----------- */
+  if (mh) {
+    var stuck = false;
+    var mark = function () {
+      var on = window.scrollY > 6;
+      if (on === stuck) return;
+      stuck = on;
+      if (on) mh.setAttribute('data-stuck', ''); else mh.removeAttribute('data-stuck');
+    };
+    window.addEventListener('scroll', mark, { passive: true });
+    mark();                                   /* a restored scroll position */
+  }
+
   /* ---- 2. which section the reader is in -------------------------------- */
   var links = $$('.mh nav a[href^="#"]');
   var targets = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); })
@@ -185,6 +198,29 @@
       }
     });
   }
+
+  /* ---- 5b. the two drawings measure themselves ---------------------------
+     Each stroke is told its own length so the dash animation constructs the
+     figure at a constant RATE rather than in a constant time — otherwise a
+     1400px circle and a 90px vane finish together and the thing does not read
+     as being drawn. The order is the order a draughtsman would use, because
+     the elements were generated in that order: centre lines, then the body,
+     then the detail. Each figure restarts its own stagger. */
+  (function () {
+    if (reduce.matches) return;
+    var figures = $$('.hero__dwg, .shop__dwg');
+    for (var f = 0; f < figures.length; f++) {
+      var strokes = $$('circle, line, path, ellipse', figures[f]);
+      for (var i = 0; i < strokes.length; i++) {
+        var el = strokes[i], len = 0;
+        try { len = el.getTotalLength(); } catch (e) { len = 0; }
+        if (!len || !isFinite(len)) continue;
+        el.setAttribute('data-len', '');
+        el.style.setProperty('--len', Math.ceil(len));
+        el.style.setProperty('--t', Math.round(i * 26));
+      }
+    }
+  })();
 
   /* ---- 6. the motion system ----------------------------------------------
      Three responsibilities and nothing else:
