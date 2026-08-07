@@ -64,7 +64,9 @@
       { el: '.pl--sky',   x: 5,  y: 3,  scale: 1.04 },
       { el: '.pl--mtn',   x: 12, y: 7,  scale: 1.06 },
       { el: '.marks-in',  x: 12, y: 7,  scale: 1    },  /* rides with the mountain */
-      { el: '.summit-note', x: 12, y: 7, scale: 1   },  /* and so does its readout */
+      /* the readout no longer needs its own entry: it sits inside .marks-in now,
+         so it already carries the mountain's offset. Listing it here too would
+         double the parallax and drift it off its leader. */
       /* the near ground keeps only a whisper: it is a frame, not the subject */
       { el: '.fg-in',     x: 12, y: 3,  scale: 1.02 },
     ];
@@ -122,10 +124,34 @@
   }, function (ctx) {
     var m = ctx.conditions;
 
+    /* the two halves of every reading: the cyan title with its mark, and the
+       lines under it. Both unfold; the title leads, the rest follows it. */
+    var PLANE = '.callout__in, .summit-note';
+    var DESC  = '.callout__s, .summit-note span';
+    /* edge-on but still PRESENT: at 75deg the perspective already does the
+       foreshortening, so scaleX only reinforces it. Collapsing scaleX as well
+       is what made the plane vanish instead of reading as a turning surface. */
+    var EDGE  = { rotationY: 75, scaleX: .8, z: -55, x: -5, autoAlpha: 0,
+                  filter: 'blur(1.5px)', transformPerspective: 1000,
+                  transformOrigin: 'left center', '--srf': 1, '--sheen': '-60%' };
+    /* the settled state IS the accepted composition — nothing of the cue left */
+    var FLAT  = { rotationY: 0, scaleX: 1, z: 0, x: 0, autoAlpha: 1,
+                  filter: 'blur(0px)', '--srf': 0, '--sheen': '160%' };
+    /* the window each reading gets, as fractions of the timeline: the edge holds,
+       then the long turn, then the surface burns off while the text stays */
+    function unfold(tl, plane, desc, t) {
+      tl.to(plane, { autoAlpha: .45, duration: .022, ease: 'none' }, t)
+        .to(plane, { rotationY: 0, scaleX: 1, z: 0, x: 0, autoAlpha: 1,
+                     filter: 'blur(0px)', duration: .095, ease: 'power3.out' }, t + .026)
+        .to(desc,  { autoAlpha: 1, duration: .05, ease: 'power2.out' }, t + .062)
+        .to(plane, { '--srf': 0, '--sheen': '160%', duration: .06, ease: 'power2.in' }, t + .055);
+    }
+
     /* ---- the authored still ------------------------------------------ */
     if (m.still) {
       gsap.set(['.route__p', '.lead__l'], { drawSVG: '100%' });
-      gsap.set(['.lead__a', '.callout__in'], { autoAlpha: 1, scale: 1, x: 0, filter: 'none' });
+      gsap.set(['.lead__a', '.callout__in', '.summit-note'], { autoAlpha: 1, scale: 1, x: 0, filter: 'none' });
+      gsap.set([PLANE, DESC], FLAT);
       return;
     }
 
@@ -223,7 +249,8 @@
        points at. Same durations and easings as the lower two leaders. */
     draw.to('.lead--0 .lead__a', { autoAlpha: 1, scale: 1, duration: .05, ease: 'power2.out' }, .01)
         .to('.lead--0 .lead__l', { drawSVG: '100%', duration: .07, ease: 'none' }, .03)
-        .to('.summit-note', { autoAlpha: 1, y: 0, duration: .06, ease: 'power2.out' }, .09);
+        ;
+    unfold(draw, '.summit-note', '.summit-note span', .085);
 
     [{ n: '1', f: .30 }, { n: '2', f: .62 }].forEach(function (c) {
       var t = at(c.f);
@@ -231,8 +258,9 @@
               { autoAlpha: 1, scale: 1, duration: .04, ease: 'power2.out' }, t)
           .to('.lead--' + c.n + ' .lead__l',
               { drawSVG: '100%', duration: .07, ease: 'none' }, t + .02)
-          .to('.callout--' + c.n + ' .callout__in',
-              { autoAlpha: 1, y: 0, duration: .06, ease: 'power2.out' }, t + .09);
+              ;
+      unfold(draw, '.callout--' + c.n + ' .callout__in',
+                   '.callout--' + c.n + ' .callout__s', t + .085);
     });
 
     /* --- phase B: only the near ground moves ---------------------------
@@ -257,8 +285,11 @@
     /* nothing on the route exists until the climb reaches it */
     gsap.set('.lead__l', { drawSVG: '0%' });
     gsap.set('.lead__a', { autoAlpha: 0, scale: 0, transformOrigin: '50% 50%' });
-    gsap.set('.callout__in', { autoAlpha: 0, y: 8, x: 0, filter: 'none', scale: 1 });
-    gsap.set('.summit-note', { autoAlpha: 0, y: 8 });
+    /* The containers only carry the perspective now — the reveal belongs to the
+       lines inside them, each hinged on the edge its leader reaches. Edge-on and
+       pushed back, so it opens toward the camera rather than sliding into place. */
+    gsap.set(PLANE, EDGE);
+    gsap.set(DESC, { autoAlpha: 0 });   /* rides the plane; only resolves later */
 
     /* ---- the callouts -------------------------------------------------
        Order is the whole point: the route passes the anchor, the anchor

@@ -121,7 +121,7 @@
                  route's own coordinates, instead of a rule parked beside the
                  label. Two segments, shorter and quieter than the others. -->
             <g class="lead lead--0">
-              <path class="lead__l" d="M196 10 L212 -10 L222 -10"/>
+              <path class="lead__l" d="M196 10 L228 -10 L292 -10"/>
               <circle class="lead__a" cx="196" cy="10" r="2.6"/>
             </g>
             <g class="lead lead--1">
@@ -132,7 +132,7 @@
               <!-- moved up the route to 62% of its length: at 80% the anchor
                    sat on a stretch that the near rocks cover, so the event
                    could never be seen. Geometry of the route is unchanged. -->
-              <path class="lead__l" d="M155.1 388.6 L188 412 L296 412"/>
+              <path class="lead__l" d="M155.1 388.6 L188 372 L296 372"/>
               <circle class="lead__a" cx="155.1" cy="388.6" r="2.6"/>
             </g>
           </svg>
@@ -152,16 +152,17 @@
           </div>
 
         </div>
+
+          <!-- the summit reading belongs to the route like the other two:
+               same group, same coordinate space, so it travels with them -->
+          <p class="summit-note">
+            <b><svg class="ico" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><ellipse cx="6" cy="2.6" rx="4.2" ry="1.7"/><path d="M1.8 2.6v3.1c0 .94 1.88 1.7 4.2 1.7s4.2-.76 4.2-1.7V2.6"/><path d="M1.8 5.9v3.1c0 .94 1.88 1.7 4.2 1.7s4.2-.76 4.2-1.7V5.9"/></svg>Signal 001</b>
+            <span>600M+ Consumer Profiles</span>
+            <span>Updated Daily</span>
+          </p>
         </div>
 
-        <!-- the claim stands at the summit, where the route begins -->
-        <!-- the marker has found something, and this is the readout -->
-        <p class="summit-note">
-          <b><svg class="ico" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><ellipse cx="6" cy="2.6" rx="4.2" ry="1.7"/><path d="M1.8 2.6v3.1c0 .94 1.88 1.7 4.2 1.7s4.2-.76 4.2-1.7V2.6"/><path d="M1.8 5.9v3.1c0 .94 1.88 1.7 4.2 1.7s4.2-.76 4.2-1.7V5.9"/></svg>Signal 001</b>
-          <span>600M+ Consumer Profiles</span>
-          <span>Updated Daily</span>
-        </p>
-
+        
         <!-- the pit stop: the route reaches it and it opens. A real button, so
              the three lines are reachable by keyboard and are simply present
              where there is no pointer to hover with. -->

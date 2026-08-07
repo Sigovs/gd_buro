@@ -504,7 +504,7 @@ body {
 .callout--1 { left: 97.33%;  top: 29.67%; }                    /* 292 / 178 */
 /* the lower event now branches RIGHT, into the open corridor, where the near
    rocks cannot reach it */
-.callout--2 { left: 98.67%; top: 68.67%; }                     /* 296 / 412 */
+.callout--2 { left: 98.67%; top: 62%; }                        /* 296 / 372 */
 .callout--2 .callout__in { transform-origin: 0 50%; left: .9rem; right: auto; }
 .callout--1 .callout__in { transform-origin: 0 50%; }
 
@@ -576,8 +576,13 @@ body {
      tracked, uppercase, on the 14px floor because every line of it carries
      information. */
   position: absolute;
-  left: calc(34% + 34% * (196 / 300) + 1.6rem); top: calc(18% - .9em);
-  margin: 0;
+  /* Same system as the other two readings: the anchor IS the leader's own
+     endpoint in the route's coordinates (292 / -10 of the 300x600 viewBox),
+     then the identical .9rem gap and vertical centring. It now lives inside
+     .marks-in, so it travels with the route instead of floating beside it. */
+  left: 97.33%; top: -1.67%;
+  margin: 0 0 0 .9rem;
+  translate: 0 -50%;
   display: grid; gap: .35em;
   font-family: var(--mono);
   font-size: var(--t-xs);
@@ -595,6 +600,39 @@ body {
   gap: 8px;
 }
 .summit-note span { color: var(--ink-78); }
+
+/* ---- the readings unfold ------------------------------------------------
+   Each reading is a thin plane hinged on the edge its leader actually reaches,
+   so it opens away from the route instead of fading in place. The perspective
+   lives on the container; the hinge lives on the lines themselves. Restrained:
+   the unfold is the only rotation, and it happens once, on entrance. */
+/* The whole reading is ONE plane. It hinges on the edge its leader reaches and
+   swings toward the reader; the lines inside do not rotate on their own. The
+   perspective is applied per-element by GSAP (transformPerspective), so no
+   ancestor has to become a 3D context. */
+.callout__in, .summit-note {
+  transform-origin: left center;
+  backface-visibility: hidden;
+  --srf: 0;      /* surface presence, driven by the timeline */
+  --sheen: -60%; /* the reflection's travel across it */
+}
+
+/* The temporary surface: a thin cartographic projection that exists only while
+   the plane is turning. It is a cue, not a card — at rest --srf is 0 and every
+   trace of it is gone, leaving the accepted unboxed text. */
+.callout__in::before, .summit-note::before {
+  content: '';
+  position: absolute;
+  inset: -.55em -.9em;
+  pointer-events: none;
+  opacity: var(--srf);
+  border: 1px solid rgba(0, 235, 255, .16);
+  border-left-color: rgba(0, 235, 255, .65);
+  background:
+    linear-gradient(90deg, rgba(0,235,255,0), rgba(0,235,255,.22) 50%, rgba(0,235,255,0))
+      var(--sheen) 0 / 45% 100% no-repeat,
+    linear-gradient(90deg, rgba(0,235,255,.10), rgba(10,30,48,.18) 35%, rgba(10,20,35,.04));
+}
 
 /* the pit stop sits ON the route, at the point the second segment reaches —
    the marks box is 26% wide starting at 55%, and the segment ends near x 206
